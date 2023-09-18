@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\RolController;
 use App\Http\Controllers\UsuarioController;
 use Illuminate\Support\Facades\Route;
 
@@ -18,10 +19,10 @@ use Illuminate\Support\Facades\Route;
     return view('welcome');
 });*/
 
-Route::resource('usuarios', UsuarioController::class);
-
-
-
+Route::group(['middleware' => ['auth']], function(){
+    Route::resource('usuarios', UsuarioController::class);
+    Route::resource('roles', RolController::class);
+});
 
 
 Route::middleware([

@@ -7,10 +7,13 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Testing\Fluent\Concerns\Has;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Jetstream\HasTeams;
 use Laravel\Sanctum\HasApiTokens;
+//spatie
+use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
@@ -20,6 +23,8 @@ class User extends Authenticatable
     use HasTeams;
     use Notifiable;
     use TwoFactorAuthenticatable;
+    use HasRoles; 
+
 
     /**
      * The attributes that are mass assignable.
@@ -27,7 +32,7 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'name', 'email', 'rol', 'password', 'created_at',
+        'name', 'email', 'password',
     ];
 
     /**
@@ -67,5 +72,10 @@ class User extends Authenticatable
     public function adminlte_desc(){
         return $this->rol;
         
+    }
+    public function adminlte_profile_url()
+    {
+        $identificador = $this->id;
+        return 'usuarios/'.$identificador.'/edit';
     }
 }

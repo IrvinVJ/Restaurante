@@ -16,7 +16,6 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('email')->unique();
-            $table->string('rol');
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();
@@ -24,8 +23,8 @@ return new class extends Migration
             $table->string('profile_photo_path', 2048)->nullable();
             $table->timestamps();
         });
-        DB::table('users')->insert(['name'=>'Jhosep','email'=>'admin@gmail.com','rol'=>'Gerente General','password'=>bcrypt('123456789')]);
-        DB::table('users')->insert(['name'=>'Jorge','email'=>'jorge@gmail.com','rol'=>'Gerente de Ventas','password'=>bcrypt('987654321')]);
+        DB::table('users')->insert(['name'=>'Jhosep','email'=>'admin@gmail.com','password'=>bcrypt('123456789')]);
+        DB::table('users')->insert(['name'=>'Jorge','email'=>'jorge@gmail.com','password'=>bcrypt('123456789')]);
     }
 
     /**

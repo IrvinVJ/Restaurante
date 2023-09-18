@@ -2,63 +2,64 @@
 
 @section('title', 'Usuarios')
 
-@section('plugins.Sweetalert2', true)
-
 @section('content_header')
-    
 @stop
 
 @section('content')
-                        
-<form method="GET" action="{{ route('usuarios.create')}} ">
-    @csrf
-    <br><input type="submit" value="Agregar" class="btn btn-outline-success" data-toggle="modal" data-target="#registerModal">
-
-</form>  <br>
-
-<div class="card">
-    
-    <div class="card-body">
-    <table class="table table-striped dt-responsive nowrap" id="tblUsuarios">
-        <thead>
-          <tr>
-            <th scope="col">NOMBRE</th>
-            <th scope="col">EMAIL</th>
-            <th scope="col">ROL</th>
-            <!--<th scope="col">ESTADO</th>
-            <th scope="col">FECHA DE REGISTRO</th> -->
-            
-          </tr>
-        </thead>
-        <tbody>
-            
-          @foreach ($usuarios as $item)
-              <tr>
-                <td>{{$item->name}}</td>
-                <td>{{$item->email}}</td>
-                <td>{{$item->rol}}</td>
-                <!--<td>{{$item->estado}}</td>
-                <td>{{$item->create_at}}</td>-->
-                
-                <td>
-                  <form action="{{route('usuarios.edit',$item->id)}}" method="get">
-                      <input type="submit" value="Editar" class="btn btn-outline-info">
-                  </form>
-                  <form action="{{route('usuarios.destroy',$item->id)}}" method="post">
-                      {{ method_field('DELETE') }}
-                      @csrf
-                  <input type="submit" value="Borrar" class="btn btn-outline-danger">
-                  </form>
-                  
-                </td>
-
-              </tr>
-          @endforeach
-        </tbody>
-      </table>
-
+<section class="section">
+    <div class="section-header">
+        <h3 class="page__heading">Usuarios</h3>
     </div>
-  </div>
+        <div class="section-body">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card">
+                        <div class="card-body">                           
+                            <a class="btn btn-warning" href="{{ route('usuarios.create') }}">Nuevo</a>        
+                           
+                              <table class="table table-striped mt-2">
+                                <thead style="background-color:#6777ef">                                     
+                                    <th style="display: none;">ID</th>
+                                    <th style="color:#fff;">Nombre</th>
+                                    <th style="color:#fff;">E-mail</th>
+                                    <th style="color:#fff;">Rol</th>
+                                    <th style="color:#fff;">Acciones</th>                                                                   
+                                </thead>
+                                <tbody>
+                                  @foreach ($usuarios as $usuario)
+                                    <tr>
+                                      <td style="display: none;">{{ $usuario->id }}</td>
+                                      <td>{{ $usuario->name }}</td>
+                                      <td>{{ $usuario->email }}</td>
+                                      <td>
+                                        @if(!empty($usuario->getRoleNames()))
+                                          @foreach($usuario->getRoleNames() as $rolNombre)                                       
+                                            <h5><span class="badge badge-dark">{{ $rolNombre }}</span></h5>
+                                          @endforeach
+                                        @endif
+                                      </td>
+  
+                                      <td>                                  
+                                        <a class="btn btn-info" href="{{ route('usuarios.edit',$usuario->id) }}">Editar</a>
+  
+                                        {!! Form::open(['method' => 'DELETE','route' => ['usuarios.destroy', $usuario->id],'style'=>'display:inline']) !!}
+                                            {!! Form::submit('Borrar', ['class' => 'btn btn-danger']) !!}
+                                        {!! Form::close() !!}
+                                      </td>
+                                    </tr>
+                                  @endforeach
+                                </tbody>
+                              </table>
+                              <!-- Centramos la paginacion a la derecha -->
+                               
+                              
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+      </section>
+  
 @stop
 
 @section('css')

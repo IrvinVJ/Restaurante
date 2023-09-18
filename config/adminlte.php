@@ -134,7 +134,7 @@ return [
     'usermenu_header_class' => 'bg-primary',
     'usermenu_image' => true,
     'usermenu_desc' => true,
-    'usermenu_profile_url' => false,
+    'usermenu_profile_url' => true,
 
     /*
     |--------------------------------------------------------------------------
@@ -259,7 +259,7 @@ return [
     'register_url' => 'register',
     'password_reset_url' => 'password/reset',
     'password_email_url' => 'password/email',
-    'profile_url' => true, //para activar la opcion de modificar perfil
+    'profile_url' => false, //para activar la opcion de modificar perfil
 
     /*
     |--------------------------------------------------------------------------
@@ -306,12 +306,22 @@ return [
             'type' => 'sidebar-menu-search',
             'text' => 'search',
         ],*/
-        [
-            'text' => 'blog',
-            'url'  => 'admin/blog',
-            'can'  => 'manage-blog',
-        ],
+        
 
+        [
+            'text' => 'Roles',
+            'icon' => 'fa fa-fw fa-check',
+            //'icon_color' => 'cyan',
+            'submenu' => [
+                [
+                    'text' => 'Mantenedor Roles',
+                    'url'  => '/roles',
+                    'icon'        => 'fa fa-fw fa-check',
+                    'icon_color' => 'primary',
+                ],
+                                
+            ],
+        ],
         [
             'text' => 'Usuarios',
             'icon' => 'fa fa-user',

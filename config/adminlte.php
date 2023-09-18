@@ -310,7 +310,7 @@ return [
 
         [
             'text' => 'Roles',
-            'icon' => 'fa fa-fw fa-check',
+            'icon' => 'fa fa-fw fa-address-book',
             //'icon_color' => 'cyan',
             'submenu' => [
                 [

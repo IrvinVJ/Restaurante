@@ -12,6 +12,7 @@ use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Jetstream\HasTeams;
 use Laravel\Sanctum\HasApiTokens;
+use Spatie\Permission\Models\Role;
 //spatie
 use Spatie\Permission\Traits\HasRoles;
 
@@ -70,7 +71,8 @@ class User extends Authenticatable
     }
 
     public function adminlte_desc(){
-        return $this->rol;
+        //$rol = Role::get('name');
+        //return $rol;
         
     }
     public function adminlte_profile_url()

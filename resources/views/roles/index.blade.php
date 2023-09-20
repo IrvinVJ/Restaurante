@@ -10,6 +10,7 @@
     <div class="section-header">
         <h3 class="page__heading">Roles</h3>
     </div>
+    @can('crear-rol')
     <div class="section-body">
         <div class="row">
             <div class="col-lg-12">
@@ -55,6 +56,7 @@
                 </div>
             </div>
         </div>
+        @endcan
     </section>
 
 @stop

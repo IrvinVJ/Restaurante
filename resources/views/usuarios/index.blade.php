@@ -39,11 +39,15 @@
                                         @endif
                                       </td>
   
-                                      <td>                                  
+                                      <td>     
+                                        @can('crear-usuario')                             
                                         <a class="btn btn-info" href="{{ route('usuarios.edit',$usuario->id) }}">Editar</a>
-  
+                                        @endcan
+
                                         {!! Form::open(['method' => 'DELETE','route' => ['usuarios.destroy', $usuario->id],'style'=>'display:inline']) !!}
+                                          @can('borrar-usuario')
                                             {!! Form::submit('Borrar', ['class' => 'btn btn-danger']) !!}
+                                          @endcan
                                         {!! Form::close() !!}
                                       </td>
                                     </tr>

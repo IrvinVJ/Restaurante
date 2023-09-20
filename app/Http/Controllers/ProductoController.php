@@ -40,7 +40,11 @@ class ProductoController extends Controller
             'NombreProducto' => 'required',
             'Stock' => 'required'
         ]);
-        Producto::create($request->all());
+        //Producto::create($request->all());
+        $producto = new Producto();
+        $producto->NombreProducto=$request->txtproducto;
+        $producto->Stock=$request->txtcantidad;
+        $producto->save();
         return redirect('productos');
     }
 

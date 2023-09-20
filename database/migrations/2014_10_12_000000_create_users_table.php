@@ -24,7 +24,11 @@ return new class extends Migration
             $table->timestamps();
         });
         DB::table('users')->insert(['name'=>'Jhosep','email'=>'admin@gmail.com','password'=>bcrypt('123456789')]);
-        DB::table('users')->insert(['name'=>'Jorge','email'=>'jorge@gmail.com','password'=>bcrypt('123456789')]);
+        DB::table('users')->insert(['name'=>'Jorge','email'=>'gventas@gmail.com','password'=>bcrypt('123456789')]);
+        DB::table('users')->insert(['name'=>'Jose','email'=>'chef@gmail.com','password'=>bcrypt('123456789')]);
+        DB::table('users')->insert(['name'=>'Julio','email'=>'asistentecocina1@gmail.com','password'=>bcrypt('123456789')]);
+        DB::table('users')->insert(['name'=>'Joao','email'=>'asistentecocina2@gmail.com','password'=>bcrypt('123456789')]);
+        DB::table('users')->insert(['name'=>'Juan','email'=>'mesero@gmail.com','password'=>bcrypt('123456789')]);
     }
 
     /**

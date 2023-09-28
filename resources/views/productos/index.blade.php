@@ -31,13 +31,13 @@
                                 <tbody>
                                     @foreach ($productos as $item)
                                         <tr>
-                                            <td style="display: none;">{{ $item->id }}</td>
+                                            <td style="display: none;">{{ $item->IdProducto }}</td>
                                             <td>{{ $item->NombreProducto }}</td>
                                             <td>{{ $item->Stock }}</td>
                                             <td>
-                                                <form action="{{ route('productos.destroy',$item->id) }}" method="POST">                                        
+                                                <form action="{{ route('productos.destroy',$item->IdProducto) }}" method="POST">                                        
                                                     @can('editar-producto')
-                                                    <a class="btn btn-info" href="{{ route('productos.edit',$blog->id) }}">Editar</a>
+                                                    <a class="btn btn-info" href="{{ route('productos.edit',$item->IdProducto) }}">Editar</a>
                                                     @endcan
             
                                                     @csrf
@@ -73,14 +73,14 @@
                             </div>
                             <div class="form-group">
                                 <label for="formGroupExampleInput" class="form-label">Nombre del Producto:</label>
-                                <input type="text" class="form-control" name="txtproducto" id="nproducto" placeholder="Escribir Nombre del producto..." required>
+                                <input type="text" class="form-control" name="NombreProducto" placeholder="Escribir Nombre del producto..." required>
                             </div>
                             <div class="form-group">
                                 <label for="">Cantidad:</label>
-                            <input type="number" class="form-control" name="txtcantidad" id="cantidad" placeholder="Escribe el N° de produtos..." required>
+                            <input type="number" class="form-control" name="Stock" placeholder="Escribe el N° de produtos..." required>
                             </div>
                             <div class="form-group">
-                                <input type="submit" value="Grabar" class="btn btn-primary"> 
+                                <button type="submit" class="btn btn-primary">Guardar</button> 
                             </div>
                         </div>
                     </div>

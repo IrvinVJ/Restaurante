@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Producto;
+use App\Models\UnidadMedida;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -19,8 +20,12 @@ class ProductoController extends Controller
 
     public function index()
     {
-        $productos = Producto::all();
-        return view('productos.index', compact('productos'));
+        //$productos = Producto::all();
+        $um = UnidadMedida::all();
+        $productos = DB::select('select p.IdProducto, p.NombreProducto, p.Stock, p.IdUnidadMedida, u.IdUnidadMedida, u.DescripcionUM from productos p
+        inner join unidad_medidas u
+        on p.IdUnidadMedida=u.IdUnidadMedida');
+        return view('productos.index', compact('productos', 'um'));
     }
 
     /**
@@ -38,10 +43,15 @@ class ProductoController extends Controller
     {
         request()->validate([
             'NombreProducto' => 'required',
-            'Stock' => 'required'
+            'Stock' => 'required',
+            'IdUnidadMedida' => 'required'
         ]);
-        Producto::create($request->all());
         
+        $producto = new Producto();
+        $producto->NombreProducto=$request->NombreProducto;
+        $producto->Stock=$request->Stock;
+        $producto->IdUnidadMedida=$request->IdUnidadMedida;
+        $producto->save();
         return redirect('productos');
     }
 

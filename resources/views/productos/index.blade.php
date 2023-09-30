@@ -24,7 +24,8 @@
                                 <thead style="background-color:#6777ef">                                     
                                     <th style="display: none;">ID</th>
                                     <th style="color:#fff;">Producto</th>
-                                    <th style="color:#fff;">Stock</th>                                    
+                                    <th style="color:#fff;">Stock</th>
+                                    <th style="color:#fff;">Unidad de Medida</th>                                    
                                     <th style="color:#fff;">Acciones</th>                                                                   
                                 </thead>
 
@@ -34,6 +35,8 @@
                                             <td style="display: none;">{{ $item->IdProducto }}</td>
                                             <td>{{ $item->NombreProducto }}</td>
                                             <td>{{ $item->Stock }}</td>
+                                            <td>{{ $item->DescripcionUM }}</td>
+                                            
                                             <td>
                                                 <form action="{{ route('productos.destroy',$item->IdProducto) }}" method="POST">                                        
                                                     @can('editar-producto')
@@ -78,6 +81,17 @@
                             <div class="form-group">
                                 <label for="">Cantidad:</label>
                             <input type="number" class="form-control" name="Stock" placeholder="Escribe el N° de produtos..." required>
+                            </div>
+                            <div class="form-group">
+                                <label for="">Unidad de Medida:</label><br>
+                                <select class="form-control" aria-label="Default select example" name="IdUnidadMedida" required>
+
+                                    @foreach ($um as $u)
+                                        <option value="{{ $u->IdUnidadMedida }}">{{ $u->DescripcionUM }}</option>
+                                    @endforeach
+                                   
+                                </select>
+
                             </div>
                             <div class="form-group">
                                 <button type="submit" class="btn btn-primary">Guardar</button> 

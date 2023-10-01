@@ -20,6 +20,8 @@
                             <button class="btn btn-warning" data-toggle="modal" data-target="#CrearProducto">Nuevo</button>
                             @endcan
 
+                            @include('productos.ModalCrear')
+
                             <table class="table table-striped mt-2">
                                 <thead style="background-color:#6777ef">                                     
                                     <th style="display: none;">ID</th>
@@ -40,6 +42,7 @@
                                             <td>
                                                 <form action="{{ route('productos.destroy',$item->IdProducto) }}" method="POST">                                        
                                                     @can('editar-producto')
+                                                    <!--<button class="btn btn-info" data-toggle="modal" data-target="#EditarProducto{{$item->IdProducto}}">Editar</button>-->
                                                     <a class="btn btn-info" href="{{ route('productos.edit',$item->IdProducto) }}">Editar</a>
                                                     @endcan
             
@@ -51,6 +54,9 @@
                                                 </form>
                                             </td>
                                         </tr>
+                                        
+                                        
+
                                     @endforeach
                                 </tbody>
                             </table>
@@ -62,46 +68,7 @@
 
     </section>
 
-    <!-- Creando el modal -->
-    <div class="modal fade" id="CrearProducto">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <form action="{{ route('productos.store') }}" method="POST"> <!-- El POST en el method no es fijo, depende de la acción que se quiera realizar-->
-                    @csrf
-                    <div class="modal-body">
-                        <div class="box-body">
-                        <!-- Aquí va el contenido del modal -->
-                            <div class="form-group" align="center">
-                                <img src="vendor/adminlte/dist/img/logoRamada.png" alt="" width="30%" height="30%">
-                            </div>
-                            <div class="form-group">
-                                <label for="formGroupExampleInput" class="form-label">Nombre del Producto:</label>
-                                <input type="text" class="form-control" name="NombreProducto" placeholder="Escribir Nombre del producto..." required>
-                            </div>
-                            <div class="form-group">
-                                <label for="">Cantidad:</label>
-                            <input type="number" class="form-control" name="Stock" placeholder="Escribe el N° de produtos..." required>
-                            </div>
-                            <div class="form-group">
-                                <label for="">Unidad de Medida:</label><br>
-                                <select class="form-control" aria-label="Default select example" name="IdUnidadMedida" required>
-
-                                    @foreach ($um as $u)
-                                        <option value="{{ $u->IdUnidadMedida }}">{{ $u->DescripcionUM }}</option>
-                                    @endforeach
-                                   
-                                </select>
-
-                            </div>
-                            <div class="form-group">
-                                <button type="submit" class="btn btn-primary">Guardar</button> 
-                            </div>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
+    
 
 @stop
 

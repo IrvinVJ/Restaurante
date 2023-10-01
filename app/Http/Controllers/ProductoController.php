@@ -66,9 +66,12 @@ class ProductoController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Producto $producto)
+    public function edit($IdProducto)
     {
-        return view('productos.edit', compact('producto'));
+        $producto = Producto::all();
+        $producto = Producto::find($IdProducto);
+        $um = UnidadMedida::all();
+        return view('productos.edit', compact('producto', 'um'));
     }
 
     /**
@@ -78,10 +81,14 @@ class ProductoController extends Controller
     {
         request()->validate([
             'NombreProducto' => 'required',
-            'Stock' => 'required'
+            'Stock' => 'required',
+            'IdUnidadMedida' => 'required'
         ]);
 
-        $producto->update($request->all());
+        $producto->NombreProducto=$request->NombreProducto;
+        $producto->Stock=$request->Stock;
+        $producto->IdUnidadMedida=$request->IdUnidadMedida;
+        $producto->save();
         return redirect('productos');
     }
 

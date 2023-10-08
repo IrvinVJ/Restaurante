@@ -13,13 +13,14 @@ use Illuminate\Support\Facades\DB;
 
 class IngresoController extends Controller
 {
-    function __construct(){
+    function __construct()
+    {
         //$this->middleware('auth'); //ya no se le pone esta línea de código prque está en el archivo de rutas web.php
 
-        $this->middleware('permission:ver-ingreso|crear-ingreso|editar-ingreso|borrar-ingreso', ['only'=>['index']]);
-        $this->middleware('permission:crear-ingreso',['only' =>  'create','store']);
-        $this->middleware('permission:editar-ingreso', ['only'=>['edit','update']]);
-        $this->middleware('permission:borrar-ingreso', ['only'=>['destroy']]);
+        $this->middleware('permission:ver-ingreso|crear-ingreso|editar-ingreso|borrar-ingreso', ['only' => ['index']]);
+        $this->middleware('permission:crear-ingreso', ['only' =>  'create', 'store']);
+        $this->middleware('permission:editar-ingreso', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:borrar-ingreso', ['only' => ['destroy']]);
     }
 
     public function index()
@@ -47,7 +48,7 @@ class IngresoController extends Controller
         $ingreso = Ingreso::all();
         $product = Producto::all();
         $um = UnidadMedida::all();
-        return view('ingresos.create', compact('ingreso','producto','um'));
+        return view('ingresos.create', compact('ingreso', 'producto', 'um'));
     }
 
     /**
@@ -55,7 +56,7 @@ class IngresoController extends Controller
      */
     public function store(Request $request)
     {
-        try{
+        try {
             // dd($request->all());
             DB::beginTransaction();
             //Insertando en la tabla ingreso
@@ -70,25 +71,25 @@ class IngresoController extends Controller
             $max = count($array); //Obteniendo el tamaño del arreglo
             //dd($max);
 
-            for($i=0; $i<$max; $i++){
+            for ($i = 0; $i < $max; $i++) {
                 $prod = explode(" ", $array[$i]); //Para borrar el espacio
                 //Insertando en la tabla detalle_ingresos
                 $detalle = new DetalleIngreso();
-                $detalle -> IdIngreso = $ingreso -> IdIngreso;
-                $detalle -> IdProducto = $prod[0];
-                $detalle -> Cantidad = $prod[1];
+                $detalle->IdIngreso = $ingreso->IdIngreso;
+                $detalle->IdProducto = $prod[0];
+                $detalle->Cantidad = $prod[1];
                 //Actualizando stock en la tabla Productos
                 $product = Producto::find((int)$prod[0]);
-                $product -> Stock = $product -> Stock + $prod[1];
-                $product -> save();
+                $product->Stock = $product->Stock + $prod[1];
+                $product->save();
                 //Continuamos guardando los demás datos en la tabla Detalle_Ingresos
-                $detalle -> CostoUnitario = $prod[2];
+                $detalle->CostoUnitario = $prod[2];
                 // El cálculo de costo total lo haremos en un script de la vista
                 //$detalle -> CostoTotal = $prod[3];
-                $detalle -> save();
+                $detalle->save();
             }
             DB::commit();
-        }catch(Exception $e){
+        } catch (Exception $e) {
             dd($e);
             DB::rollBack();
         }
@@ -100,7 +101,7 @@ class IngresoController extends Controller
      */
     public function show($IdIngreso)
     {
-        $detalle_i = $detalle_ingresos = DB::select('select p.IdProducto, p.NombreProducto, p.Stock, p.IdUnidadMedida, u.IdUnidadMedida, u.DescripcionUM,
+        $detalle_i = DB::select('select p.IdProducto, p.NombreProducto, p.Stock, p.IdUnidadMedida, u.IdUnidadMedida, u.DescripcionUM,
         i.IdIngreso, i.created_at,
         di.IdDetalleIngreso, di.IdIngreso, di.IdProducto, di.Cantidad, di.CostoUnitario
         from detalle_ingresos di
@@ -109,8 +110,9 @@ class IngresoController extends Controller
         inner join unidad_medidas u
         on p.IdUnidadMedida=u.IdUnidadMedida
         inner join ingresos i
-        on di.idIngreso=i.IdIngreso');
-        //$product = Producto::all();
+        on di.idIngreso=i.IdIngreso
+        where di.IdIngreso = '.$IdIngreso.' ');
+        //dd($detalle_i);
         return view('ingresos.detalles', compact('detalle_i'));
     }
 
@@ -137,7 +139,7 @@ class IngresoController extends Controller
      */
     public function destroy(Ingreso $ingreso)
     {
-        $ingreso -> delete();
+        $ingreso->delete();
         return redirect('ingresos');
     }
 }

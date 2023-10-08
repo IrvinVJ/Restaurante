@@ -16,25 +16,29 @@
                 <div class="col-lg-12">
                     <div class="card">
                         <div class="card-body">
-                                                        
+
 
                             <table class="table table-striped mt-2">
-                                <thead style="background-color:#6777ef">                                     
+                                <thead style="background-color:#6777ef">
                                     <th style="color:#fff;">PRODUCTO</th>
                                     <th style="color:#fff;">CANTIDAD</th>
-                                    <th style="color:#fff;">COSTO UNITARIO</th>                                                                   
+                                    <th style="color:#fff;">COSTO UNITARIO</th>
                                 </thead>
 
                                 <tbody>
-                                    @foreach ($detalle_i as $item)
-                                        <tr>
-                                            
-                                            <td >{{ $item->NombreProducto }}</td>
-                                            <td>{{$item->Cantidad}}</td>
-                                            <td>{{$item->CostoUnitario}}</td>
-                                        </tr>
 
-                                    @endforeach
+                                        @foreach ($detalle_i as $item)
+                                            <tr>
+                                                <td style="display: none;">{{ $item->IdDetalleIngreso }}</td>
+                                                <td style="display: none;">{{ $item->IdIngreso }}</td>
+
+                                                <td>{{ $item->NombreProducto }}</td>
+                                                <td>{{ $item->Cantidad }}</td>
+                                                <td>{{ $item->CostoUnitario }}</td>
+                                            </tr>
+                                        @endforeach
+
+
                                 </tbody>
                             </table>
                         </div>
@@ -45,7 +49,7 @@
 
     </section>
 
-    
+
 
 @stop
 
@@ -54,7 +58,9 @@
 @stop
 
 @section('js')
-    <script> console.log('Hi!'); </script>
+    <script>
+        console.log('Hi!');
+    </script>
 
 
 @stop

@@ -11,7 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        //
+        Schema::create('platos', function (Blueprint $table) {
+            $table->id('IdPlato');
+            $table->string('NombrePlato');
+            $table->float('PrecioPlato');
+            $table->unsignedBigInteger('IdCategoriaPlatos');
+            $table->foreign('IdCategoriaPlatos')->references('IdCategoriaPlatos')->on('categoria_platos');
+            $table->timestamps();
+        });
     }
 
     /**
@@ -19,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //
+        Schema::drop('platos');
     }
 };

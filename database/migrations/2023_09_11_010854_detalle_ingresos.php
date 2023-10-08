@@ -13,10 +13,13 @@ return new class extends Migration
     {
         Schema::create('detalle_ingresos', function (Blueprint $table) {
             $table->id('IdDetalleIngreso');
-            $table->integer('IdProducto');
-            //$table->foreign('IdProducto')->references('IdProducto')->on('productos');
-            $table->integer('IdIngreso');
-            //$table->foreign('IdIngreso')->references('IdIngreso')->on('ingresos');
+            $table->unsignedBigInteger('IdIngreso');
+            $table->foreign('IdIngreso')->references('IdIngreso')->on('ingresos');
+            $table->unsignedBigInteger('IdProducto');
+            $table->foreign('IdProducto')->references('IdProducto')->on('productos');
+            $table->integer('Cantidad');
+            $table->float('CostoUnitario');
+            $table->float('CostoTotal');
             $table->timestamps();
         });
     }

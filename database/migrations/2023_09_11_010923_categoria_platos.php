@@ -11,7 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        //
+        Schema::create('categoria_platos', function (Blueprint $table) {
+            $table->id('IdCategoriaPlatos');
+            $table->string('NombreCategoriaPlato');
+            $table->timestamps();
+        });
     }
 
     /**
@@ -19,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //
+        Schema::drop('categoria_platos');
     }
 };

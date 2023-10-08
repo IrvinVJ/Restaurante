@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\IngresoController;
 use App\Http\Controllers\ProductoController;
 use App\Http\Controllers\RolController;
 use App\Http\Controllers\UsuarioController;
@@ -24,6 +25,7 @@ Route::group(['middleware' => ['auth']], function(){
     Route::resource('usuarios', UsuarioController::class);
     Route::resource('roles', RolController::class);
     Route::resource('productos', ProductoController::class);
+    Route::resource('ingresos', IngresoController::class);
 });
 
 

@@ -11,7 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        //
+        Schema::create('ordens', function (Blueprint $table) {
+            $table->id('IdOrdens');
+            $table->unsignedBigInteger('IdMesa');
+            $table->foreign('IdMesa')->references('IdMesa')->on('mesas');
+            $table->unsignedBigInteger('IdEstadoOrdens');
+            $table->foreign('IdEstadoOrdens')->references('IdEstadoOrdens')->on('estado_ordens');
+            $table->timestamps();
+        });
     }
 
     /**
@@ -19,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //
+        Schema::drop('ordens');
     }
 };

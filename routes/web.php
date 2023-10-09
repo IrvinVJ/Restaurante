@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\IngresoController;
+use App\Http\Controllers\OrdenController;
 use App\Http\Controllers\PlatoController;
 use App\Http\Controllers\ProductoController;
 use App\Http\Controllers\RolController;
@@ -28,6 +29,7 @@ Route::group(['middleware' => ['auth']], function(){
     Route::resource('productos', ProductoController::class);
     Route::resource('ingresos', IngresoController::class);
     Route::resource('platos', PlatoController::class);
+    Route::resource('ordens', OrdenController::class);
 });
 
 

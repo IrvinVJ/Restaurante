@@ -306,7 +306,7 @@ return [
             'type' => 'sidebar-menu-search',
             'text' => 'search',
         ],*/
-        
+
 
         [
             'text' => 'Roles',
@@ -319,7 +319,7 @@ return [
                     'icon'        => 'fa fa-fw fa-check',
                     'icon_color' => 'primary',
                 ],
-                                
+
             ],
         ],
         [
@@ -333,7 +333,7 @@ return [
                     'icon'        => 'fa fa-user',
                     'icon_color' => 'primary',
                 ],
-                                
+
             ],
         ],
         [
@@ -353,8 +353,8 @@ return [
                     'icon'        => 'far fa-fw fa-clipboard',
                     'icon_color' => 'primary',
                 ],
-                
-                
+
+
             ],
         ],
 
@@ -369,7 +369,7 @@ return [
                     'icon' => 'fa fa-fw fa-check',
                     'icon_color' => 'orange',
                 ],
-                
+
             ],
         ],
         [
@@ -379,7 +379,7 @@ return [
             'submenu' => [
                 [
                     'text' => 'Gestionar pedidos',
-                    'url'  => '/pedidos',
+                    'url'  => '/ordens',
                     'icon'        => 'fas fa-fw fa-check',
                     'icon_color' => 'cyan',
                 ],

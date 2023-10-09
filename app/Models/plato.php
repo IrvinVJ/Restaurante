@@ -7,5 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class plato extends Model
 {
+    protected $primaryKey='IdPlato';
+    protected $fillable =['IdPlato', 'NombrePlato', 'PrecioPlato', 'IdCategoriaPlatos'];
     use HasFactory;
 }

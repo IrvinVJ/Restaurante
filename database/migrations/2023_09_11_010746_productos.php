@@ -29,6 +29,39 @@ return new class extends Migration
             $table->foreign('IdUnidadMedida')->references('IdUnidadMedida')->on('Unidad_Medidas');
             $table->timestamps();
         });
+        DB::table('productos')->insert(['NombreProducto'=>'Arroz', 'Stock'=>0, 'IdUnidadMedida'=>2]);
+        DB::table('productos')->insert(['NombreProducto'=>'Aceite', 'Stock'=>0, 'IdUnidadMedida'=>3]);
+        DB::table('productos')->insert(['NombreProducto'=>'Ajo', 'Stock'=>0, 'IdUnidadMedida'=>2]);
+        DB::table('productos')->insert(['NombreProducto'=>'Sal', 'Stock'=>0, 'IdUnidadMedida'=>2]);
+        DB::table('productos')->insert(['NombreProducto'=>'Cebolla', 'Stock'=>0, 'IdUnidadMedida'=>2]);
+        DB::table('productos')->insert(['NombreProducto'=>'Aji Amarillo', 'Stock'=>0, 'IdUnidadMedida'=>2]);
+        DB::table('productos')->insert(['NombreProducto'=>'Tomate', 'Stock'=>0, 'IdUnidadMedida'=>2]);
+        DB::table('productos')->insert(['NombreProducto'=>'Hoja de Laurel', 'Stock'=>0, 'IdUnidadMedida'=>2]);
+        DB::table('productos')->insert(['NombreProducto'=>'Achiote', 'Stock'=>0, 'IdUnidadMedida'=>2]);
+        DB::table('productos')->insert(['NombreProducto'=>'Vino Blanco', 'Stock'=>0, 'IdUnidadMedida'=>1]);
+        DB::table('productos')->insert(['NombreProducto'=>'Mixtura de Mariscos', 'Stock'=>0, 'IdUnidadMedida'=>2]);
+        DB::table('productos')->insert(['NombreProducto'=>'Pimienta', 'Stock'=>0, 'IdUnidadMedida'=>2]);
+        DB::table('productos')->insert(['NombreProducto'=>'Tramboyo', 'Stock'=>0, 'IdUnidadMedida'=>1]);
+        DB::table('productos')->insert(['NombreProducto'=>'Culantro', 'Stock'=>0, 'IdUnidadMedida'=>1]);
+        DB::table('productos')->insert(['NombreProducto'=>'Kion', 'Stock'=>0, 'IdUnidadMedida'=>2]);
+        DB::table('productos')->insert(['NombreProducto'=>'Limon', 'Stock'=>0, 'IdUnidadMedida'=>2]);
+        DB::table('productos')->insert(['NombreProducto'=>'Pimiento', 'Stock'=>0, 'IdUnidadMedida'=>2]);
+        DB::table('productos')->insert(['NombreProducto'=>'Papa', 'Stock'=>0, 'IdUnidadMedida'=>2]);
+        DB::table('productos')->insert(['NombreProducto'=>'Camote', 'Stock'=>0, 'IdUnidadMedida'=>2]);
+        DB::table('productos')->insert(['NombreProducto'=>'Yuca', 'Stock'=>0, 'IdUnidadMedida'=>2]);
+        DB::table('productos')->insert(['NombreProducto'=>'Chicha de Jora', 'Stock'=>0, 'IdUnidadMedida'=>3]);
+        DB::table('productos')->insert(['NombreProducto'=>'Pescado Bonito', 'Stock'=>0, 'IdUnidadMedida'=>2]);
+        DB::table('productos')->insert(['NombreProducto'=>'Maicena', 'Stock'=>0, 'IdUnidadMedida'=>2]);
+        DB::table('productos')->insert(['NombreProducto'=>'Huevos', 'Stock'=>0, 'IdUnidadMedida'=>1]);
+        DB::table('productos')->insert(['NombreProducto'=>'Pota', 'Stock'=>0, 'IdUnidadMedida'=>2]);
+        DB::table('productos')->insert(['NombreProducto'=>'Malaya', 'Stock'=>0, 'IdUnidadMedida'=>2]);
+        DB::table('productos')->insert(['NombreProducto'=>'Vinagre', 'Stock'=>0, 'IdUnidadMedida'=>3]);
+        DB::table('productos')->insert(['NombreProducto'=>'Rocoto', 'Stock'=>0, 'IdUnidadMedida'=>1]);
+        DB::table('productos')->insert(['NombreProducto'=>'Pescado Corvina', 'Stock'=>0, 'IdUnidadMedida'=>2]);
+        DB::table('productos')->insert(['NombreProducto'=>'Aji Panca', 'Stock'=>0, 'IdUnidadMedida'=>2]);
+        DB::table('productos')->insert(['NombreProducto'=>'Mejillones', 'Stock'=>0, 'IdUnidadMedida'=>2]);
+        DB::table('productos')->insert(['NombreProducto'=>'Vieiras', 'Stock'=>0, 'IdUnidadMedida'=>2]);
+        DB::table('productos')->insert(['NombreProducto'=>'Cerveza Negra', 'Stock'=>0, 'IdUnidadMedida'=>1]);
     }
 
     /**

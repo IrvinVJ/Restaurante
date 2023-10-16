@@ -337,6 +337,19 @@ return [
             ],
         ],
         [
+            'text' => 'Presupuesto',
+            'icon' => 'fas fa-fw fa-dollar-sign',
+            //'icon_color' => 'cyan',
+            'submenu' => [
+                [
+                    'text' => 'Presupuesto',
+                    'url'  => '/presupuesto',
+                    'icon'        => 'fas fa-fw fa-dollar-sign',
+                    'icon_color' => 'primary',
+                ],
+            ],
+        ],
+        [
             'text' => 'Compras',
             'icon' => 'fa fa-th',
             //'icon_color' => 'cyan',

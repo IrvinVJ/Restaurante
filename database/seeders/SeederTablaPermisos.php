@@ -21,43 +21,49 @@ class SeederTablaPermisos extends Seeder
             'editar-rol',
             'borrar-rol',
 
-            //Operacions sobre tabla users
+            //Operaciones sobre tabla users
             'ver-usuario',
             'crear-usuario',
             'editar-usuario',
             'borrar-usuario',
 
-            //Operacions sobre tabla productos
+            //Operaciones sobre tabla productos
             'ver-producto',
             'crear-producto',
             'editar-producto',
             'borrar-producto',
 
-            //Operacions sobre tabla ingresos
+            //Operaciones sobre tabla presupuestos
+            'ver-presupuesto',
+            'crear-presupuesto',
+            'editar-presupuesto',
+            'borrar-presupuesto',
+
+            //Operaciones sobre tabla ingresos
             'ver-ingreso',
             'crear-ingreso',
             'editar-ingreso',
             'borrar-ingreso',
 
-            //Operacions sobre tabla platos
+            //Operaciones sobre tabla platos
             'ver-plato',
             'crear-plato',
             'editar-plato',
             'borrar-plato',
 
-            //Operacions sobre tabla pedidos
+            //Operaciones sobre tabla pedidos
             'ver-pedido',
             'crear-pedido',
             'editar-pedido',
             'borrar-pedido',
 
-            //Operacions sobre tabla ventas
+            //Operaciones sobre tabla ventas
             'ver-venta',
             'crear-venta',
             'editar-venta',
             'borrar-venta',
 
-            //Operacions sobre módulo reportes
+            //Operaciones sobre módulo reportes
             'ver-reporte',
             'crear-reporte',
             'editar-reporte',

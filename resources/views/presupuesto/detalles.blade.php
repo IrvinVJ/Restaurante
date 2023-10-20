@@ -30,7 +30,7 @@
                                     @for ($i = 0; $i < $tamañop; $i++)
                                         <tr>
                                             <td>{{ $productos_necesarios[$i] }}</td>
-                                            <td>{{ round($CostoUnitario[$i],3) }}</td>
+                                            <td><p align="right">{{ round($CostoUnitario[$i],3) }}</p></td>
                                         </tr>
                                     @endfor
 

@@ -136,7 +136,8 @@ class OrdenController extends Controller
     {
         $ordens = orden::all();
         $ordens = orden::find($IdOrdens);
-        return view('ordens.edit', compact('ordens'));
+        $est_ordens = estado_orden::all();
+        return view('ordens.edit', compact('ordens','est_ordens'));
     }
 
     /**
@@ -144,11 +145,11 @@ class OrdenController extends Controller
      */
     public function update(Request $request, orden $orden)
     {
-        $orden -> IdMesa = $request->IdMesa;
+        //$orden -> IdMesa = $request->IdMesa;
         $orden -> IdEstadoOrdens = $request->IdEstadoOrdens;
         $orden -> save();
 
-        redirect('ordens');
+        return redirect('ordens');
     }
 
     /**

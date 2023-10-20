@@ -11,7 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        //
+        Schema::create('reservaciones', function (Blueprint $table) {
+            $table->id('IdReservacion');
+            $table->unsignedBigInteger('IdCliente');
+            $table->foreign('IdCliente')->references('IdCliente')->on('clientes');
+            $table->date('Fecha');
+            $table->time('Hora');
+            $table->timestamps();
+        });
     }
 
     /**
@@ -19,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //
+        Schema::drop('reservaciones');
     }
 };

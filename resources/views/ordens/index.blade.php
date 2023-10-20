@@ -36,7 +36,16 @@
                                         <tr>
                                             <td style="display: none;">{{ $item->IdOrdens }}</td>
                                             <td>{{ $item->IdMesa }}</td>
-                                            <td>{{ $item->IdEstadoOrdens }}</td>
+                                            @if ( $item->IdEstadoOrdens == 1)
+                                            <td><h5><span class="badge badge-warning">En Proceso</span></h5></td>
+                                            @endif
+                                            @if ($item->IdEstadoOrdens == 2)
+                                            <td><h5><span class="badge badge-success">Atendida</span></h5></td>
+                                            @endif
+                                            @if ($item->IdEstadoOrdens == 3)
+                                            <td><h5><span class="badge badge-danger">Anulada</span></h5></td>
+                                            @endif
+
                                             <td>{{ $item->created_at }}</td>
 
                                             <td>

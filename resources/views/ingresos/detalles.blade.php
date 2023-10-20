@@ -40,6 +40,15 @@
 
 
                                 </tbody>
+                                <!--<tfoot>
+
+                                    <tr>
+                                        <th><p align="right">TOTAL PAGAR:</p></th>
+
+                                        <th><p align="right"><span align="right" id="total_pagar_html">S/. </span> </p></th>
+                                    </tr>
+
+                                </tfoot>-->
                             </table>
                         </div>
                     </div>

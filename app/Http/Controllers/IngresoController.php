@@ -112,7 +112,11 @@ class IngresoController extends Controller
         inner join ingresos i
         on di.idIngreso=i.IdIngreso
         where di.IdIngreso = '.$IdIngreso.' ');
-        //dd($detalle_i);
+        //$CostoTotal = array();
+        //$CostoTotal = DB::select('select sum(CostoUnitario) as CostoTotal from detalle_ingresos
+        //where IdIngreso = '.$IdIngreso.' ');
+        //$tamaño = count($CostoTotal);
+        //dd($tamaño);
         return view('ingresos.detalles', compact('detalle_i'));
     }
 

@@ -11,7 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        //
+        Schema::create('recibos', function (Blueprint $table) {
+            $table->id('IdRecibo');
+            $table->unsignedBigInteger('IdDetalleOrdens');
+            $table->foreign('IdDetalleOrdens')->references('IdDetalleOrdens')->on('detalle_ordens');
+            $table->float('MontoTotal');
+            $table->timestamps();
+        });
     }
 
     /**

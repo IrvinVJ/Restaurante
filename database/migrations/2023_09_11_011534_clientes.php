@@ -11,7 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        //
+        Schema::create('clientes', function (Blueprint $table) {
+            $table->id('IdCliente');
+            $table->char('Dni', 8);
+            $table->string('NombresCliente');
+            $table->string('ApellidosCliente');
+            $table->string('NroTelefono');
+            $table->timestamps();
+        });
     }
 
     /**
@@ -19,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //
+        Schema::drop('clientes');
     }
 };

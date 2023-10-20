@@ -396,11 +396,24 @@ return [
                     'icon'        => 'fas fa-fw fa-check',
                     'icon_color' => 'cyan',
                 ],
-                [
+                /*[
                     'text' => 'Listar pedidos',
                     'url'  => '/listar-pedidos',
                     'icon'        => 'fas fa-fw fa-check',
                     'icon_color' => 'cyan',
+                ],*/
+            ],
+        ],
+        [
+            'text' => 'Reservaciones',
+            'icon' => 'fas fa-calendar-alt',
+            //'icon_color' => 'cyan',
+            'submenu' => [
+                [
+                    'text' => 'Gestionar Reservaciones',
+                    'url'  => '/reservaciones',
+                    'icon'        => 'fas fa-calendar-alt',
+                    'icon_color' => 'primary',
                 ],
             ],
         ],

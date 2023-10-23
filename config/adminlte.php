@@ -405,6 +405,19 @@ return [
             ],
         ],
         [
+            'text' => 'Clientes',
+            'icon' => 'fa fa-user',
+            //'icon_color' => 'cyan',
+            'submenu' => [
+                [
+                    'text' => 'Gestionar Clientes',
+                    'url'  => '/clientes',
+                    'icon'        => 'fa fa-user',
+                    'icon_color' => 'primary',
+                ],
+            ],
+        ],
+        [
             'text' => 'Reservaciones',
             'icon' => 'fas fa-calendar-alt',
             //'icon_color' => 'cyan',

@@ -12,7 +12,7 @@ class ProductoController extends Controller
     function __construct(){
         //$this->middleware('auth'); //ya no se le pone esta línea de código prque está en el archivo de rutas web.php
 
-        $this->middleware('permission:ver-producto|crear-producto|editar-producto|borrar-producto', ['only'=>['index']]); 
+        $this->middleware('permission:ver-producto|crear-producto|editar-producto|borrar-producto', ['only'=>['index']]);
         $this->middleware('permission:crear-producto',['only' =>  'create','store']);
         $this->middleware('permission:editar-producto', ['only'=>['edit','update']]);
         $this->middleware('permission:borrar-producto', ['only'=>['destroy']]);
@@ -46,13 +46,13 @@ class ProductoController extends Controller
             'Stock' => 'required',
             'IdUnidadMedida' => 'required'
         ]);
-        
+
         $producto = new Producto();
         $producto->NombreProducto=$request->NombreProducto;
         $producto->Stock=$request->Stock;
         $producto->IdUnidadMedida=$request->IdUnidadMedida;
         $producto->save();
-        return redirect('productos');
+        return redirect('productos')->with('datos', 'Registro guardado satisfactoriamente');
     }
 
     /**
@@ -89,7 +89,7 @@ class ProductoController extends Controller
         $producto->Stock=$request->Stock;
         $producto->IdUnidadMedida=$request->IdUnidadMedida;
         $producto->save();
-        return redirect('productos');
+        return redirect('productos')->with('success', 'Producto actualizado correctamente');
     }
 
     /**

@@ -31,8 +31,11 @@
                                     <div class="form-group">
                                         <label for="">Categoría del Plato:</label><br>
                                         <select class="form-control" aria-label="Default select example" name="IdCategoriaPlatos" required>
-                                            <option disabled value="" selected>-----ELIJA LA CATEGORÍA DEL PLATO-----</option>
+
                                             @foreach ($cat_plato as $cp)
+                                            @if ($plato->IdCategoriaPlatos == $cp->IdCategoriaPlatos)
+                                            <option value="{{ $cp->IdCategoriaPlatos }}" selected style="display: none;">{{ $cp->NombreCategoriaPlato }}</option>
+                                            @endif
                                                 <option value="{{ $cp->IdCategoriaPlatos }}">{{ $cp->NombreCategoriaPlato }}</option>
                                             @endforeach
 

@@ -24,8 +24,11 @@
                                     <div class="form-group">
                                         <label for="">Estado de la Orden:</label><br>
                                         <select class="form-control" aria-label="Default select example" name="IdEstadoOrdens" required>
-                                            <option disabled value="" selected>-----SELECCIONE EL ESTADO DE LA ORDEN-----</option>
+
                                             @foreach ($est_ordens as $item)
+                                            @if ($ordens->IdEstadoOrdens == $item->IdEstadoOrdens)
+                                                <option value="{{ $item->IdEstadoOrdens }}" selected style="display: none;">{{ $item->DescripcionEstadoOrdens }}</option>
+                                            @endif
                                                 <option value="{{ $item->IdEstadoOrdens }}">{{ $item->DescripcionEstadoOrdens }}</option>
                                             @endforeach
 

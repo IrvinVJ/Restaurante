@@ -1,10 +1,12 @@
 <?php
 
+use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\IngresoController;
 use App\Http\Controllers\OrdenController;
 use App\Http\Controllers\PlatoController;
 use App\Http\Controllers\PresupuestoController;
 use App\Http\Controllers\ProductoController;
+use App\Http\Controllers\ReservacioneController;
 use App\Http\Controllers\RolController;
 use App\Http\Controllers\UsuarioController;
 use Illuminate\Support\Facades\Route;
@@ -32,6 +34,8 @@ Route::group(['middleware' => ['auth']], function(){
     Route::resource('platos', PlatoController::class);
     Route::resource('ordens', OrdenController::class);
     Route::resource('presupuesto', PresupuestoController::class);
+    Route::resource('clientes', ClienteController::class);
+    Route::resource('reservaciones', ReservacioneController::class);
 });
 
 

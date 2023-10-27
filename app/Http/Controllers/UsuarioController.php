@@ -18,11 +18,12 @@ class UsuarioController extends Controller
     {
         $this->middleware('auth');
 
-        $this->middleware('permission:ver-usuario|crear-usuario|editar-usuario|borrar-usuario', ['only'=>['index']]); 
-        $this->middleware('permission:crear-usuario',['only' =>  'create','store']);
-        $this->middleware('permission:editar-usuario', ['only'=>['edit','update']]);
-        $this->middleware('permission:borrar-usuario', ['only'=>['destroy']]);
+        $this->middleware('permission:ver-usuario|crear-usuario|editar-usuario|borrar-usuario', ['only' => ['index']]);
+        $this->middleware('permission:crear-usuario', ['only' =>  'create', 'store']);
+        $this->middleware('permission:editar-usuario', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:borrar-usuario', ['only' => ['destroy']]);
     }
+
     public function index()
     {
         $usuarios = User::all();
@@ -35,8 +36,8 @@ class UsuarioController extends Controller
     public function create()
     {
         $usuarios = User::all();
-        $roles = Role::pluck('name','name')->all();
-        return view('usuarios.crear', compact('usuarios','roles'));
+        $roles = Role::pluck('name', 'name')->all();
+        return view('usuarios.crear', compact('usuarios', 'roles'));
     }
 
     /**
@@ -47,7 +48,7 @@ class UsuarioController extends Controller
         $this->validate($request, [
             'name' => 'required',
             'email' => 'required|email|unique:users,email',
-            
+
         ]);
 
         $input = $request->all();
@@ -58,9 +59,9 @@ class UsuarioController extends Controller
 
         //$usuarios = new User();
         //$usuarios->name=$request->txtnombre;
-       // $usuarios->email= $request->txtemail;
-       // $usuarios->rol= $request->txtrol;
-       // $usuarios->password=$request->password;
+        // $usuarios->email= $request->txtemail;
+        // $usuarios->rol= $request->txtrol;
+        // $usuarios->password=$request->password;
         //$usuarios->save();
         return redirect('usuarios');
     }
@@ -79,8 +80,8 @@ class UsuarioController extends Controller
     public function edit($id)
     {
         $user = User::find($id);
-        $roles = Role::pluck('name','name')->all();
-        $userRole = $user->roles->pluck('name','name')->all();
+        $roles = Role::pluck('name', 'name')->all();
+        $userRole = $user->roles->pluck('name', 'name')->all();
 
         return view('usuarios.editar', compact('user', 'roles', 'userRole'));
     }
@@ -101,10 +102,10 @@ class UsuarioController extends Controller
 
         if (!empty($input['password'])) {
             $input['password'] = Hash::make($input['password']);
-        }else {
+        } else {
             $input = Arr::except($input, array('password'));
         }
-        
+
         $user = User::find($id);
         $user->update($input);
         DB::table('model_has_roles')->where('model_id', $id)->delete();
@@ -121,4 +122,5 @@ class UsuarioController extends Controller
         User::find($id)->delete();
         return redirect('usuarios');
     }
+
 }

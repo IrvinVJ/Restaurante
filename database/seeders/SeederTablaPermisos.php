@@ -51,11 +51,29 @@ class SeederTablaPermisos extends Seeder
             'editar-plato',
             'borrar-plato',
 
+            //Operaciones sobre tabla mesas
+            'ver-mesa',
+            'crear-mesa',
+            'editar-mesa',
+            'borrar-mesa',
+
             //Operaciones sobre tabla pedidos
             'ver-pedido',
             'crear-pedido',
             'editar-pedido',
             'borrar-pedido',
+
+            //Operaciones sobre tabla clientes
+            'ver-cliente',
+            'crear-cliente',
+            'editar-cliente',
+            'borrar-cliente',
+
+            //Operaciones sobre tabla reservaciones
+            'ver-reservacion',
+            'crear-reservacion',
+            'editar-reservacion',
+            'borrar-reservacion',
 
             //Operaciones sobre tabla ventas
             'ver-venta',

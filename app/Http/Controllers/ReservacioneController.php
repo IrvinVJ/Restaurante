@@ -88,7 +88,7 @@ class ReservacioneController extends Controller
             $orden->IdEstadoOrdens = $request->IdEstadoOrdens;
             $orden->save();
             //Actualizando estado de la mesa en la tabla mesas
-            $mesa = DB::update('update mesas set IdEstadoMesas = 2 where IdMesa =' . $request->IdMesa . ' ');
+            $mesa = DB::update('update mesas set IdEstadoMesas = 3 where IdMesa =' . $request->IdMesa . ' ');
             // Aqui comienza la instrucción para ingresar a platos
             $array = array();
             $array = $request->plato;

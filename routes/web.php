@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\IngresoController;
+use App\Http\Controllers\MesaController;
 use App\Http\Controllers\OrdenController;
 use App\Http\Controllers\PlatoController;
 use App\Http\Controllers\PresupuestoController;
@@ -38,6 +39,7 @@ Route::group(['middleware' => ['auth']], function(){
     Route::resource('reservaciones', ReservacioneController::class);
     Route::get('reservacion/{reservacione}', [ReservacioneController::class,'reservacion'])->name ('reservacion.reservacion');
     Route::post('reservacion', [ReservacioneController::class,'storeorden'])->name ('reservacion.storeorden');
+    Route::resource('mesas', MesaController::class);
 });
 
 

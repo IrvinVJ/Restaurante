@@ -23,11 +23,11 @@ return new class extends Migration
         DB::table('mesas')->insert(['IdEstadoMesas'=>1]);
         DB::table('mesas')->insert(['IdEstadoMesas'=>1]);
         DB::table('mesas')->insert(['IdEstadoMesas'=>1]);
-        DB::table('mesas')->insert(['IdEstadoMesas'=>2]);
-        DB::table('mesas')->insert(['IdEstadoMesas'=>2]);
-        DB::table('mesas')->insert(['IdEstadoMesas'=>2]);
-        DB::table('mesas')->insert(['IdEstadoMesas'=>3]);
-        DB::table('mesas')->insert(['IdEstadoMesas'=>3]);
+        DB::table('mesas')->insert(['IdEstadoMesas'=>1]);
+        DB::table('mesas')->insert(['IdEstadoMesas'=>1]);
+        DB::table('mesas')->insert(['IdEstadoMesas'=>1]);
+        DB::table('mesas')->insert(['IdEstadoMesas'=>1]);
+        DB::table('mesas')->insert(['IdEstadoMesas'=>1]);
     }
 
     /**

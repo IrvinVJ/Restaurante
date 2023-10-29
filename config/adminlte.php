@@ -386,6 +386,20 @@ return [
             ],
         ],
         [
+            'text' => 'Mesas',
+            'icon' => 'fa fa-table',
+            //'icon_color' => 'cyan',
+            'submenu' => [
+                [
+                    'text' => 'Mesas',
+                    'url'  => '/mesas',
+                    'icon' => 'fa fa-table',
+                    'icon_color' => 'orange',
+                ],
+
+            ],
+        ],
+        [
             'text' => 'Pedidos',
             'icon' => 'fa fa-pen',
             //'icon_color' => 'cyan',

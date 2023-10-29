@@ -54,6 +54,11 @@
                                             <td>{{ $item->Hora }}</td>
 
                                             <td>
+                                                <form action="{{ route('reservacion.reservacion',$item->IdReservacion) }}" method="GET">
+                                                    <button class="btn btn-success">+ Pedido</button>
+                                                    <!--<input type="submit" value="+ Pedido" class="btn btn-success" data-toggle="modal" data-target="#CrearPedido">
+                                                    <a class="btn btn-success">Ver Detalle</a>-->
+                                                </form>
                                                 <form action="{{ route('reservaciones.edit',$item->IdReservacion) }}" method="GET">
                                                     @can('editar-reservacion')
                                                     <a class="btn btn-info" href="{{ route('reservaciones.edit',$item->IdReservacion) }}">Editar</a>

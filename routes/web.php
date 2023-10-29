@@ -36,6 +36,8 @@ Route::group(['middleware' => ['auth']], function(){
     Route::resource('presupuesto', PresupuestoController::class);
     Route::resource('clientes', ClienteController::class);
     Route::resource('reservaciones', ReservacioneController::class);
+    Route::get('reservacion/{reservacione}', [ReservacioneController::class,'reservacion'])->name ('reservacion.reservacion');
+    Route::post('reservacion', [ReservacioneController::class,'storeorden'])->name ('reservacion.storeorden');
 });
 
 

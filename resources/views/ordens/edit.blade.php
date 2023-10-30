@@ -19,8 +19,9 @@
                         <form action="{{ route('ordens.update', $ordens->IdOrdens) }}" method="POST"> <!-- El POST en el method no es fijo, depende de la acción que se quiera realizar-->
                             @csrf
                             {{method_field('PUT')}}
-
-
+                            @foreach ($mesa as $item)
+                                <input type="text" name="IdMesa" style="display: none;" value={{$item->IdMesa}}>
+                            @endforeach
                                     <div class="form-group">
                                         <label for="">Estado de la Orden:</label><br>
                                         <select class="form-control" aria-label="Default select example" name="IdEstadoOrdens" required>

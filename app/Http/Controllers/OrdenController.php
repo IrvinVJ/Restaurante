@@ -137,7 +137,12 @@ class OrdenController extends Controller
         $ordens = orden::all();
         $ordens = orden::find($IdOrdens);
         $est_ordens = estado_orden::all();
-        return view('ordens.edit', compact('ordens','est_ordens'));
+        $mesa = DB::select('select o.IdOrdens, o.IdMesa, m.IdMesa from ordens o
+        inner join mesas m
+        on o.IdMesa = m.IdMesa
+        where o.IdOrdens ='.$IdOrdens);
+        //dd($mesa);
+        return view('ordens.edit', compact('ordens','est_ordens', 'mesa'));
     }
 
     /**
@@ -148,7 +153,7 @@ class OrdenController extends Controller
         //$orden -> IdMesa = $request->IdMesa;
         $orden -> IdEstadoOrdens = $request->IdEstadoOrdens;
         $orden -> save();
-        //$mesa = DB::update('update mesas set IdEstadoMesas = 1 where IdMesa ='.$request->IdMesa.' ');
+        $mesa = DB::update('update mesas set IdEstadoMesas = 1 where IdMesa ='.$request->IdMesa.' ');
 
         return redirect('ordens');
     }

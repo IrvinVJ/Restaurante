@@ -2,6 +2,8 @@
 
 @section('title', 'Productos')
 
+@section('plugins.Datatables', true)
+
 @section('content_header')
 @stop
 
@@ -25,10 +27,10 @@
                             @can('crear-producto')
                             <button class="btn btn-warning" data-toggle="modal" data-target="#CrearProducto">Nuevo</button>
                             @endcan
-
+                            <br><br>
                             @include('productos.ModalCrear')
 
-                            <table class="table table-striped mt-2">
+                            <table class="table table-striped mt-2" id="tblProductos">
                                 <thead style="background-color:#6777ef">
                                     <th style="display: none;">ID</th>
                                     <th style="color:#fff;">Producto</th>
@@ -85,4 +87,47 @@
 
 @section('js')
     <script> console.log('Hi!'); </script>
+
+    <script>
+        $(document).ready(function() {
+          $('#tblProductos').DataTable({
+            responsive:true,
+            autoWidth:false,
+            "language": {
+            "lengthMenu": "Mostrar _MENU_ registros por página",
+            "zeroRecords": "Registro no encontrado",
+            "info": "Mostrando la página _PAGE_ de _PAGES_",
+            "infoEmpty": "No hay registros disponibles",
+            "infoFiltered": "(filtrado de _MAX_ registros totales)",
+            "search": "Buscar:",
+            "paginate":{
+              'next':'Siguiente',
+              'previous':'Anterior'
+            }
+            },
+            //dom: 'Bfrtip',
+            /*buttons: [
+              {
+                  extend:    'excelHtml5',
+                  text:      '<i class="fas fa-file-excel"></i>',
+                  titleAttr: 'Excel',
+                  className: 'btn btn-success'
+              },
+              {
+                  extend:    'pdfHtml5',
+                  text:      '<i class="fas fa-file-pdf"></i>',
+                  titleAttr: 'PDF',
+                  className: 'btn btn-danger'
+              },
+              {
+                  extend:    'print',
+                  text:      '<i class="fa fa-print"></i>',
+                  titleAttr: 'Imrpimir',
+                  className: 'btn btn-info'
+              },
+            ]
+            */
+          });
+        } );
+      </script>
 @stop

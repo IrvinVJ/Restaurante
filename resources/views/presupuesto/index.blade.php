@@ -2,6 +2,8 @@
 
 @section('title', 'Presupuesto')
 
+@section('plugins.Datatables', true)
+
 @section('content_header')
 @stop
 
@@ -11,7 +13,7 @@
             <h3 class="page__heading">Presupuesto</h3>
         </div>
 
-        <table class="table table-striped mt-2">
+        <table class="table table-striped mt-2" id="tblPresupuesto">
             <thead style="background-color:#6777ef">
                 <th style="display: none;">ID</th>
                 <th style="color:#fff;">Plato</th>
@@ -51,5 +53,24 @@
 @section('js')
     <script> console.log('Hi!'); </script>
 
-
+    <script>
+        $(document).ready(function() {
+          $('#tblPresupuesto').DataTable({
+            responsive:true,
+            autoWidth:false,
+            "language": {
+            "lengthMenu": "Mostrar _MENU_ registros por página",
+            "zeroRecords": "Registro no encontrado",
+            "info": "Mostrando la página _PAGE_ de _PAGES_",
+            "infoEmpty": "No hay registros disponibles",
+            "infoFiltered": "(filtrado de _MAX_ registros totales)",
+            "search": "Buscar:",
+            "paginate":{
+              'next':'Siguiente',
+              'previous':'Anterior'
+            }
+            },
+          });
+        } );
+      </script>
 @stop

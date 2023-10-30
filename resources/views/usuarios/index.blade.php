@@ -2,6 +2,8 @@
 
 @section('title', 'Usuarios')
 
+@section('plugins.Datatables', true)
+
 @section('content_header')
 @stop
 
@@ -15,16 +17,16 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="card">
-                        <div class="card-body">                           
-                            <a class="btn btn-warning" href="{{ route('usuarios.create') }}">Nuevo</a>        
-                           
-                              <table class="table table-striped mt-2">
-                                <thead style="background-color:#6777ef">                                     
+                        <div class="card-body">
+                            <a class="btn btn-warning" href="{{ route('usuarios.create') }}">Nuevo</a>
+                            <br><br>
+                              <table class="table table-striped mt-2" id="tblUsuarios">
+                                <thead style="background-color:#6777ef">
                                     <th style="display: none;">ID</th>
                                     <th style="color:#fff;">Nombre</th>
                                     <th style="color:#fff;">E-mail</th>
                                     <th style="color:#fff;">Rol</th>
-                                    <th style="color:#fff;">Acciones</th>                                                                   
+                                    <th style="color:#fff;">Acciones</th>
                                 </thead>
                                 <tbody>
                                   @foreach ($usuarios as $usuario)
@@ -34,14 +36,14 @@
                                       <td>{{ $usuario->email }}</td>
                                       <td>
                                         @if(!empty($usuario->getRoleNames()))
-                                          @foreach($usuario->getRoleNames() as $rolNombre)                                       
+                                          @foreach($usuario->getRoleNames() as $rolNombre)
                                             <h5><span class="badge badge-dark">{{ $rolNombre }}</span></h5>
                                           @endforeach
                                         @endif
                                       </td>
-  
-                                      <td>     
-                                        @can('crear-usuario')                             
+
+                                      <td>
+                                        @can('crear-usuario')
                                         <a class="btn btn-info" href="{{ route('usuarios.edit',$usuario->id) }}">Editar</a>
                                         @endcan
 
@@ -56,8 +58,8 @@
                                 </tbody>
                               </table>
                               <!-- Centramos la paginacion a la derecha -->
-                               
-                              
+
+
                         </div>
                     </div>
                 </div>
@@ -65,7 +67,7 @@
         </div>
         @endcan
       </section>
-  
+
 @stop
 
 @section('css')
@@ -74,4 +76,25 @@
 
 @section('js')
     <script> console.log('Hi!'); </script>
+
+    <script>
+        $(document).ready(function() {
+          $('#tblUsuarios').DataTable({
+            responsive:true,
+            autoWidth:false,
+            "language": {
+            "lengthMenu": "Mostrar _MENU_ registros por página",
+            "zeroRecords": "Registro no encontrado",
+            "info": "Mostrando la página _PAGE_ de _PAGES_",
+            "infoEmpty": "No hay registros disponibles",
+            "infoFiltered": "(filtrado de _MAX_ registros totales)",
+            "search": "Buscar:",
+            "paginate":{
+              'next':'Siguiente',
+              'previous':'Anterior'
+            }
+            },
+          });
+        } );
+      </script>
 @stop

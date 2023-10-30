@@ -2,6 +2,8 @@
 
 @section('title', 'Roles')
 
+@section('plugins.Datatables', true)
+
 @section('content_header')
 @stop
 
@@ -16,26 +18,26 @@
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-body">
-    
+
                     @can('crear-rol')
-                    <a class="btn btn-warning" href="{{ route('roles.create') }}">Nuevo</a>                        
+                    <a class="btn btn-warning" href="{{ route('roles.create') }}">Nuevo</a>
                     @endcan
-    
-            
-                        <table class="table table-striped mt-2">
-                            <thead style="background-color:#6777ef">                                                       
+
+                        <br><br>
+                        <table class="table table-striped mt-2" id="tblRoles">
+                            <thead style="background-color:#6777ef">
                                 <th style="color:#fff;">Rol</th>
                                 <th style="color:#fff;">Acciones</th>
-                            </thead>  
+                            </thead>
                             <tbody>
                             @foreach ($roles as $role)
-                            <tr>                           
+                            <tr>
                                 <td>{{ $role->name }}</td>
-                                <td>                                
+                                <td>
                                     @can('editar-rol')
                                         <a class="btn btn-primary" href="{{ route('roles.edit',$role->id) }}">Editar</a>
                                     @endcan
-                                    
+
                                     @can('borrar-rol')
                                         {!! Form::open(['method' => 'DELETE','route' => ['roles.destroy', $role->id],'style'=>'display:inline']) !!}
                                             {!! Form::submit('Borrar', ['class' => 'btn btn-danger']) !!}
@@ -44,13 +46,13 @@
                                 </td>
                             </tr>
                             @endforeach
-                            </tbody>               
+                            </tbody>
                         </table>
 
                         <!-- Centramos la paginacion a la derecha -->
                         <div class="pagination justify-content-end">
-                            {!! $roles->links() !!} 
-                        </div>                    
+                            {!! $roles->links() !!}
+                        </div>
                         </div>
                     </div>
                 </div>
@@ -67,4 +69,25 @@
 
 @section('js')
     <script> console.log('Hi!'); </script>
+
+    <script>
+        $(document).ready(function() {
+          $('#tblRoles').DataTable({
+            responsive:true,
+            autoWidth:false,
+            "language": {
+            "lengthMenu": "Mostrar _MENU_ registros por página",
+            "zeroRecords": "Registro no encontrado",
+            "info": "Mostrando la página _PAGE_ de _PAGES_",
+            "infoEmpty": "No hay registros disponibles",
+            "infoFiltered": "(filtrado de _MAX_ registros totales)",
+            "search": "Buscar:",
+            "paginate":{
+              'next':'Siguiente',
+              'previous':'Anterior'
+            }
+            },
+          });
+        } );
+      </script>
 @stop

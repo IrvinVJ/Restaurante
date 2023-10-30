@@ -2,6 +2,8 @@
 
 @section('title', 'Clientes')
 
+@section('plugins.Datatables', true)
+
 @section('content_header')
 @stop
 
@@ -33,10 +35,10 @@
                             @can('crear-cliente')
                             <button class="btn btn-warning" data-toggle="modal" data-target="#CrearCliente">Nuevo</button>
                             @endcan
-
+                            <br><br>
                             @include('clientes.ModalCrear')
 
-                            <table class="table table-striped mt-2">
+                            <table class="table table-striped mt-2" id="tblClientes">
                                 <thead style="background-color:#6777ef">
                                     <th style="display: none;">ID</th>
                                     <th style="color:#fff;">DNI</th>
@@ -94,4 +96,24 @@
 
 @section('js')
     <script> console.log('Hi!'); </script>
+    <script>
+        $(document).ready(function() {
+          $('#tblClientes').DataTable({
+            responsive:true,
+            autoWidth:false,
+            "language": {
+            "lengthMenu": "Mostrar _MENU_ registros por página",
+            "zeroRecords": "Registro no encontrado",
+            "info": "Mostrando la página _PAGE_ de _PAGES_",
+            "infoEmpty": "No hay registros disponibles",
+            "infoFiltered": "(filtrado de _MAX_ registros totales)",
+            "search": "Buscar:",
+            "paginate":{
+              'next':'Siguiente',
+              'previous':'Anterior'
+            }
+            },
+          });
+        } );
+      </script>
 @stop

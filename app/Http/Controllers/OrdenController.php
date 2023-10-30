@@ -148,6 +148,7 @@ class OrdenController extends Controller
         //$orden -> IdMesa = $request->IdMesa;
         $orden -> IdEstadoOrdens = $request->IdEstadoOrdens;
         $orden -> save();
+        //$mesa = DB::update('update mesas set IdEstadoMesas = 1 where IdMesa ='.$request->IdMesa.' ');
 
         return redirect('ordens');
     }

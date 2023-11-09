@@ -9,9 +9,16 @@ use Illuminate\Support\Facades\DB;
 
 class MesaController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    function __construct()
+    {
+        //$this->middleware('auth'); //ya no se le pone esta línea de código prque está en el archivo de rutas web.php
+
+        $this->middleware('permission:ver-mesa|crear-mesa|editar-mesa|borrar-mesa', ['only' => ['index']]);
+        $this->middleware('permission:crear-mesa', ['only' =>  'create', 'store']);
+        $this->middleware('permission:editar-mesa', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:borrar-mesa', ['only' => ['destroy']]);
+    }
+
     public function index()
     {
         //$mesas = mesa::all();

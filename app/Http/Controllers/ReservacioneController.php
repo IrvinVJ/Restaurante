@@ -69,15 +69,15 @@ class ReservacioneController extends Controller
         $clientes = DB::select('select c.IdCliente, c.NombresCliente, c.ApellidosCliente from clientes c
         inner join reservaciones r
         on c.IdCliente = r.IdCliente
-        where r.IdReservacion = '.$IdReservacion);
+        where r.IdReservacion = ' . $IdReservacion);
         //dd($clientes);
         return view('reservaciones.Pedido', compact('reservacione', 'ordens', 'est_o', 'platos', 'mesas', 'clientes'));
     }
     public function storeorden(Request $request, reservacione $reservacione)
     {
         $reservacione->IdReservacion = $request->IdReservacion;
-        $detalle_reservacione = new detalle_reservacione();
-        $detalle_reservacione->IdReservacion = $request->IdReservacion;
+        //$detalle_reservacione = new detalle_reservacione();
+        //$detalle_reservacione->IdReservacion = $request->IdReservacion;
         //dd($detalle_reservacione);
         try {
             // dd($request->all());
@@ -104,14 +104,55 @@ class ReservacioneController extends Controller
                 $detalle->IdPlato = $prod[1];
                 $detalle->IdMesa = $prod[2];
                 $detalle->save();
+                //#############################################################
+                //Detalle_Reservacion
+                $array_detreservacion = array();
+                $array_detreservacion = detalle_orden::all();
+                $maximo = count($array_detreservacion);
+                //for ($i = 0; $i < $maximo; $i++) {
+                    //$pro = explode(" ", $array[$i]); //Para borrar el espacio
+                    //Insertando en la tabla detalle_reservacione
+                    $detalle_reservacione = new detalle_reservacione();
+                    $detalle_reservacione->IdReservacion = $request->IdReservacion;
+                    //$detalle_reservacione->IdDetalleOrdens = $detalle->IdDetalleOrdens; No funciona
+                    //$detalle_reservacione->IdDetalleOrdens = "".$maximo."";
+                    $detalle_reservacione->IdDetalleOrdens = $maximo;
+                    $detalle_reservacione->IdCliente = $request->IdCliente;
+                    //dd($detalle_reservacione);
+                    $detalle_reservacione->save();
+                //}
+                //#############################################################
             }
+
             DB::commit();
         } catch (Exception $e) {
             dd($e);
             DB::rollBack();
         }
-        $detalle_reservacione->IdDetalleOrdens = $detalle->IdDetalleOrdens;
-        $detalle_reservacione->IdCliente = $request->IdCliente;
+        /*try{
+            DB::beginTransaction();
+            $array_detreservacion = array();
+            $detalle_o = detalle_orden::all();
+            //dd($detalle_o);
+            $array_detreservacion = $detalle_o;
+            $maximo = count($array_detreservacion);
+            //dd($maximo);
+            for ($i = 0; $i < $maximo; $i++) {
+                $pro = explode(" ", $array[$i]); //Para borrar el espacio
+                //Insertando en la tabla detalle_reservacione
+                $detalle_reservacione->IdReservacion = $request->IdReservacion;
+                //$detalle_reservacione->Cantidad = $pro[0];
+                $detalle_reservacione->IdDetalleOrdens = $pro[0];
+                //detalle_reservacione->IdDetalleOrdens = $detalle->IdDetalleOrdens;
+                $detalle_reservacione->IdCliente = $request->IdCliente;
+                //$detalle_reservacione->save();
+            }
+        }catch(Exception $ex){
+            DB::rollback();
+        }*/
+
+        //$detalle_reservacione->IdDetalleOrdens = $detalle->IdDetalleOrdens;
+        //$detalle_reservacione->IdCliente = $request->IdCliente;
         //dd($detalle_reservacione);
         $detalle_reservacione->save();
         return redirect('reservaciones')->with('success', 'Pedido realizado satisfactoriamente');
@@ -120,9 +161,48 @@ class ReservacioneController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(reservacione $reservacione)
+    public function show($IdReservacion)
     {
-        //
+        $detalle_r = DB::select('select o.IdOrdens, o.IdMesa, o.IdEstadoOrdens,
+        eo.IdEstadoOrdens, eo.DescripcionEstadoOrdens,
+        m.IdMesa, m.IdEstadoMesas,
+        em.IdEstadoMesas, em.DescripcionEstadoMesas,
+        p.IdPlato, p.NombrePlato, p.PrecioPlato, p.IdCategoriaPlatos,
+        cp.IdCategoriaPlatos, cp.NombreCategoriaPlato,
+        deo.IdDetalleOrdens, deo.Cantidad, deo.IdOrdens, deo.IdPlato, deo.IdMesa,
+        c.IdCliente, c.Dni, c.NombresCliente, c.ApellidosCliente, c.NroTelefono,
+        r.IdReservacion, r.IdCliente, r.Fecha, r.Hora,
+        der.IdDetalleReservacion, der.IdReservacion, der.IdDetalleOrdens, der.IdCliente
+        from detalle_reservaciones der
+        inner join detalle_ordens deo
+        on der.IdDetalleOrdens = deo.IdDetalleOrdens
+        inner join ordens o
+        on deo.IdOrdens = o.IdOrdens
+        inner join estado_ordens eo
+        on o.IdEstadoOrdens=eo.IdEstadoOrdens
+        inner join mesas m
+        on o.IdMesa = m.IdMesa
+        inner join estado_mesas em
+        on m.IdEstadoMesas = em.IdEstadoMesas
+        inner join platos p
+        on deo.IdPlato = p.IdPlato
+        inner join categoria_platos cp
+        on p.IdCategoriaPlatos = cp.IdCategoriaPlatos
+        inner join reservaciones r
+        on der.IdReservacion = r.IdReservacion
+        inner join clientes c
+        on r.IdCliente = c.IdCliente
+        where der.IdReservacion=' . $IdReservacion . ' ');
+        //where deo.IdOrdens=' .$request->IdOrdens.' ');
+
+        $clientes = DB::select('select c.IdCliente, c.NombresCliente, c.ApellidosCliente from clientes c
+        inner join reservaciones r
+        on c.IdCliente = r.IdCliente
+        where r.IdReservacion = ' . $IdReservacion);
+        $reservacione = reservacione::all();
+        $reservacione = reservacione::find($IdReservacion);
+
+        return view('reservaciones.detalles', compact('detalle_r', 'clientes', 'reservacione'));
     }
 
     /**

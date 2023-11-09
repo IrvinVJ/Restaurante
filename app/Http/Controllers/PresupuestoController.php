@@ -11,9 +11,15 @@ use Ramsey\Uuid\Type\Integer;
 
 class PresupuestoController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    function __construct()
+    {
+        //$this->middleware('auth'); //ya no se le pone esta línea de código prque está en el archivo de rutas web.php
+
+        $this->middleware('permission:ver-presupuesto|crear-presupuesto|editar-presupuesto|borrar-presupuesto', ['only' => ['index']]);
+        $this->middleware('permission:crear-presupuesto', ['only' =>  'create', 'store']);
+        $this->middleware('permission:editar-presupuesto', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:borrar-presupuesto', ['only' => ['destroy']]);
+    }
     public function index()
     {
         $productos = Producto::all();

@@ -12,6 +12,8 @@
         <div class="section-header">
             <h3 class="page__heading">Presupuesto</h3>
         </div>
+        @can('ver-presupuesto')
+
 
         <table class="table table-striped mt-2" id="tblPresupuesto">
             <thead style="background-color:#6777ef">
@@ -39,7 +41,7 @@
                 @endforeach
             </tbody>
         </table>
-
+        @endcan
     </section>
 
 

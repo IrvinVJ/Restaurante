@@ -7,9 +7,16 @@ use Illuminate\Http\Request;
 
 class ClienteController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    function __construct()
+    {
+        //$this->middleware('auth'); //ya no se le pone esta línea de código prque está en el archivo de rutas web.php
+
+        $this->middleware('permission:ver-cliente|crear-cliente|editar-cliente|borrar-cliente', ['only' => ['index']]);
+        $this->middleware('permission:crear-cliente', ['only' =>  'create', 'store']);
+        $this->middleware('permission:editar-cliente', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:borrar-cliente', ['only' => ['destroy']]);
+    }
+
     public function index()
     {
         $clientes = cliente::all();

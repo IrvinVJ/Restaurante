@@ -49,7 +49,13 @@
                                     @foreach ($mesas as $item)
                                         <tr>
                                             <td>{{ $item->IdMesa }}</td>
-                                            <td>{{ $item->DescripcionEstadoMesas }}</td>
+                                            @if ($item->IdEstadoMesas == 1)
+                                            <td><h5><span class="badge badge-success"> {{ $item->DescripcionEstadoMesas }} </span></h5></td>
+                                            @endif
+                                            @if ($item->IdEstadoMesas == 2 || $item->IdEstadoMesas == 3)
+                                            <td><h5><span class="badge badge-warning"> {{ $item->DescripcionEstadoMesas }} </span></h5></td>
+                                            @endif
+
 
                                             <td>
                                                 <form action="{{ route('mesas.edit',$item->IdMesa) }}" method="GET">

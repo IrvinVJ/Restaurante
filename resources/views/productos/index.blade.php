@@ -36,6 +36,7 @@
                                     <th style="color:#fff;">Producto</th>
                                     <th style="color:#fff;">Stock</th>
                                     <th style="color:#fff;">Unidad de Medida</th>
+                                    <th style="color:#fff;">Precio (S/.)</th>
                                     <th style="color:#fff;">Acciones</th>
                                 </thead>
 
@@ -46,6 +47,7 @@
                                             <td>{{ $item->NombreProducto }}</td>
                                             <td>{{ $item->Stock }}</td>
                                             <td>{{ $item->DescripcionUM }}</td>
+                                            <td>{{ $item->PrecioProducto }}</td>
 
                                             <td>
                                                 <form action="{{ route('productos.edit',$item->IdProducto) }}" method="GET">

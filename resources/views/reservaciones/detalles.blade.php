@@ -13,10 +13,17 @@
         <label for=""><b>N° de Reservación:</b></label>
                 <label for="">{{$reservacione->IdReservacion}}</label>
                 <br>
-                <label for=""><b>Cliente:</b></label>
+        <label for=""><b>Cliente:</b></label>
                 @foreach ($clientes as $item)
                 <label for="">{{$item->NombresCliente.' '.$item->ApellidosCliente}}</label>
                 @endforeach
+                <br>
+        <label for=""><b>N° de Mesa:</b></label>
+                @foreach ($detalle_r as $item)
+                <label for="">{{$item->IdMesa}}</label>
+                @break
+                @endforeach
+
         <div class="section-body">
             <div class="row">
                 <div class="col-lg-12">

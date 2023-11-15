@@ -22,7 +22,7 @@ class ProductoController extends Controller
     {
         //$productos = Producto::all();
         $um = UnidadMedida::all();
-        $productos = DB::select('select p.IdProducto, p.NombreProducto, p.Stock, p.IdUnidadMedida, u.IdUnidadMedida, u.DescripcionUM from productos p
+        $productos = DB::select('select p.IdProducto, p.NombreProducto, p.Stock, p.IdUnidadMedida, p.PrecioProducto, u.IdUnidadMedida, u.DescripcionUM from productos p
         inner join unidad_medidas u
         on p.IdUnidadMedida=u.IdUnidadMedida');
         return view('productos.index', compact('productos', 'um'));

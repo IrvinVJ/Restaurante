@@ -8,6 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class presupuesto extends Model
 {
     protected $primaryKey='IdPresupuesto';
-    protected $fillable =['IdPresupuesto', 'IdPlato', 'IdProducto', 'Cantidad','CostoUnitario'];
+    protected $fillable =['IdPresupuesto', 'IdPlato', 'IdProducto', 'Cantidad','CostoTotal'];
     use HasFactory;
 }

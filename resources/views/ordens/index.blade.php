@@ -36,45 +36,51 @@
                                 <tbody>
                                     @foreach ($ordens as $item)
                                         <tr>
-                                            <td style="display: none;">{{ $item->IdOrdens }}</td>
-                                            <td>{{ $item->IdMesa }}</td>
-                                            @if ($item->IdEstadoOrdens == 1)
-                                                <td>
-                                                    <h5><span class="badge badge-warning">En Proceso</span></h5>
-                                                </td>
-                                            @endif
-                                            @if ($item->IdEstadoOrdens == 2)
-                                                <td>
-                                                    <h5><span class="badge badge-success">Atendida</span></h5>
-                                                </td>
-                                            @endif
-                                            @if ($item->IdEstadoOrdens == 3)
-                                                <td>
-                                                    <h5><span class="badge badge-danger">Anulada</span></h5>
-                                                </td>
-                                            @endif
+                                            @if ($item->IdMesa == 2)
+                                                <td style="display: none;">{{ $item->IdOrdens }}</td>
 
-                                            <td>{{ $item->created_at }}</td>
+                                                <td>{{ $item->IdMesa }}</td>
+                                                @if ($item->IdEstadoOrdens == 1)
+                                                    <td>
+                                                        <h5><span class="badge badge-warning">En Proceso</span></h5>
+                                                    </td>
+                                                @endif
+                                                @if ($item->IdEstadoOrdens == 2)
+                                                    <td>
+                                                        <h5><span class="badge badge-success">Atendida</span></h5>
+                                                    </td>
+                                                @endif
+                                                @if ($item->IdEstadoOrdens == 3)
+                                                    <td>
+                                                        <h5><span class="badge badge-danger">Anulada</span></h5>
+                                                    </td>
+                                                @endif
 
-                                            <td>
-                                                <form action="{{ route('ordens.show', $item->IdOrdens) }}" method="GET">
-                                                    <input type="submit" value="Detalles" class="btn btn-success">
-                                                    <!--<a class="btn btn-success">Ver Detalle</a>-->
-                                                </form>
-                                                <form action="{{ route('ordens.edit', $item->IdOrdens) }}" method="GET">
-                                                    @can('editar-orden')
-                                                        <a class="btn btn-info"
-                                                            href="{{ route('ordens.edit', $item->IdOrdens) }}">Editar</a>
-                                                    @endcan
-                                                </form>
-                                                <form action="{{ route('ordens.destroy', $item->IdOrdens) }}" method="POST">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    @can('borrar-orden')
-                                                        <button type="submit" class="btn btn-danger">Borrar</button>
-                                                    @endcan
-                                                </form>
-                                            </td>
+                                                <td>{{ $item->created_at }}</td>
+
+                                                <td>
+                                                    <form action="{{ route('ordens.show', $item->IdOrdens) }}"
+                                                        method="GET">
+                                                        <input type="submit" value="Detalles" class="btn btn-success">
+                                                        <!--<a class="btn btn-success">Ver Detalle</a>-->
+                                                    </form>
+                                                    <form action="{{ route('ordens.edit', $item->IdOrdens) }}"
+                                                        method="GET">
+                                                        @can('editar-orden')
+                                                            <a class="btn btn-info"
+                                                                href="{{ route('ordens.edit', $item->IdOrdens) }}">Editar</a>
+                                                        @endcan
+                                                    </form>
+                                                    <form action="{{ route('ordens.destroy', $item->IdOrdens) }}"
+                                                        method="POST">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        @can('borrar-orden')
+                                                            <button type="submit" class="btn btn-danger">Borrar</button>
+                                                        @endcan
+                                                    </form>
+                                                </td>
+                                            @endif
                                         </tr>
                                     @endforeach
                                 </tbody>
@@ -100,24 +106,24 @@
         console.log('Hi!');
     </script>
 
-<script>
-    $(document).ready(function() {
-      $('#tblOrdenes').DataTable({
-        responsive:true,
-        autoWidth:false,
-        "language": {
-        "lengthMenu": "Mostrar _MENU_ registros por página",
-        "zeroRecords": "Registro no encontrado",
-        "info": "Mostrando la página _PAGE_ de _PAGES_",
-        "infoEmpty": "No hay registros disponibles",
-        "infoFiltered": "(filtrado de _MAX_ registros totales)",
-        "search": "Buscar:",
-        "paginate":{
-          'next':'Siguiente',
-          'previous':'Anterior'
-        }
-        },
-      });
-    } );
-  </script>
+    <script>
+        $(document).ready(function() {
+            $('#tblOrdenes').DataTable({
+                responsive: true,
+                autoWidth: false,
+                "language": {
+                    "lengthMenu": "Mostrar _MENU_ registros por página",
+                    "zeroRecords": "Registro no encontrado",
+                    "info": "Mostrando la página _PAGE_ de _PAGES_",
+                    "infoEmpty": "No hay registros disponibles",
+                    "infoFiltered": "(filtrado de _MAX_ registros totales)",
+                    "search": "Buscar:",
+                    "paginate": {
+                        'next': 'Siguiente',
+                        'previous': 'Anterior'
+                    }
+                },
+            });
+        });
+    </script>
 @stop

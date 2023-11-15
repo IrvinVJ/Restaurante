@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Apilogin;
+use App\Http\Controllers\Apiproducto;
 use App\Http\Controllers\UsuarioController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -20,3 +21,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 Route::post('login', [Apilogin::class,'apilogin']);
+Route::get('producto', [Apiproducto::class, 'apiproducto']);

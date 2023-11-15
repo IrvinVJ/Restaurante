@@ -17,8 +17,8 @@ return new class extends Migration
             $table->foreign('IdPlato')->references('IdPlato')->on('platos');
             $table->unsignedBigInteger('IdProducto');
             $table->foreign('IdProducto')->references('IdProducto')->on('productos');
-            $table->integer('Cantidad');
-            $table->float('CostoUnitario');
+            $table->decimal('Cantidad', 10, 5);
+            $table->decimal('CostoTotal',10, 5);
             $table->timestamps();
         });
     }

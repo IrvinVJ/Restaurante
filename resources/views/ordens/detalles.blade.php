@@ -10,7 +10,11 @@
         <div class="section-header">
             <h3 class="page__heading">Detalle Orden</h3>
         </div>
-
+        <label for=""><b>N° de Mesa:</b></label>
+                @foreach ($detalle_o as $item)
+                <label for="">{{$item->IdMesa}}</label>
+                @break
+                @endforeach
         <div class="section-body">
             <div class="row">
                 <div class="col-lg-12">

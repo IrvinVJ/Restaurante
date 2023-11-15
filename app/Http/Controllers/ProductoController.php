@@ -50,6 +50,7 @@ class ProductoController extends Controller
         $producto = new Producto();
         $producto->NombreProducto=$request->NombreProducto;
         $producto->Stock=$request->Stock;
+        $producto->PrecioProducto=$request->PrecioProducto;
         $producto->IdUnidadMedida=$request->IdUnidadMedida;
         $producto->save();
         return redirect('productos')->with('datos', 'Registro guardado satisfactoriamente');

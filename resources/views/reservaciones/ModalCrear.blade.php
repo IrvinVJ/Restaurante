@@ -27,6 +27,10 @@
                         <input type="time" class="form-control" name="Hora" required>
                         </div>
                         <div class="form-group">
+                            <label for="">NroPersonas:</label>
+                        <input type="number" class="form-control" name="NroPersonas" placeholder="Escribe el N° de personas...">
+                        </div>
+                        <div class="form-group">
                             <button type="submit" class="btn btn-primary">Guardar</button>
                         </div>
                     </div>

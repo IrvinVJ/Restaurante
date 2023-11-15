@@ -31,7 +31,7 @@ class OrdenController extends Controller
         em.IdEstadoMesas, em.DescripcionEstadoMesas,
         p.IdPlato, p.NombrePlato, p.PrecioPlato, p.IdCategoriaPlatos,
         cp.IdCategoriaPlatos, cp.NombreCategoriaPlato,
-        deo.IdDetalleOrdens, deo.Cantidad, deo.IdOrdens, deo.IdPlato, deo.IdMesa
+        deo.IdDetalleOrdens, deo.Cantidad, deo.IdOrdens, deo.IdPlato, deo.IdMesa, deo.CostoTotal
         from detalle_ordens deo
         inner join ordens o
         on deo.IdOrdens = o.IdOrdens
@@ -90,6 +90,7 @@ class OrdenController extends Controller
                 $detalle->IdOrdens = $orden->IdOrdens;
                 $detalle->IdPlato = $prod[1];
                 $detalle->IdMesa = $prod[2];
+                $detalle -> CostoTotal = plato::find($prod[1])->PrecioPlato * $prod[0];
                 $detalle->save();
             }
             DB::commit();
@@ -111,7 +112,7 @@ class OrdenController extends Controller
         em.IdEstadoMesas, em.DescripcionEstadoMesas,
         p.IdPlato, p.NombrePlato, p.PrecioPlato, p.IdCategoriaPlatos,
         cp.IdCategoriaPlatos, cp.NombreCategoriaPlato,
-        deo.IdDetalleOrdens, deo.Cantidad, deo.IdOrdens, deo.IdPlato, deo.IdMesa
+        deo.IdDetalleOrdens, deo.Cantidad, deo.IdOrdens, deo.IdPlato, deo.IdMesa, deo.CostoTotal
         from detalle_ordens deo
         inner join ordens o
         on deo.IdOrdens = o.IdOrdens
@@ -126,7 +127,10 @@ class OrdenController extends Controller
         inner join categoria_platos cp
         on p.IdCategoriaPlatos = cp.IdCategoriaPlatos
         where deo.IdOrdens=' .$IdOrdens.' ');
-        return view('ordens.detalles', compact('detalle_o'));
+
+        $total = detalle_orden::where('IdOrdens', $IdOrdens)->sum('CostoTotal');
+
+        return view('ordens.detalles', compact('detalle_o', 'total'));
     }
 
     /**

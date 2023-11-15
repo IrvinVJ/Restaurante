@@ -21,7 +21,7 @@ class ReservacioneController extends Controller
      */
     public function index()
     {
-        $reservaciones = DB::select('select r.IdReservacion, r.IdCliente, r.Fecha, r.Hora,
+        $reservaciones = DB::select('select r.IdReservacion, r.IdCliente, r.Fecha, r.Hora, r.NroPersonas,
         c.IdCliente, c.Dni, c.NombresCliente, c.ApellidosCliente, c.NroTelefono
         from reservaciones r
         inner join clientes c
@@ -53,6 +53,7 @@ class ReservacioneController extends Controller
         $reservacione->IdCliente = $request->get('IdCliente');
         $reservacione->Fecha = $request->get('Fecha');
         $reservacione->Hora = $request->get('Hora');
+        $reservacione->NroPersonas = $request->get('NroPersonas');
         $reservacione->save();
         return redirect('reservaciones')->with('success', 'Reserva realizada satisfactoriamente');
     }
@@ -103,6 +104,7 @@ class ReservacioneController extends Controller
                 $detalle->IdOrdens = $orden->IdOrdens;
                 $detalle->IdPlato = $prod[1];
                 $detalle->IdMesa = $prod[2];
+                $detalle -> CostoTotal = plato::find($prod[1])->PrecioPlato * $prod[0];
                 $detalle->save();
                 //#############################################################
                 //Detalle_Reservacion
@@ -171,7 +173,7 @@ class ReservacioneController extends Controller
         cp.IdCategoriaPlatos, cp.NombreCategoriaPlato,
         deo.IdDetalleOrdens, deo.Cantidad, deo.IdOrdens, deo.IdPlato, deo.IdMesa,
         c.IdCliente, c.Dni, c.NombresCliente, c.ApellidosCliente, c.NroTelefono,
-        r.IdReservacion, r.IdCliente, r.Fecha, r.Hora,
+        r.IdReservacion, r.IdCliente, r.Fecha, r.Hora, r.NroPersonas,
         der.IdDetalleReservacion, der.IdReservacion, der.IdDetalleOrdens, der.IdCliente
         from detalle_reservaciones der
         inner join detalle_ordens deo
@@ -202,6 +204,11 @@ class ReservacioneController extends Controller
         $reservacione = reservacione::all();
         $reservacione = reservacione::find($IdReservacion);
 
+        /*$d_orden = detalle_orden::all();
+        dd($d_orden);
+        $total = detalle_reservacione::where('IdReservacion', $IdReservacion)->and('IdDetalleOrdens', $d_orden->IdOrdens)->sum('CostoTotal');
+        dd($total);*/
+
         return view('reservaciones.detalles', compact('detalle_r', 'clientes', 'reservacione'));
     }
 
@@ -229,6 +236,7 @@ class ReservacioneController extends Controller
         $reservacione->IdCliente = $request->IdCliente;
         $reservacione->Fecha = $request->Fecha;
         $reservacione->Hora = $request->Hora;
+        $reservacione->NroPersonas = $request->NroPersonas;
         $reservacione->save();
         return redirect('reservaciones')->with('success', 'Reservación actualizada correctamente');
     }

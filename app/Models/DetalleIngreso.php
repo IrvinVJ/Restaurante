@@ -8,6 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class DetalleIngreso extends Model
 {
     protected $primaryKey='IdDetalleIngreso';
-    protected $fillable =['IdDetalleIngreso', 'IdIngreso', 'IdProducto', 'Cantidad','CostoUnitario'];
+    protected $fillable =['IdDetalleIngreso', 'IdIngreso', 'IdProducto', 'Cantidad','CostoUnitario', 'CostoTotal'];
     use HasFactory;
 }

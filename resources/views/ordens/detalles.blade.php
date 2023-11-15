@@ -27,6 +27,7 @@
                                     <th style="color:#fff;">PLATO</th>
                                     <th style="color:#fff;">CANTIDAD</th>
                                     <th style="color:#fff;">COSTO UNITARIO</th>
+                                    <th style="color:#fff;">SUB TOTALES</th>
                                 </thead>
 
                                 <tbody>
@@ -39,20 +40,21 @@
                                                 <td>{{ $item->NombrePlato }}</td>
                                                 <td>{{ $item->Cantidad }}</td>
                                                 <td>{{ $item->PrecioPlato }}</td>
+                                                <td align="right">{{ round($item->CostoTotal,2) }}</td>
                                             </tr>
                                         @endforeach
 
 
                                 </tbody>
-                                <!--<tfoot>
+                                <tfoot>
 
                                     <tr>
-                                        <th><p align="right">TOTAL PAGAR:</p></th>
+                                        <th colspan="3"><p align="right">TOTAL PAGAR:</p></th>
 
-                                        <th><p align="right"><span align="right" id="total_pagar_html">S/. </span> </p></th>
+                                        <th colspan="3"><p align="right"><span align="right" id="total_pagar_html">S/. {{round($total,2)}}</span> </p></th>
                                     </tr>
 
-                                </tfoot>-->
+                                </tfoot>
                             </table>
                         </div>
                     </div>

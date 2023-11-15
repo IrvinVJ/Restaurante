@@ -26,7 +26,7 @@
                         </div>
                         <div class="form-group">
                             <label for="">Costo Unitario:</label><br>
-                            <input type="number" class="form-control" id="costo_unitario" name="CostoUnitario" placeholder="Escribe el costo unitario...">
+                            <input type="number" class="form-control" id="costo_unitario" name="CostoUnitario" placeholder="Escribe el costo unitario..." >
                         </div>
                         <div class="form-group">
                             <button type="button" class="btn btn-success" id="agregar">+ Agregar Detalle</button>

@@ -20,6 +20,7 @@ return new class extends Migration
             $table->foreign('IdPlato')->references('IdPlato')->on('platos');
             $table->unsignedBigInteger('IdMesa');
             $table->foreign('IdMesa')->references('IdMesa')->on('ordens');
+            $table->decimal('CostoTotal',10, 5);
             $table->timestamps();
         });
     }

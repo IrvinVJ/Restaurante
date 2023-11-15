@@ -27,7 +27,7 @@ class IngresoController extends Controller
     {
         $detalle_ingresos = DB::select('select p.IdProducto, p.NombreProducto, p.Stock, p.IdUnidadMedida, u.IdUnidadMedida, u.DescripcionUM,
         i.IdIngreso, i.created_at,
-        di.IdDetalleIngreso, di.IdIngreso, di.IdProducto, di.Cantidad, di.CostoUnitario
+        di.IdDetalleIngreso, di.IdIngreso, di.IdProducto, di.Cantidad, di.CostoUnitario, di.CostoTotal
         from detalle_ingresos di
         inner join productos p
         on di.IdProducto = p.IdProducto
@@ -84,8 +84,8 @@ class IngresoController extends Controller
                 $product->save();
                 //Continuamos guardando los demás datos en la tabla Detalle_Ingresos
                 $detalle->CostoUnitario = $prod[2];
-                // El cálculo de costo total lo haremos en un script de la vista
-                //$detalle -> CostoTotal = $prod[3];
+                // El cálculo de costo total
+                $detalle -> CostoTotal = Producto::find($prod[0])->PrecioProducto * $prod[1];
                 $detalle->save();
             }
             DB::commit();
@@ -103,7 +103,7 @@ class IngresoController extends Controller
     {
         $detalle_i = DB::select('select p.IdProducto, p.NombreProducto, p.Stock, p.IdUnidadMedida, u.IdUnidadMedida, u.DescripcionUM,
         i.IdIngreso, i.created_at,
-        di.IdDetalleIngreso, di.IdIngreso, di.IdProducto, di.Cantidad, di.CostoUnitario
+        di.IdDetalleIngreso, di.IdIngreso, di.IdProducto, di.Cantidad, di.CostoUnitario, di.CostoTotal
         from detalle_ingresos di
         inner join productos p
         on di.IdProducto = p.IdProducto
@@ -112,12 +112,10 @@ class IngresoController extends Controller
         inner join ingresos i
         on di.idIngreso=i.IdIngreso
         where di.IdIngreso = '.$IdIngreso.' ');
-        //$CostoTotal = array();
-        //$CostoTotal = DB::select('select sum(CostoUnitario) as CostoTotal from detalle_ingresos
-        //where IdIngreso = '.$IdIngreso.' ');
-        //$tamaño = count($CostoTotal);
-        //dd($tamaño);
-        return view('ingresos.detalles', compact('detalle_i'));
+
+        $total = DetalleIngreso::where('IdIngreso', $IdIngreso)->sum('CostoTotal');
+
+        return view('ingresos.detalles', compact('detalle_i', 'total'));
     }
 
     /**

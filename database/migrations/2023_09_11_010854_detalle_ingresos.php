@@ -19,7 +19,7 @@ return new class extends Migration
             $table->foreign('IdProducto')->references('IdProducto')->on('productos');
             $table->integer('Cantidad');
             $table->float('CostoUnitario');
-            //$table->float('CostoTotal');
+            $table->decimal('CostoTotal',10, 5);
             $table->timestamps();
         });
     }

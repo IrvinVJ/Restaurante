@@ -17,6 +17,7 @@ return new class extends Migration
             $table->foreign('IdCliente')->references('IdCliente')->on('clientes');
             $table->date('Fecha');
             $table->time('Hora');
+            $table->integer('NroPersonas');
             $table->timestamps();
         });
     }

@@ -8,6 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class detalle_orden extends Model
 {
     protected $primaryKey='IdDetalleOrdens';
-    protected $fillable =['IdDetalleOrdens', 'Cantidad', 'IdOrdens', 'IdPlato', 'IdMesa'];
+    protected $fillable =['IdDetalleOrdens', 'Cantidad', 'IdOrdens', 'IdPlato', 'IdMesa', 'CostoTotal'];
     use HasFactory;
 }

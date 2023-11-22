@@ -7,6 +7,7 @@ use App\Models\estado_orden;
 use App\Models\mesa;
 use App\Models\orden;
 use App\Models\plato;
+use App\Models\Venta;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -71,11 +72,30 @@ class OrdenController extends Controller
             DB::beginTransaction();
             //Insertando en la tabla ordens
             $orden = new orden();
-            $orden -> IdMesa = $request -> IdMesa;
-            $orden -> IdEstadoOrdens = $request -> IdEstadoOrdens;
+            $orden->IdMesa = $request->IdMesa;
+            $orden->IdEstadoOrdens = $request->IdEstadoOrdens;
             $orden->save();
+            //Insertando en la tabla ventas
+            $venta = new Venta();
+            $venta->IdEstadoVentas = 1;
+            $venta->IdOrdens = $orden->IdOrdens;
+            $venta->IdTipoDocumento = 1;
+            $serie = '';
+            $correlativo = '';
+            if ($venta->IdTipoDocumento == 1) {
+                $serie = "B001";
+            } elseif ($venta->IdTipoDocumento == 2) {
+                $serie = "F001";
+            } elseif ($venta->IdTipoDocumento == 3) {
+                $serie = "P001";
+            }
+            $venta->Serie = $serie;
+            $numero = DB::table('ventas as v')->where('v.Serie',$serie)->count();
+            $venta->Correlativo = $this->IndiceNumeroDocumentoVenta($numero+1);
+            //dd($venta);
+            $venta->save();
             //Actualizando estado de la mesa en la tabla mesas
-            $mesa = DB::update('update mesas set IdEstadoMesas = 2 where IdMesa ='.$request->IdMesa.' ');
+            $mesa = DB::update('update mesas set IdEstadoMesas = 2 where IdMesa =' . $request->IdMesa . ' ');
             // Aqui comienza la instrucción para ingresar a platos
             $array = array();
             $array = $request->plato;
@@ -90,7 +110,7 @@ class OrdenController extends Controller
                 $detalle->IdOrdens = $orden->IdOrdens;
                 $detalle->IdPlato = $prod[1];
                 $detalle->IdMesa = $prod[2];
-                $detalle -> CostoTotal = plato::find($prod[1])->PrecioPlato * $prod[0];
+                $detalle->CostoTotal = plato::find($prod[1])->PrecioPlato * $prod[0];
                 $detalle->save();
             }
             DB::commit();
@@ -100,6 +120,55 @@ class OrdenController extends Controller
         }
         return redirect('ordens');
     }
+
+
+    function IndiceNumeroDocumentoVenta($Num)
+
+    {
+
+        $newNum = '';
+
+        if (($Num / 10000000) > 1) {
+
+            return '' . $Num;
+        } elseif (($Num / 1000000) > 1) {
+
+            $newNum = '0' . $Num;
+
+            return $newNum;
+        } elseif (($Num / 100000) > 1) {
+
+            $newNum = '00' . $Num;
+
+            return $newNum;
+        } elseif (($Num / 10000) > 1) {
+
+            $newNum = '000' . $Num;
+
+            return $newNum;
+        } elseif (($Num / 1000) > 1) {
+
+            $newNum = '0000' . $Num;
+
+            return $newNum;
+        } elseif (($Num / 100) > 1) {
+
+            $newNum = '00000' . $Num;
+
+            return $newNum;
+        } elseif (($Num / 10) > 1) {
+
+            $newNum = '000000' . $Num;
+
+            return $newNum;
+        } else {
+
+            $newNum = '0000000' . $Num;
+
+            return $newNum;
+        }
+    }
+
 
     /**
      * Display the specified resource.
@@ -126,7 +195,7 @@ class OrdenController extends Controller
         on deo.IdPlato = p.IdPlato
         inner join categoria_platos cp
         on p.IdCategoriaPlatos = cp.IdCategoriaPlatos
-        where deo.IdOrdens=' .$IdOrdens.' ');
+        where deo.IdOrdens=' . $IdOrdens . ' ');
 
         $total = detalle_orden::where('IdOrdens', $IdOrdens)->sum('CostoTotal');
 
@@ -144,9 +213,9 @@ class OrdenController extends Controller
         $mesa = DB::select('select o.IdOrdens, o.IdMesa, m.IdMesa from ordens o
         inner join mesas m
         on o.IdMesa = m.IdMesa
-        where o.IdOrdens ='.$IdOrdens);
+        where o.IdOrdens =' . $IdOrdens);
         //dd($mesa);
-        return view('ordens.edit', compact('ordens','est_ordens', 'mesa'));
+        return view('ordens.edit', compact('ordens', 'est_ordens', 'mesa'));
     }
 
     /**
@@ -155,9 +224,9 @@ class OrdenController extends Controller
     public function update(Request $request, orden $orden)
     {
         //$orden -> IdMesa = $request->IdMesa;
-        $orden -> IdEstadoOrdens = $request->IdEstadoOrdens;
-        $orden -> save();
-        $mesa = DB::update('update mesas set IdEstadoMesas = 1 where IdMesa ='.$request->IdMesa.' ');
+        $orden->IdEstadoOrdens = $request->IdEstadoOrdens;
+        $orden->save();
+        $mesa = DB::update('update mesas set IdEstadoMesas = 1 where IdMesa =' . $request->IdMesa . ' ');
 
         return redirect('ordens');
     }

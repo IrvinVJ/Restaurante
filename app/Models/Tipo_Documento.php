@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Tipo_Documento extends Model
+class tipo_documento extends Model
 {
     protected $primaryKey='IdTipoDocumento';
     protected $fillable =['IdTipoDocumento', 'DescripcionTipoDocumento'];

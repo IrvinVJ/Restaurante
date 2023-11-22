@@ -12,31 +12,33 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('Estado_Ventas', function (Blueprint $table) {
+        Schema::create('estado_ventas', function (Blueprint $table) {
             $table->id('IdEstadoVentas');
             $table->string('DescripcionEstadoVentas');
             $table->timestamps();
         });
-        DB::table('Estado_Ventas')->insert(['DescripcionEstadoVentas'=>'Pendiente']);
-        DB::table('Estado_Ventas')->insert(['DescripcionEstadoVentas'=>'Realizada']);
+        DB::table('estado_ventas')->insert(['DescripcionEstadoVentas'=>'Pendiente']);
+        DB::table('estado_ventas')->insert(['DescripcionEstadoVentas'=>'Realizada']);
 
-        Schema::create('Tipo_Documentos', function (Blueprint $table) {
+        Schema::create('tipo_documentos', function (Blueprint $table) {
             $table->id('IdTipoDocumento');
             $table->string('DescripcionTipoDocumento');
             $table->timestamps();
         });
-        DB::table('Tipo_Documentos')->insert(['DescripcionTipoDocumento'=>'Boleta']);
-        DB::table('Tipo_Documentos')->insert(['DescripcionTipoDocumento'=>'Factura']);
-        DB::table('Tipo_Documentos')->insert(['DescripcionTipoDocumento'=>'Recibo']);
+        DB::table('tipo_documentos')->insert(['DescripcionTipoDocumento'=>'Boleta']);
+        DB::table('tipo_documentos')->insert(['DescripcionTipoDocumento'=>'Factura']);
+        DB::table('tipo_documentos')->insert(['DescripcionTipoDocumento'=>'Recibo']);
 
         Schema::create('Ventas', function (Blueprint $table) {
             $table->id('IdVenta');
+            $table->string('Serie');
+            $table->string('Correlativo');
             $table->unsignedBigInteger('IdEstadoVentas');
-            $table->foreign('IdEstadoVentas')->references('IdEstadoVentas')->on('Estado_Ventas');
-            $table->unsignedBigInteger('IdDetalleOrdens');
-            $table->foreign('IdDetalleOrdens')->references('IdDetalleOrdens')->on('detalle_ordens');
+            $table->foreign('IdEstadoVentas')->references('IdEstadoVentas')->on('estado_ventas');
+            $table->unsignedBigInteger('IdOrdens');
+            $table->foreign('IdOrdens')->references('IdOrdens')->on('ordens');
             $table->unsignedBigInteger('IdTipoDocumento');
-            $table->foreign('IdTipoDocumento')->references('IdTipoDocumento')->on('Tipo_Documentos');
+            $table->foreign('IdTipoDocumento')->references('IdTipoDocumento')->on('tipo_documentos');
             $table->timestamps();
         });
 
@@ -54,8 +56,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::drop('Estado_Ventas');
-        Schema::drop('Tipo_Documentos');
+        Schema::drop('estado_ventas');
+        Schema::drop('tipo_documentos');
         Schema::drop('Ventas');
     }
 };

@@ -451,7 +451,7 @@ return [
             'submenu' => [
                 [
                     'text' => 'Listar ventas',
-                    'url'  => '/listar-ventas',
+                    'url'  => '/ventas',
                     'icon'        => 'fas fa-fw fa-check',
                     'icon_color' => 'green',
                 ],

@@ -57,7 +57,7 @@
                                                         </td>
                                                     @endif
 
-                                                    <td>{{ $item->created_at }}</td>
+                                                    <td>{{ date("d-m-Y", strtotime($item->created_at)) }}</td>
 
                                                     <td>
                                                         <form action="{{ route('ordens.show', $item->IdOrdens) }}"

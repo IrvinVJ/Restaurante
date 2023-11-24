@@ -457,6 +457,19 @@ return [
                 ],
             ],
         ],
+        [
+            'text' => 'Gráficos',
+            'icon' => 'fa fa-chart-bar',
+            //'icon_color' => 'cyan',
+            'submenu' => [
+                [
+                    'text' => 'Gráficos',
+                    'url'  => '/graficos',
+                    'icon'        => 'fa fa-chart-bar',
+                    'icon_color' => 'green',
+                ],
+            ],
+        ],
 
         /*[
             'text'        => 'pages',

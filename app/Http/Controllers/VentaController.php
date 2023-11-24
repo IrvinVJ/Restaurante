@@ -71,7 +71,7 @@ class VentaController extends Controller
         ->join('detalle_ordens as deo', 'deo.IdOrdens', '=', 'o.IdOrdens')
         ->join('detalle_reservaciones as der', 'deo.IdDetalleOrdens', '=', 'der.IdDetalleOrdens')
         ->join('clientes as c', 'c.IdCliente', '=', 'der.IdCliente')
-        ->select('c.Dni', DB::raw("concat('c.NombresCliente', 'c.ApellidosCliente') as NombreCompleto"), 'c.NroTelefono')
+        ->select('c.Dni', DB::raw('concat(c.NombresCliente, " ", c.ApellidosCliente) as NombreCompleto'), 'c.NroTelefono')
         ->where('v.IdVenta','=',$IdVenta)->first();
         if($cliente == null){
             $cliente = new cliente();
@@ -160,6 +160,16 @@ class VentaController extends Controller
     {
         $venta -> IdEstadoVentas = $request -> IdEstadoVentas;
         $venta -> IdTipoDocumento = $request -> IdTipoDocumento;
+        $serie = '';
+        $correlativo = '';
+        if($venta->IdTipoDocumento == 1){
+            $serie = "B001";
+        }elseif ($venta->IdTipoDocumento == 2) {
+            $serie = "F001";
+        }elseif ($venta->IdTipoDocumento == 3) {
+            $serie = "P001";
+        }
+        $venta->Serie = $serie;
         $venta -> save();
         return redirect('ventas')->with('success', 'Estado de Venta actualizado correctamente');
     }

@@ -10,6 +10,7 @@ use App\Models\mesa;
 use App\Models\orden;
 use App\Models\plato;
 use App\Models\reservacione;
+use App\Models\Venta;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -88,6 +89,25 @@ class ReservacioneController extends Controller
             $orden->IdMesa = $request->IdMesa;
             $orden->IdEstadoOrdens = $request->IdEstadoOrdens;
             $orden->save();
+            //Insertando en la tabla ventas
+            $venta = new Venta();
+            $venta->IdEstadoVentas = 1;
+            $venta->IdOrdens = $orden->IdOrdens;
+            $venta->IdTipoDocumento = 1;
+            $serie = '';
+            $correlativo = '';
+            if ($venta->IdTipoDocumento == 1) {
+                $serie = "B001";
+            } elseif ($venta->IdTipoDocumento == 2) {
+                $serie = "F001";
+            } elseif ($venta->IdTipoDocumento == 3) {
+                $serie = "P001";
+            }
+            $venta->Serie = $serie;
+            $numero = DB::table('ventas as v')->where('v.Serie',$serie)->count();
+            $venta->Correlativo = $this->IndiceNumeroDocumentoVenta($numero+1);
+            //dd($venta);
+            $venta->save();
             //Actualizando estado de la mesa en la tabla mesas
             $mesa = DB::update('update mesas set IdEstadoMesas = 3 where IdMesa =' . $request->IdMesa . ' ');
             // Aqui comienza la instrucción para ingresar a platos
@@ -160,6 +180,52 @@ class ReservacioneController extends Controller
         return redirect('reservaciones')->with('success', 'Pedido realizado satisfactoriamente');
     }
 
+    function IndiceNumeroDocumentoVenta($Num)
+
+    {
+
+        $newNum = '';
+
+        if (($Num / 10000000) > 1) {
+
+            return '' . $Num;
+        } elseif (($Num / 1000000) > 1) {
+
+            $newNum = '0' . $Num;
+
+            return $newNum;
+        } elseif (($Num / 100000) > 1) {
+
+            $newNum = '00' . $Num;
+
+            return $newNum;
+        } elseif (($Num / 10000) > 1) {
+
+            $newNum = '000' . $Num;
+
+            return $newNum;
+        } elseif (($Num / 1000) > 1) {
+
+            $newNum = '0000' . $Num;
+
+            return $newNum;
+        } elseif (($Num / 100) > 1) {
+
+            $newNum = '00000' . $Num;
+
+            return $newNum;
+        } elseif (($Num / 10) > 1) {
+
+            $newNum = '000000' . $Num;
+
+            return $newNum;
+        } else {
+
+            $newNum = '0000000' . $Num;
+
+            return $newNum;
+        }
+    }
     /**
      * Display the specified resource.
      */

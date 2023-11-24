@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ClienteController;
+use App\Http\Controllers\GraficoController;
 use App\Http\Controllers\IngresoController;
 use App\Http\Controllers\MesaController;
 use App\Http\Controllers\OrdenController;
@@ -42,6 +43,7 @@ Route::group(['middleware' => ['auth']], function(){
     Route::post('reservacion', [ReservacioneController::class,'storeorden'])->name ('reservacion.storeorden');
     Route::resource('mesas', MesaController::class);
     Route::resource('ventas', VentaController::class);
+    Route::resource('graficos', GraficoController::class);
 });
 
 

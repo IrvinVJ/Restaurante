@@ -144,7 +144,7 @@
         ?>
 
 
-                <br>Fecha de Emision:{{ $venta->created_at }}
+                <br>Fecha de Emision:{{ date("d-m-Y", strtotime($venta->created_at)) }}
                 <br>
                 <br>
                 GRACIAS POR SU COMPRA

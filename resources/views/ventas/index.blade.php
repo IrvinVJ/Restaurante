@@ -68,9 +68,14 @@
                                                     @endcan
                                                 </form>
 
+                                                @if ($item->IdEstadoVentas == 2)
+
+
                                                 <form action="{{ route('ventas.show',$item->IdVenta) }}" method="GET">
-                                                    <a class="btn btn-info" href="{{ route('ventas.show',$item->IdVenta) }}">Imprimir Ticket</a>
+                                                    <a class="btn btn-success" href="{{ route('ventas.show',$item->IdVenta) }}">Imprimir Ticket</a>
                                                 </form>
+
+                                                @endif
 
                                                 <form action="{{ route('ventas.destroy',$item->IdVenta) }}" method="POST">
                                                     @csrf

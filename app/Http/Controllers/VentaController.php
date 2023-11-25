@@ -3,9 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\cliente;
+use App\Models\detalle_orden;
 use App\Models\estado_venta;
+use App\Models\orden;
 use App\Models\tipo_documento;
 use App\Models\Venta;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -26,6 +29,40 @@ class VentaController extends Controller
         $ventas = Venta::all();
         return view('ventas.index', compact('ventas'));
     }
+
+
+    public function pdf(){
+        $detalle_o = DB::select('select o.IdOrdens, o.IdMesa, o.IdEstadoOrdens, o.created_at,
+        eo.IdEstadoOrdens, eo.DescripcionEstadoOrdens,
+        m.IdMesa, m.IdEstadoMesas,
+        em.IdEstadoMesas, em.DescripcionEstadoMesas,
+        p.IdPlato, p.NombrePlato, p.PrecioPlato, p.IdCategoriaPlatos,
+        cp.IdCategoriaPlatos, cp.NombreCategoriaPlato,
+        deo.IdDetalleOrdens, deo.Cantidad, deo.IdOrdens, deo.IdPlato, deo.IdMesa, deo.CostoTotal
+        from detalle_ordens deo
+        inner join ordens o
+        on deo.IdOrdens = o.IdOrdens
+        inner join estado_ordens eo
+        on o.IdEstadoOrdens=eo.IdEstadoOrdens
+        inner join mesas m
+        on o.IdMesa = m.IdMesa
+        inner join estado_mesas em
+        on m.IdEstadoMesas = em.IdEstadoMesas
+        inner join platos p
+        on deo.IdPlato = p.IdPlato
+        inner join categoria_platos cp
+        on p.IdCategoriaPlatos = cp.IdCategoriaPlatos
+        order by o.created_at');
+        $total = detalle_orden::sum('CostoTotal');
+        $ventas = orden::all();
+        $total_ventas = detalle_orden::selectRaw('IdOrdens, sum(CostoTotal) as total')->groupBy('IdOrdens')->get();
+
+        $pdf = Pdf::loadView('ventas.pdf', compact('detalle_o', 'total', 'total_ventas', 'ventas'));
+        return view('ventas.pdf', compact('detalle_o', 'total', 'total_ventas', 'ventas'));
+        //return $pdf->stream();
+    }
+
+
 
     /**
      * Show the form for creating a new resource.

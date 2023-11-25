@@ -6,6 +6,7 @@ use App\Models\DetalleIngreso;
 use App\Models\Ingreso;
 use App\Models\Producto;
 use App\Models\UnidadMedida;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Countable;
 use Exception;
 use Illuminate\Http\Request;
@@ -39,6 +40,32 @@ class IngresoController extends Controller
         $product = Producto::all();
         return view('ingresos.index', compact('detalle_ingresos', 'ingresos', 'product'));
     }
+
+
+    public function pdf(){
+        $detalle_i = DB::select('select p.IdProducto, p.NombreProducto, p.Stock, p.IdUnidadMedida, u.IdUnidadMedida, u.DescripcionUM,
+        i.IdIngreso, i.created_at,
+        di.IdDetalleIngreso, di.IdIngreso, di.IdProducto, di.Cantidad, di.CostoUnitario, di.CostoTotal
+        from detalle_ingresos di
+        inner join productos p
+        on di.IdProducto = p.IdProducto
+        inner join unidad_medidas u
+        on p.IdUnidadMedida=u.IdUnidadMedida
+        inner join ingresos i
+        on di.idIngreso=i.IdIngreso
+        order by i.created_at');
+        $ingresos = Ingreso::all();
+        $total = DetalleIngreso::sum('CostoTotal');
+
+        $total_ing = DetalleIngreso::selectRaw('IdIngreso, sum(CostoTotal) as total')->groupBy('IdIngreso')->get();
+
+
+        $pdf = Pdf::loadView('ingresos.pdf', compact('ingresos', 'detalle_i', 'total', 'total_ing'));
+        return view('ingresos.pdf', compact('ingresos', 'detalle_i', 'total', 'total_ing'));
+        return $pdf->stream();
+    }
+
+
 
     /**
      * Show the form for creating a new resource.

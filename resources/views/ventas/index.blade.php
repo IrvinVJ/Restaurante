@@ -24,6 +24,20 @@
                 <div class="col-lg-12">
                     <div class="card">
                         <div class="card-body">
+                            <div class="row">
+                                <div class="col-6">
+
+                                </div>
+                                <div class="col-6" align="right">
+                                    <form action="{{ route('ventas.pdf') }}" method="GET">
+                                        @can('ver-reporte')
+                                            <a class="btn btn-danger" href="{{ route('ventas.pdf') }}" target="_blank"><i class="fa fa-file-pdf"> PDF</i></a>
+                                        @endcan
+                                    </form>
+                                </div>
+
+                            </div>
+                            <br>
 
                             <table class="table table-striped mt-2" id="tblVentas">
                                 <thead style="background-color:#6777ef">

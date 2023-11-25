@@ -30,6 +30,9 @@ use Illuminate\Support\Facades\Route;
 });*/
 
 Route::group(['middleware' => ['auth']], function(){
+    Route::get('productos/pdf', [ProductoController::class, 'pdf'])->name('productos.pdf');
+    Route::get('ingresos/pdf', [IngresoController::class, 'pdf'])->name('ingresos.pdf');
+    Route::get('ventas/pdf', [VentaController::class, 'pdf'])->name('ventas.pdf');
     Route::resource('usuarios', UsuarioController::class);
     Route::resource('roles', RolController::class);
     Route::resource('productos', ProductoController::class);

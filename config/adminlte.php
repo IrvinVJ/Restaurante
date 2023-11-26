@@ -379,7 +379,7 @@ return [
                 [
                     'text' => 'Platos',
                     'url'  => '/platos',
-                    'icon' => 'fa fa-fw fa-check',
+                    'icon' => 'fas fa-utensils',
                     'icon_color' => 'orange',
                 ],
 

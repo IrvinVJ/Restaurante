@@ -8,6 +8,7 @@ use App\Models\mesa;
 use App\Models\orden;
 use App\Models\plato;
 use App\Models\Venta;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -54,6 +55,15 @@ class OrdenController extends Controller
         return view('ordens.index', compact('detalle_ordens', 'ordens', 'est_o', 'platos', 'mesas'));
     }
 
+
+    public function pdf(){
+
+        $orden_fecha = orden::selectRaw('date(created_at) as fechas, count(IdOrdens) as cantidad')->groupBy('fechas')->get();
+
+        $pdf = Pdf::loadView('ordens.pdf', compact('orden_fecha'));
+        return view('ordens.pdf', compact('orden_fecha'));
+        //return $pdf->stream();
+    }
     /**
      * Show the form for creating a new resource.
      */

@@ -22,3 +22,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 Route::post('login', [Apilogin::class,'apilogin']);
 Route::get('producto', [Apiproducto::class, 'apiproducto']);
+Route::get('ingreso', [Apiproducto::class, 'apiingresos']);
+Route::get('venta', [Apiproducto::class, 'apiventas']);
+Route::get('dashboard',[Apiproducto::class, 'apidashboard']);

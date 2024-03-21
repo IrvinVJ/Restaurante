@@ -30,9 +30,9 @@ return new class extends Migration
         DB::table('platos')->insert(['NombrePlato'=>'Malaya', 'PrecioPlato'=>'25', 'IdCategoriaPlatos'=>2]);
         DB::table('platos')->insert(['NombrePlato'=>'Parihuela', 'PrecioPlato'=>'30', 'IdCategoriaPlatos'=>2]);
         //Platos de Categoría Duos
-        DB::table('platos')->insert(['NombrePlato'=>'Duo Marino (ceviche + chicharron)', 'PrecioPlato'=>'25', 'IdCategoriaPlatos'=>3]);
+        DB::table('platos')->insert(['NombrePlato'=>'Duo Marino (ceviche + chicharron)', 'PrecioPlato'=>'30', 'IdCategoriaPlatos'=>3]);
         //Platos de Categoría Trios
-        DB::table('platos')->insert(['NombrePlato'=>'Trio Marino (ceviche + chicharron + arroz con marisco)', 'PrecioPlato'=>'30', 'IdCategoriaPlatos'=>4]);
+        DB::table('platos')->insert(['NombrePlato'=>'Trio Marino (ceviche + chicharron + arroz con marisco)', 'PrecioPlato'=>'40', 'IdCategoriaPlatos'=>4]);
         //Platos de Categoría Bebidas
         DB::table('platos')->insert(['NombrePlato'=>'Jugo de Maracuya', 'PrecioPlato'=>'10', 'IdCategoriaPlatos'=>5]);
         DB::table('platos')->insert(['NombrePlato'=>'Jugo de Naranja', 'PrecioPlato'=>'12', 'IdCategoriaPlatos'=>5]);

@@ -12,15 +12,35 @@
         <div class="section-header">
             <h3 class="page__heading">Órdenes</h3>
         </div>
+        <div class="row">
+            <div class="col-6">
 
+            </div>
+            <div class="col-6" align="right">
+                <form action="{{ route('ordens.pdf') }}" method="GET">
+                    @can('ver-reporte')
+                        <a class="btn btn-danger" href="{{ route('ordens.pdf') }}" target="_blank"><i
+                                class="fa fa-file-pdf"> PDF</i></a>
+                    @endcan
+                </form>
+            </div><br><br>
+        </div>
         <div class="section-body">
             <div class="row">
                 <div class="col-lg-6">
                     <div class="card">
                         <div class="card-body">
-                            @can('crear-orden')
-                                <button class="btn btn-warning" data-toggle="modal" data-target="#CrearOrden">Nuevo</button>
-                            @endcan
+
+                            <div class="row">
+                                <div class="col-6">
+                                    @can('crear-orden')
+                                        <button class="btn btn-warning" data-toggle="modal"
+                                            data-target="#CrearOrden">Nuevo</button>
+                                    @endcan
+                                </div>
+
+
+                            </div>
 
                             @include('ordens.ModalCrear')
 
@@ -57,7 +77,7 @@
                                                         </td>
                                                     @endif
 
-                                                    <td>{{ date("d-m-Y", strtotime($item->created_at)) }}</td>
+                                                    <td>{{ date('d-m-Y', strtotime($item->created_at)) }}</td>
 
                                                     <td>
                                                         <form action="{{ route('ordens.show', $item->IdOrdens) }}"
@@ -132,7 +152,7 @@
                                                         </td>
                                                     @endif
 
-                                                    <td>{{ $item->created_at }}</td>
+                                                    <td>{{ date('d-m-Y', strtotime($item->created_at)) }}</td>
 
                                                     <td>
                                                         <form action="{{ route('ordens.show', $item->IdOrdens) }}"

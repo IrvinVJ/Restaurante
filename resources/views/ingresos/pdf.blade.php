@@ -38,64 +38,54 @@
                 <tr>
                     <td style="display: none;">{{ $item->IdIngreso }}</td>
                     <td>{{ date('d-m-Y', strtotime($item->created_at)) }}</td>
-                        <td>{{ $item->NombreProducto }}</td>
-                        <td>{{ $item->Cantidad }}</td>
-                        <td>{{ $item->CostoUnitario }}</td>
-                        <td align="right">{{ round($item->CostoTotal, 2) }}</td>
+                    <td>{{ $item->NombreProducto }}</td>
+                    <td style="text-align: center;">{{ $item->Cantidad }}</td>
+                    <td style="text-align: right;">{{ $item->CostoUnitario }}</td>
+                    <td align="right">{{ round($item->CostoTotal, 2) }}</td>
                 </tr>
             @endforeach
         </tbody>
-        <tfoot >
+        <tfoot>
 
             <tr>
-                <th colspan="3"><p align="right">TOTAL:</p></th>
+                <th colspan="3">
+                    <p align="right">TOTAL:</p>
+                </th>
 
-                <th colspan="3"><p align="right"><span align="right" id="total_pagar_html">S/. {{round($total,2)}}</span> </p></th>
+                <th colspan="3">
+                    <p align="right"><span align="right" id="total_pagar_html">S/. {{ round($total, 2) }}</span> </p>
+                </th>
             </tr>
 
         </tfoot>
     </table>
     <br><br>
     <div class="row">
-    <h1 align="center"><b>GRÁFICO COMPRAS vs FECHAS</b></h1>
-    <canvas id="ChartGastos" width="800" height="200"></canvas>
+        <h1 align="center"><b>GRÁFICO COMPRAS vs FECHAS</b></h1>
+        <canvas id="ChartGastos" width="800" height="200"></canvas>
     </div>
     <script src="./impresora.js"></script>
 </body>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script>
-        var ctx = document.getElementById('ChartGastos').getContext('2d');
+<script>
+    var ctx = document.getElementById('ChartGastos').getContext('2d');
         var ChartGastos = new Chart(ctx, {
-            type: 'bar',
+            type: 'line', // tipo de gráfico 'line'
             data: {
                 labels: [
                     @foreach ($ingresos as $item)
-                        ['{{ date("d-m-Y", strtotime($item->created_at)) }}'],
+                        '{{ date('d-m-Y', strtotime($item->created_at)) }}',
                     @endforeach
                 ],
                 datasets: [{
-                    label: '# of Votes',
+                    label: 'S/.',
                     data: [
                         @foreach ($total_ing as $item)
-                                ['{{ $item->total }}'],
+                            '{{ $item->total }}',
                         @endforeach
                     ],
-                    backgroundColor: [
-                        'rgba(255, 99, 132, 0.2)',
-                        'rgba(54, 162, 235, 0.2)',
-                        'rgba(255, 206, 86, 0.2)',
-                        'rgba(75, 192, 192, 0.2)',
-                        'rgba(153, 102, 255, 0.2)',
-                        'rgba(255, 159, 64, 0.2)'
-                    ],
-                    borderColor: [
-                        'rgba(255, 99, 132, 1)',
-                        'rgba(54, 162, 235, 1)',
-                        'rgba(255, 206, 86, 1)',
-                        'rgba(75, 192, 192, 1)',
-                        'rgba(153, 102, 255, 1)',
-                        'rgba(255, 159, 64, 1)'
-                    ],
+                    borderColor: 'blue', // Color de la línea
+                    backgroundColor: 'rgba(255, 99, 132, 0.2)', // Color de fondo del área bajo la línea (opcional)
                     borderWidth: 1
                 }]
             },
@@ -107,7 +97,8 @@
                 }
             }
         });
-    </script>
+</script>
+
 </html>
 
 @section('css')

@@ -6,6 +6,7 @@ use App\Models\detalle_orden;
 use App\Models\DetalleIngreso;
 use App\Models\Ingreso;
 use App\Models\orden;
+use App\Models\plato;
 use App\Models\Producto;
 use Illuminate\Http\Request;
 
@@ -20,12 +21,13 @@ class GraficoController extends Controller
         $gastos = DetalleIngreso::all();
         $ingresos = Ingreso::all();
         $ventas = orden::all();
-        //dd($ingresos);
-        //$total = DetalleIngreso::where('IdIngreso', $ingresos->IdIngreso)->sum('CostoTotal');
+        $platos = plato::all();
         $total = DetalleIngreso::selectRaw('IdIngreso, sum(CostoTotal) as total')->groupBy('IdIngreso')->get();
         $total_ventas = detalle_orden::selectRaw('IdOrdens, sum(CostoTotal) as total')->groupBy('IdOrdens')->get();
-        //dd($total);
-        return view('graficos.gproductos', compact('productos', 'gastos', 'total', 'ingresos', 'total_ventas', 'ventas'));
+        $total_platos = detalle_orden::selectRaw('IdPlato, sum(Cantidad) as cant_platos_pedidos')->groupBy('IdPlato')->get();
+        $orden_fecha = orden::selectRaw('date(created_at) as fechas, count(IdOrdens) as cantidad')->groupBy('fechas')->get();
+        //dd($orden_fecha);
+        return view('graficos.gproductos', compact('productos', 'gastos', 'total', 'ingresos', 'total_ventas', 'ventas', 'platos', 'total_platos', 'orden_fecha'));
     }
 
     /**

@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\categoria_plato;
+use App\Models\detalle_orden;
 use App\Models\plato;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -29,6 +31,15 @@ class PlatoController extends Controller
         return view('platos.index', compact('platos', 'cat_plato'));
     }
 
+
+    public function pdf(){
+
+        $total_platos = detalle_orden::selectRaw('IdPlato, sum(Cantidad) as cant_platos_pedidos')->groupBy('IdPlato')->get();
+        $platos = plato::all();
+        $pdf = Pdf::loadView('platos.pdf', compact('total_platos', 'platos'));
+        return view('platos.pdf', compact('total_platos', 'platos'));
+        //return $pdf->stream();
+    }
     /**
      * Show the form for creating a new resource.
      */

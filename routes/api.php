@@ -25,3 +25,5 @@ Route::get('producto', [Apiproducto::class, 'apiproducto']);
 Route::get('ingreso', [Apiproducto::class, 'apiingresos']);
 Route::get('venta', [Apiproducto::class, 'apiventas']);
 Route::get('dashboard',[Apiproducto::class, 'apidashboard']);
+Route::get('demandaplatos',[Apiproducto::class, 'apidemandaplatos']);
+Route::get('atencionesdiarias',[Apiproducto::class, 'apiatencionesdiarias']);

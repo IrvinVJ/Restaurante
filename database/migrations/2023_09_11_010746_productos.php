@@ -24,7 +24,7 @@ return new class extends Migration
         Schema::create('productos', function (Blueprint $table) {
             $table->id('IdProducto');
             $table->string('NombreProducto');
-            $table->integer('Stock');
+            $table->float('Stock');
             $table->float('PrecioProducto');
             $table->unsignedBigInteger('IdUnidadMedida');
             $table->foreign('IdUnidadMedida')->references('IdUnidadMedida')->on('Unidad_Medidas');

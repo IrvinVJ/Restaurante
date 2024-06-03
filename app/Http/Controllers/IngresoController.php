@@ -160,7 +160,12 @@ class IngresoController extends Controller
      */
     public function update(Request $request, Ingreso $ingreso)
     {
-        //
+        request()->validate([
+            'created_at' => 'required'
+        ]);
+        $ingreso->created_at = $request->created_at;
+        $ingreso->save();
+        return redirect('ingresos')->with('success', 'Ingreso actualizado!!');
     }
 
     /**

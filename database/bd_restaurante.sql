@@ -725,14 +725,14 @@ CREATE TABLE `platos` (
 --
 
 INSERT INTO `platos` (`IdPlato`, `NombrePlato`, `PrecioPlato`, `IdCategoriaPlatos`, `created_at`, `updated_at`) VALUES
-(1, 'Ceviche Mixto', 25.00, 1, NULL, NULL),
-(2, 'Ceviche de Pota', 25.00, 1, NULL, NULL),
+(1, 'Ceviche Mixto', 30.00, 1, NULL, NULL),
+(2, 'Ceviche de Pota', 30.00, 1, NULL, NULL),
 (3, 'Sudado de Tramboyo', 30.00, 2, NULL, NULL),
 (4, 'Arroz con Mariscos', 25.00, 2, NULL, NULL),
-(5, 'Chicharron', 25.00, 2, NULL, NULL),
+(5, 'Chicharron', 30.00, 2, NULL, NULL),
 (6, 'Malaya', 25.00, 2, NULL, NULL),
 (7, 'Parihuela', 30.00, 2, NULL, NULL),
-(8, 'Duo Marino (ceviche + chicharron)', 30.00, 3, NULL, '2023-11-27 20:03:24'),
+(8, 'Duo Marino (ceviche + chicharron)', 35.00, 3, NULL, '2023-11-27 20:03:24'),
 (9, 'Trio Marino (ceviche + chicharron + arroz con marisco)', 40.00, 4, NULL, '2023-11-27 20:03:13'),
 (10, 'Jugo de Maracuya', 10.00, 5, NULL, NULL),
 (11, 'Jugo de Naranja', 12.00, 5, NULL, NULL),
@@ -868,7 +868,7 @@ INSERT INTO `presupuestos` (`IdPresupuesto`, `IdPlato`, `IdProducto`, `Cantidad`
 CREATE TABLE `productos` (
   `IdProducto` bigint(20) UNSIGNED NOT NULL,
   `NombreProducto` varchar(191) NOT NULL,
-  `Stock` int(11) NOT NULL,
+  `Stock` double(8,2) NOT NULL,
   `PrecioProducto` double(8,2) NOT NULL,
   `IdUnidadMedida` bigint(20) UNSIGNED NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,

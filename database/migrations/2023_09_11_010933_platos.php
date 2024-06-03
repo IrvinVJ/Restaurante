@@ -21,16 +21,16 @@ return new class extends Migration
             $table->timestamps();
         });
         //Platos de Categoría Ceviche
-        DB::table('platos')->insert(['NombrePlato'=>'Ceviche Mixto', 'PrecioPlato'=>'25', 'IdCategoriaPlatos'=>1]);
-        DB::table('platos')->insert(['NombrePlato'=>'Ceviche de Pota', 'PrecioPlato'=>'25', 'IdCategoriaPlatos'=>1]);
+        DB::table('platos')->insert(['NombrePlato'=>'Ceviche Mixto', 'PrecioPlato'=>'30', 'IdCategoriaPlatos'=>1]);
+        DB::table('platos')->insert(['NombrePlato'=>'Ceviche de Pota', 'PrecioPlato'=>'30', 'IdCategoriaPlatos'=>1]);
         //Platos de Categoría Fondos
         DB::table('platos')->insert(['NombrePlato'=>'Sudado de Tramboyo', 'PrecioPlato'=>'30', 'IdCategoriaPlatos'=>2]);
         DB::table('platos')->insert(['NombrePlato'=>'Arroz con Mariscos', 'PrecioPlato'=>'25', 'IdCategoriaPlatos'=>2]);
-        DB::table('platos')->insert(['NombrePlato'=>'Chicharron', 'PrecioPlato'=>'25', 'IdCategoriaPlatos'=>2]);
+        DB::table('platos')->insert(['NombrePlato'=>'Chicharron', 'PrecioPlato'=>'30', 'IdCategoriaPlatos'=>2]);
         DB::table('platos')->insert(['NombrePlato'=>'Malaya', 'PrecioPlato'=>'25', 'IdCategoriaPlatos'=>2]);
         DB::table('platos')->insert(['NombrePlato'=>'Parihuela', 'PrecioPlato'=>'30', 'IdCategoriaPlatos'=>2]);
         //Platos de Categoría Duos
-        DB::table('platos')->insert(['NombrePlato'=>'Duo Marino (ceviche + chicharron)', 'PrecioPlato'=>'30', 'IdCategoriaPlatos'=>3]);
+        DB::table('platos')->insert(['NombrePlato'=>'Duo Marino (ceviche + chicharron)', 'PrecioPlato'=>'35', 'IdCategoriaPlatos'=>3]);
         //Platos de Categoría Trios
         DB::table('platos')->insert(['NombrePlato'=>'Trio Marino (ceviche + chicharron + arroz con marisco)', 'PrecioPlato'=>'40', 'IdCategoriaPlatos'=>4]);
         //Platos de Categoría Bebidas

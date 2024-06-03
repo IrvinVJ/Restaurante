@@ -11,6 +11,13 @@
             <h3 class="page__heading">Detalle Ingreso</h3>
         </div>
 
+        <label for=""><b>Fecha de Ingreso:</b></label>
+                @foreach ($detalle_i as $item)
+                <label for="">{{ date('d-m-Y', strtotime($item->created_at)) }}</label>
+                @break
+                @endforeach
+        <br>
+
         <div class="section-body">
             <div class="row">
                 <div class="col-lg-12">

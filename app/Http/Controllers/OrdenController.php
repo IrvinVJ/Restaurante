@@ -7,6 +7,8 @@ use App\Models\estado_orden;
 use App\Models\mesa;
 use App\Models\orden;
 use App\Models\plato;
+use App\Models\presupuesto;
+use App\Models\Producto;
 use App\Models\Venta;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Exception;
@@ -236,6 +238,26 @@ class OrdenController extends Controller
         //$orden -> IdMesa = $request->IdMesa;
         $orden->IdEstadoOrdens = $request->IdEstadoOrdens;
         $orden->save();
+        $presupesto = presupuesto::all();
+        // Quiero que después de guardar el IdEstadoOrdens, verificar si es igual a 2, de ser así, actualizar el stock de productos
+        //Verificamos que el estado del pedido sea igual a atendido
+        if ($orden->IdEstadoOrdens == 2) {
+        // Actualiza el stock de los productos
+            $detalle = detalle_orden::where('IdOrdens', $orden->IdOrdens
+            )->get();
+            foreach ($detalle as $d) {
+                foreach ($presupesto as $p) {
+                    if ($d->IdPlato == $p->IdPlato) {
+                        $prodActual = Producto::findOrFail($p->IdProducto);
+                        $nuevoStock = $prodActual->Stock - ($d->Cantidad * $p->Cantidad);
+                        $prodActual->Stock = $nuevoStock;
+                        $prodActual->save();
+                    }
+                }
+
+            }
+        }
+        //El estado de la mesa cambia a libre
         $mesa = DB::update('update mesas set IdEstadoMesas = 1 where IdMesa =' . $request->IdMesa . ' ');
 
         return redirect('ordens');

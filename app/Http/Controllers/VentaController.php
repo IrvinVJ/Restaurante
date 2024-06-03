@@ -6,6 +6,8 @@ use App\Models\cliente;
 use App\Models\detalle_orden;
 use App\Models\estado_venta;
 use App\Models\orden;
+use App\Models\presupuesto;
+use App\Models\Producto;
 use App\Models\tipo_documento;
 use App\Models\Venta;
 use Barryvdh\DomPDF\Facade\Pdf;
@@ -195,7 +197,9 @@ class VentaController extends Controller
      */
     public function update(Request $request, Venta $venta)
     {
+
         $venta -> IdEstadoVentas = $request -> IdEstadoVentas;
+
         $venta -> IdTipoDocumento = $request -> IdTipoDocumento;
         $serie = '';
         $correlativo = '';
@@ -208,6 +212,7 @@ class VentaController extends Controller
         }
         $venta->Serie = $serie;
         $venta -> save();
+
         return redirect('ventas')->with('success', 'Estado de Venta actualizado correctamente');
     }
 
@@ -217,5 +222,23 @@ class VentaController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    public function actualizarStockDespuesDeVenta(Venta $venta)
+    {
+        $detalleOrdens = detalle_orden::all();
+        $presupuesto = presupuesto::all();
+        //$producto = Producto::all();
+        if ($venta->IdEstadoVentas === 2) {
+            // Actualiza el stock de los productos
+            foreach ($detalleOrdens as $do) {
+                if ($do->IdOrdens == $venta->IdOrdens && $do->IdPlato == $presupuesto->IdPlato) {
+                    $prodActual = Producto::findOrFail($presupuesto->IdProductos);
+                    $nuevoStock = $prodActual->Stock - ($do->Cantidad * $presupuesto->Cantidad);
+                    $prodActual->Cantidad = $nuevoStock;
+                    $prodActual->save();
+                }
+            }
+        }
     }
 }

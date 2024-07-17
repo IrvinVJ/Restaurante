@@ -21,10 +21,10 @@ class OrdenController extends Controller
     {
         //$this->middleware('auth'); //ya no se le pone esta línea de código prque está en el archivo de rutas web.php
 
-        $this->middleware('permission:ver-orden|crear-orden|editar-orden|borrar-orden', ['only' => ['index']]);
-        $this->middleware('permission:crear-orden', ['only' =>  'create', 'store']);
-        $this->middleware('permission:editar-orden', ['only' => ['edit', 'update']]);
-        $this->middleware('permission:borrar-orden', ['only' => ['destroy']]);
+        $this->middleware('permission:ver-pedido|crear-pedido|editar-pedido|borrar-pedido', ['only' => ['index']]);
+        $this->middleware('permission:crear-pedido', ['only' =>  'create', 'store']);
+        $this->middleware('permission:editar-pedido', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:borrar-pedido', ['only' => ['destroy']]);
     }
 
     public function index()
@@ -235,32 +235,39 @@ class OrdenController extends Controller
      */
     public function update(Request $request, orden $orden)
     {
-        //$orden -> IdMesa = $request->IdMesa;
-        $orden->IdEstadoOrdens = $request->IdEstadoOrdens;
-        $orden->save();
-        $presupesto = presupuesto::all();
-        // Quiero que después de guardar el IdEstadoOrdens, verificar si es igual a 2, de ser así, actualizar el stock de productos
-        //Verificamos que el estado del pedido sea igual a atendido
-        if ($orden->IdEstadoOrdens == 2) {
-        // Actualiza el stock de los productos
-            $detalle = detalle_orden::where('IdOrdens', $orden->IdOrdens
-            )->get();
-            foreach ($detalle as $d) {
-                foreach ($presupesto as $p) {
-                    if ($d->IdPlato == $p->IdPlato) {
-                        $prodActual = Producto::findOrFail($p->IdProducto);
-                        $nuevoStock = $prodActual->Stock - ($d->Cantidad * $p->Cantidad);
-                        $prodActual->Stock = $nuevoStock;
-                        $prodActual->save();
+        try{
+            DB::beginTransaction();
+            //$orden -> IdMesa = $request->IdMesa;
+            $orden->IdEstadoOrdens = $request->IdEstadoOrdens;
+            $orden->save();
+            $presupesto = presupuesto::all();
+            // Quiero que después de guardar el IdEstadoOrdens, verificar si es igual a 2, de ser así, actualizar el stock de productos
+            //Verificamos que el estado del pedido sea igual a atendido
+            if ($orden->IdEstadoOrdens == 2) {
+            // Actualiza el stock de los productos
+                $detalle = detalle_orden::where('IdOrdens', $orden->IdOrdens
+                )->get();
+                foreach ($detalle as $d) {
+                    foreach ($presupesto as $p) {
+                        if ($d->IdPlato == $p->IdPlato) {
+                            $prodActual = Producto::findOrFail($p->IdProducto);
+                            $nuevoStock = $prodActual->Stock - ($d->Cantidad * $p->Cantidad);
+                            $prodActual->Stock = $nuevoStock;
+                            $prodActual->save();
+                        }
                     }
+
                 }
-
             }
-        }
-        //El estado de la mesa cambia a libre
-        $mesa = DB::update('update mesas set IdEstadoMesas = 1 where IdMesa =' . $request->IdMesa . ' ');
+            //El estado de la mesa cambia a libre
+            $mesa = DB::update('update mesas set IdEstadoMesas = 1 where IdMesa =' . $request->IdMesa . ' ');
 
-        return redirect('ordens');
+            return redirect('ordens');
+            DB::commit();
+        }catch(\Exception $e){
+            DB::rollback();
+            return redirect('ordens')->with('error', 'Error al actualizar el estado de la orden' . $e->getMessage());
+            }
     }
 
     /**
@@ -268,7 +275,14 @@ class OrdenController extends Controller
      */
     public function destroy(orden $orden)
     {
-        $orden->delete();
-        return redirect('ordens');
+        try{
+            DB::beginTransaction();
+            $orden->delete();
+            return redirect('ordens');
+            DB::commit();
+        }catch(\Exception $e){
+            DB::rollback();
+            return redirect('ordens')->with('error', 'Error al eliminar la orden' . $e->getMessage());
+        }
     }
 }

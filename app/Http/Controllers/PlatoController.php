@@ -53,19 +53,27 @@ class PlatoController extends Controller
      */
     public function store(Request $request)
     {
-        request()->validate([
-            'NombrePlato' => 'required',
-            'PrecioPlato' => 'required',
-            'IdCategoriaPlatos' => 'required'
-        ]);
+        try{
+            DB::beginTransaction();
+            request()->validate([
+                'NombrePlato' => 'required',
+                'PrecioPlato' => 'required',
+                'IdCategoriaPlatos' => 'required'
+            ]);
 
-        $plato = new plato();
-        $plato->NombrePlato=$request->NombrePlato;
-        $plato->PrecioPlato=$request->PrecioPlato;
-        $plato->IdCategoriaPlatos=$request->IdCategoriaPlatos;
-        $plato->save();
+            $plato = new plato();
+            $plato->NombrePlato=$request->NombrePlato;
+            $plato->PrecioPlato=$request->PrecioPlato;
+            $plato->IdCategoriaPlatos=$request->IdCategoriaPlatos;
+            $plato->save();
 
-        return redirect('platos');
+            return redirect('platos');
+            DB::commit();
+            }catch(\Exception $e){
+                DB::rollBack();
+                return redirect('platos')->with('error', 'Error al guardar el plato');
+            }
+
     }
 
     /**
@@ -81,11 +89,19 @@ class PlatoController extends Controller
      */
     public function edit($IdPlato)
     {
-        $plato = plato::all();
-        $plato = plato::find($IdPlato);
-        $cat_plato = categoria_plato::all();
+        try{
+            DB::beginTransaction();
+            $plato = plato::all();
+            $plato = plato::find($IdPlato);
+            $cat_plato = categoria_plato::all();
 
-        return view('platos.edit', compact('plato', 'cat_plato'));
+            return view('platos.edit', compact('plato', 'cat_plato'));
+            DB::commit();
+        }catch(\Exception $e){
+            DB::rollBack();
+            return redirect('platos')->with('error', 'Error al editar el plato');
+            }
+
     }
 
     /**
@@ -93,18 +109,25 @@ class PlatoController extends Controller
      */
     public function update(Request $request, plato $plato)
     {
-        request()->validate([
-            'NombrePlato' => 'required',
-            'PrecioPlato' => 'required',
-            'IdCategoriaPlatos' => 'required'
-        ]);
+        try{
+            DB::beginTransaction();
+            request()->validate([
+                'NombrePlato' => 'required',
+                'PrecioPlato' => 'required',
+                'IdCategoriaPlatos' => 'required'
+            ]);
 
-        $plato->NombrePlato=$request->NombrePlato;
-        $plato->PrecioPlato=$request->PrecioPlato;
-        $plato->IdCategoriaPlatos=$request->IdCategoriaPlatos;
-        $plato->save();
+            $plato->NombrePlato=$request->NombrePlato;
+            $plato->PrecioPlato=$request->PrecioPlato;
+            $plato->IdCategoriaPlatos=$request->IdCategoriaPlatos;
+            $plato->save();
 
-        return redirect('platos');
+            return redirect('platos');
+            DB::commit();
+        }catch(\Exception $e){
+            DB::rollBack();
+            return redirect('platos')->with('error', 'Error al editar el plato');
+            }
     }
 
     /**
@@ -112,7 +135,14 @@ class PlatoController extends Controller
      */
     public function destroy(plato $plato)
     {
-        $plato->delete();
-        return redirect('platos');
+        try{
+            DB::beginTransaction();
+            $plato->delete();
+            return redirect('platos');
+            DB::commit();
+        }catch(\Exception $e){
+            DB::rollBack();
+            return redirect('platos')->with('error', 'Error al eliminar el plato');
+        }
     }
 }

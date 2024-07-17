@@ -35,9 +35,17 @@ class UsuarioController extends Controller
      */
     public function create()
     {
-        $usuarios = User::all();
-        $roles = Role::pluck('name', 'name')->all();
-        return view('usuarios.crear', compact('usuarios', 'roles'));
+        try{
+            DB::beginTransaction();
+            $usuarios = User::all();
+            $roles = Role::pluck('name', 'name')->all();
+            return view('usuarios.crear', compact('usuarios', 'roles'));
+            DB::commit();
+        }
+        catch(\Exception $e){
+            DB::rollBack();
+            return redirect()->route('usuarios.index')->with('error', $e->getMessage());
+        }
     }
 
     /**
@@ -45,25 +53,28 @@ class UsuarioController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request, [
-            'name' => 'required',
-            'email' => 'required|email|unique:users,email',
+        try{
+            DB::beginTransaction();
+            $this->validate($request, [
+                'name' => 'required',
+                'email' => 'required|email|unique:users,email',
 
-        ]);
+            ]);
 
-        $input = $request->all();
-        $input['password'] = Hash::make($input['password']);
+            $input = $request->all();
+            $input['password'] = Hash::make($input['password']);
 
-        $user = User::create($input);
-        $user->assignRole($request->input('roles'));
+            $user = User::create($input);
+            $user->assignRole($request->input('roles'));
 
-        //$usuarios = new User();
-        //$usuarios->name=$request->txtnombre;
-        // $usuarios->email= $request->txtemail;
-        // $usuarios->rol= $request->txtrol;
-        // $usuarios->password=$request->password;
-        //$usuarios->save();
-        return redirect('usuarios');
+
+            return redirect('usuarios');
+            DB::commit();
+        }
+        catch(\Exception $e){
+            DB::rollBack();
+            return redirect()->route('usuarios.index')->with('error', $e->getMessage());
+            }
     }
 
     /**
@@ -79,11 +90,20 @@ class UsuarioController extends Controller
      */
     public function edit($id)
     {
-        $user = User::find($id);
-        $roles = Role::pluck('name', 'name')->all();
-        $userRole = $user->roles->pluck('name', 'name')->all();
+        try{
+            DB::beginTransaction();
+            $user = User::find($id);
+            $roles = Role::pluck('name', 'name')->all();
+            $userRole = $user->roles->pluck('name', 'name')->all();
 
-        return view('usuarios.editar', compact('user', 'roles', 'userRole'));
+            return view('usuarios.editar', compact('user', 'roles', 'userRole'));
+            DB::commit();
+        }
+        catch(\Exception $e){
+            DB::rollBack();
+            return redirect()->route('usuarios.index')->with('error', $e->getMessage());
+        }
+
     }
 
     /**
@@ -91,27 +111,35 @@ class UsuarioController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $this->validate($request, [
-            'name' => 'required',
-            //'email' => 'required|email|unique:users,email'.$id,
-            //'password' => 'same:confimr-password',
-            //'roles' => 'required'
-        ]);
+        try{
+            DB::beginTransaction();
+            $this->validate($request, [
+                'name' => 'required',
+                //'email' => 'required|email|unique:users,email'.$id,
+                //'password' => 'same:confimr-password',
+                //'roles' => 'required'
+            ]);
 
-        $input = $request->all();
+            $input = $request->all();
 
-        if (!empty($input['password'])) {
-            $input['password'] = Hash::make($input['password']);
-        } else {
-            $input = Arr::except($input, array('password'));
-        }
+            if (!empty($input['password'])) {
+                $input['password'] = Hash::make($input['password']);
+            } else {
+                $input = Arr::except($input, array('password'));
+            }
 
-        $user = User::find($id);
-        $user->update($input);
-        DB::table('model_has_roles')->where('model_id', $id)->delete();
+            $user = User::find($id);
+            $user->update($input);
+            DB::table('model_has_roles')->where('model_id', $id)->delete();
 
-        $user->assignRole($request->input('roles'));
-        return redirect('usuarios');
+            $user->assignRole($request->input('roles'));
+            return redirect('usuarios');
+            DB::commit();
+            }
+            catch(\Exception $e){
+                DB::rollBack();
+                return redirect()->route('usuarios.index')->with('error', $e->getMessage());
+            }
     }
 
     /**
@@ -119,8 +147,16 @@ class UsuarioController extends Controller
      */
     public function destroy($id)
     {
-        User::find($id)->delete();
-        return redirect('usuarios');
+        try{
+            DB::beginTransaction();
+            User::find($id)->delete();
+            return redirect('usuarios');
+            DB::commit();
+        }
+        catch(\Exception $e){
+            DB::rollBack();
+            return redirect()->route('usuarios.index')->with('error', $e->getMessage());
+        }
     }
 
 }

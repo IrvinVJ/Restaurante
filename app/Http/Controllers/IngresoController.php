@@ -72,10 +72,17 @@ class IngresoController extends Controller
      */
     public function create()
     {
-        $ingreso = Ingreso::all();
-        $product = Producto::all();
-        $um = UnidadMedida::all();
-        return view('ingresos.create', compact('ingreso', 'producto', 'um'));
+        try{
+            DB::beginTransaction();
+            $ingreso = Ingreso::all();
+            $product = Producto::all();
+            $um = UnidadMedida::all();
+            return view('ingresos.create', compact('ingreso', 'producto', 'um'));
+            }catch(\Exception $e){
+                DB::rollBack();
+                return redirect()->back()->with('error', $e->getMessage());
+            }
+
     }
 
     /**
@@ -150,9 +157,17 @@ class IngresoController extends Controller
      */
     public function edit($IdIngreso)
     {
-        $ingresos = Ingreso::all();
-        $ingresos = Ingreso::find($IdIngreso);
-        return view('ingresos.edit', compact('ingresos'));
+        try{
+            DB::beginTransaction();
+            $ingresos = Ingreso::all();
+            $ingresos = Ingreso::find($IdIngreso);
+            return view('ingresos.edit', compact('ingresos'));
+            DB::commit();
+        }catch (Exception $e){
+            dd($e);
+            DB::rollBack();
+        }
+
     }
 
     /**
@@ -160,12 +175,19 @@ class IngresoController extends Controller
      */
     public function update(Request $request, Ingreso $ingreso)
     {
-        request()->validate([
-            'created_at' => 'required'
-        ]);
-        $ingreso->created_at = $request->created_at;
-        $ingreso->save();
-        return redirect('ingresos')->with('success', 'Ingreso actualizado!!');
+        try{
+            DB::beginTransaction();
+            request()->validate([
+                'created_at' => 'required'
+            ]);
+            $ingreso->created_at = $request->created_at;
+            $ingreso->save();
+            return redirect('ingresos')->with('success', 'Ingreso actualizado!!');
+            DB::commit();
+            }catch (Exception $e){
+                dd($e);
+                DB::rollBack();
+            }
     }
 
     /**
@@ -173,7 +195,15 @@ class IngresoController extends Controller
      */
     public function destroy(Ingreso $ingreso)
     {
-        $ingreso->delete();
-        return redirect('ingresos');
+        try{
+            DB::beginTransaction();
+            $ingreso->delete();
+            return redirect('ingresos');
+            DB::commit();
+            }catch (Exception $e){
+                dd($e);
+                DB::rollBack();
+            }
+
     }
 }

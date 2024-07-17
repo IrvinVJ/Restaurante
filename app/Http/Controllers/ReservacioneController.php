@@ -294,17 +294,24 @@ class ReservacioneController extends Controller
      */
     public function update(Request $request, reservacione $reservacione)
     {
-        request()->validate([
-            'IdCliente' => 'required',
-            'Fecha' => 'required',
-            'Hora' => 'required'
-        ]);
-        $reservacione->IdCliente = $request->IdCliente;
-        $reservacione->Fecha = $request->Fecha;
-        $reservacione->Hora = $request->Hora;
-        $reservacione->NroPersonas = $request->NroPersonas;
-        $reservacione->save();
-        return redirect('reservaciones')->with('success', 'Reservación actualizada correctamente');
+        try{
+            DB::beginTransaction();
+            request()->validate([
+                'IdCliente' => 'required',
+                'Fecha' => 'required',
+                'Hora' => 'required'
+            ]);
+            $reservacione->IdCliente = $request->IdCliente;
+            $reservacione->Fecha = $request->Fecha;
+            $reservacione->Hora = $request->Hora;
+            $reservacione->NroPersonas = $request->NroPersonas;
+            $reservacione->save();
+            return redirect('reservaciones')->with('success', 'Reservación actualizada correctamente');
+            DB::commit();
+            }catch(\Exception $e){
+                DB::rollBack();
+                return redirect('reservaciones')->with('error', 'Error al actualizar la reservación');
+            }
     }
 
     /**

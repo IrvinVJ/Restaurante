@@ -21,14 +21,21 @@ class MesaController extends Controller
 
     public function index()
     {
-        //$mesas = mesa::all();
-        $mesas = DB::select('select m.IdMesa, m.IdEstadoMesas,
-        em.IdEstadoMesas, em.DescripcionEstadoMesas
-        from mesas m
-        inner join estado_mesas em
-        on m.IdEstadoMesas = em.IdEstadoMesas');
-        $est_mesa = estado_mesa::all();
-        return view('mesas.index', compact('mesas', 'est_mesa'));
+        try{
+            DB::beginTransaction();
+            //$mesas = mesa::all();
+            $mesas = DB::select('select m.IdMesa, m.IdEstadoMesas,
+            em.IdEstadoMesas, em.DescripcionEstadoMesas
+            from mesas m
+            inner join estado_mesas em
+            on m.IdEstadoMesas = em.IdEstadoMesas');
+            $est_mesa = estado_mesa::all();
+            return view('mesas.index', compact('mesas', 'est_mesa'));
+            DB::commit();
+            }catch(\Exception $e){
+                DB::rollBack();
+                return redirect()->back()->with('error', $e->getMessage());
+            }
     }
 
     /**
@@ -44,11 +51,18 @@ class MesaController extends Controller
      */
     public function store(Request $request)
     {
-        request()->validate([
-            'IdEstadoMesas' => 'required',
-        ]);
-        mesa::create($request->all());
-        return redirect('mesas')->with('success', 'Nueva mesa creada!');
+        try{
+            DB::beginTransaction();
+            request()->validate([
+                'IdEstadoMesas' => 'required',
+            ]);
+            mesa::create($request->all());
+            return redirect('mesas')->with('success', 'Nueva mesa creada!');
+            DB::commit();
+        }catch(\Exception $e){
+            DB::rollBack();
+            return redirect()->back()->with('error', $e->getMessage());
+            }
     }
 
     /**
@@ -75,11 +89,18 @@ class MesaController extends Controller
      */
     public function update(Request $request, mesa $mesa)
     {
-        request()->validate([
-            'IdEstadoMesas' => 'required',
-        ]);
-        $mesa->update($request->all());
-        return redirect('mesas')->with('success', 'Mesa actualizada!');
+        try{
+            DB::beginTransaction();
+            request()->validate([
+                'IdEstadoMesas' => 'required',
+            ]);
+            $mesa->update($request->all());
+            return redirect('mesas')->with('success', 'Mesa actualizada!');
+            DB::commit();
+        }catch(\Exception $e){
+            DB::rollBack();
+            return redirect()->back()->with('error', $e->getMessage());
+            }
     }
 
     /**
@@ -87,7 +108,14 @@ class MesaController extends Controller
      */
     public function destroy(mesa $mesa)
     {
-        $mesa->delete();
-        return redirect('mesas')->with('warning', 'Mesa eliminada!');
+        try{
+            DB::beginTransaction();
+            $mesa->delete();
+            return redirect('mesas')->with('warning', 'Mesa eliminada!');
+            DB::commit();
+        }catch(\Exception $e){
+            DB::rollBack();
+            return redirect()->back()->with('error', $e->getMessage());
+        }
     }
 }

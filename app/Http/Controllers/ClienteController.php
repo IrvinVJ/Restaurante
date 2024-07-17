@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\cliente;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ClienteController extends Controller
 {
@@ -36,19 +37,27 @@ class ClienteController extends Controller
      */
     public function store(Request $request)
     {
-        request()->validate([
-            'Dni' => 'required',
-            'NombresCliente' => 'required',
-            'ApellidosCliente' => 'required',
-            'NroTelefono' => 'required'
-        ]);
-        $cliente = new cliente();
-        $cliente->Dni = $request->get('Dni');
-        $cliente->NombresCliente = $request->get('NombresCliente');
-        $cliente->ApellidosCliente = $request->get('ApellidosCliente');
-        $cliente->NroTelefono = $request->get('NroTelefono');
-        $cliente->save();
-        return redirect('clientes')->with('success', 'Cliente guardado!');
+        try{
+            DB::beginTransaction();
+            request()->validate([
+                'Dni' => 'required',
+                'NombresCliente' => 'required',
+                'ApellidosCliente' => 'required',
+                'NroTelefono' => 'required'
+            ]);
+            $cliente = new cliente();
+            $cliente->Dni = $request->get('Dni');
+            $cliente->NombresCliente = $request->get('NombresCliente');
+            $cliente->ApellidosCliente = $request->get('ApellidosCliente');
+            $cliente->NroTelefono = $request->get('NroTelefono');
+            $cliente->save();
+            return redirect('clientes')->with('success', 'Cliente guardado!');
+            DB::commit();
+            }catch(\Exception $e){
+                DB::rollBack();
+                return redirect('clientes')->with('error', 'Error al guardar el cliente!');
+            }
+
     }
 
     /**
@@ -74,19 +83,26 @@ class ClienteController extends Controller
      */
     public function update(Request $request, cliente $cliente)
     {
-        request()->validate([
-            'Dni' => 'required',
-            'NombresCliente' => 'required',
-            'ApellidosCliente' => 'required',
-            'NroTelefono' => 'required'
-        ]);
+        try{
+            DB::beginTransaction();
+            request()->validate([
+                'Dni' => 'required',
+                'NombresCliente' => 'required',
+                'ApellidosCliente' => 'required',
+                'NroTelefono' => 'required'
+            ]);
 
-        $cliente -> Dni = $request->get('Dni');
-        $cliente -> NombresCliente = $request->get('NombresCliente');
-        $cliente -> ApellidosCliente = $request->get('ApellidosCliente');
-        $cliente -> NroTelefono = $request->get('NroTelefono');
-        $cliente -> save();
-        return redirect('clientes')->with('success', 'Registro actualizado correctamente');
+            $cliente -> Dni = $request->get('Dni');
+            $cliente -> NombresCliente = $request->get('NombresCliente');
+            $cliente -> ApellidosCliente = $request->get('ApellidosCliente');
+            $cliente -> NroTelefono = $request->get('NroTelefono');
+            $cliente -> save();
+            return redirect('clientes')->with('success', 'Registro actualizado correctamente');
+            DB::commit();
+        }catch(\Exception $e){
+            DB::rollBack();
+            return redirect('clientes')->with('error', 'Error al actualizar el cliente!');
+        }
     }
 
     /**
@@ -94,7 +110,14 @@ class ClienteController extends Controller
      */
     public function destroy(cliente $cliente)
     {
-        $cliente->delete();
-        return redirect('clientes')->with('warning', 'Se elimino el registro con exito');
+        try{
+            DB::beginTransaction();
+            $cliente->delete();
+            return redirect('clientes')->with('warning', 'Se elimino el registro con exito');
+            DB::commit();
+            }catch(\Exception $e){
+                DB::rollBack();
+                return redirect('clientes')->with('error', 'Error al eliminar el registro!');
+            }
     }
 }

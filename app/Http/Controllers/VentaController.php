@@ -197,7 +197,8 @@ class VentaController extends Controller
      */
     public function update(Request $request, Venta $venta)
     {
-
+        try{
+            DB::beginTransaction();
         $venta -> IdEstadoVentas = $request -> IdEstadoVentas;
 
         $venta -> IdTipoDocumento = $request -> IdTipoDocumento;
@@ -214,6 +215,11 @@ class VentaController extends Controller
         $venta -> save();
 
         return redirect('ventas')->with('success', 'Estado de Venta actualizado correctamente');
+        DB::commit();
+        }catch(\Exception $e){
+            DB::rollback();
+            return redirect('ventas')->with('error', 'Error al actualizar el estado de Venta');
+        }
     }
 
     /**
@@ -226,19 +232,26 @@ class VentaController extends Controller
 
     public function actualizarStockDespuesDeVenta(Venta $venta)
     {
-        $detalleOrdens = detalle_orden::all();
-        $presupuesto = presupuesto::all();
-        //$producto = Producto::all();
-        if ($venta->IdEstadoVentas === 2) {
-            // Actualiza el stock de los productos
-            foreach ($detalleOrdens as $do) {
-                if ($do->IdOrdens == $venta->IdOrdens && $do->IdPlato == $presupuesto->IdPlato) {
-                    $prodActual = Producto::findOrFail($presupuesto->IdProductos);
-                    $nuevoStock = $prodActual->Stock - ($do->Cantidad * $presupuesto->Cantidad);
-                    $prodActual->Cantidad = $nuevoStock;
-                    $prodActual->save();
+        try{
+            DB::beginTransaction();
+            $detalleOrdens = detalle_orden::all();
+            $presupuesto = presupuesto::all();
+            //$producto = Producto::all();
+            if ($venta->IdEstadoVentas === 2) {
+                // Actualiza el stock de los productos
+                foreach ($detalleOrdens as $do) {
+                    if ($do->IdOrdens == $venta->IdOrdens && $do->IdPlato == $presupuesto->IdPlato) {
+                        $prodActual = Producto::findOrFail($presupuesto->IdProductos);
+                        $nuevoStock = $prodActual->Stock - ($do->Cantidad * $presupuesto->Cantidad);
+                        $prodActual->Cantidad = $nuevoStock;
+                        $prodActual->save();
+                    }
                 }
             }
+            DB::commit();
+        }catch(\Exception $e){
+            DB::rollback();
+            return redirect('ventas')->with('error', 'Error al actualizar el stock de los productos');
         }
     }
 }

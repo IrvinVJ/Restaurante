@@ -33,7 +33,7 @@
 
                             <div class="row">
                                 <div class="col-6">
-                                    @can('crear-orden')
+                                    @can('crear-pedido')
                                         <button class="btn btn-warning" data-toggle="modal"
                                             data-target="#CrearOrden">Nuevo</button>
                                     @endcan
@@ -87,7 +87,7 @@
                                                         </form>
                                                         <form action="{{ route('ordens.edit', $item->IdOrdens) }}"
                                                             method="GET">
-                                                            @can('editar-orden')
+                                                            @can('editar-pedido')
                                                                 <a class="btn btn-info"
                                                                     href="{{ route('ordens.edit', $item->IdOrdens) }}">Editar</a>
                                                             @endcan
@@ -96,7 +96,7 @@
                                                             method="POST">
                                                             @csrf
                                                             @method('DELETE')
-                                                            @can('borrar-orden')
+                                                            @can('borrar-pedido')
                                                                 <button type="submit" class="btn btn-danger">Borrar</button>
                                                             @endcan
                                                         </form>

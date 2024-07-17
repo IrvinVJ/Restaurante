@@ -104,19 +104,27 @@ class ProductoController extends Controller
      */
     public function store(Request $request)
     {
-        request()->validate([
-            'NombreProducto' => 'required',
-            'Stock' => 'required',
-            'IdUnidadMedida' => 'required'
-        ]);
+        try{
+            DB::beginTransaction();
+            request()->validate([
+                'NombreProducto' => 'required',
+                'Stock' => 'required',
+                'IdUnidadMedida' => 'required'
+            ]);
 
-        $producto = new Producto();
-        $producto->NombreProducto = $request->NombreProducto;
-        $producto->Stock = $request->Stock;
-        $producto->PrecioProducto = $request->PrecioProducto;
-        $producto->IdUnidadMedida = $request->IdUnidadMedida;
-        $producto->save();
-        return redirect('productos')->with('datos', 'Registro guardado satisfactoriamente');
+            $producto = new Producto();
+            $producto->NombreProducto = $request->NombreProducto;
+            $producto->Stock = $request->Stock;
+            $producto->PrecioProducto = $request->PrecioProducto;
+            $producto->IdUnidadMedida = $request->IdUnidadMedida;
+            $producto->save();
+            return redirect('productos')->with('datos', 'Registro guardado satisfactoriamente');
+            DB::commit();
+        }catch(\Exception $e){
+            DB::rollBack();
+            return redirect('productos')->with('datos', 'Error al guardar el registro');
+        }
+
     }
 
     /**
@@ -132,10 +140,18 @@ class ProductoController extends Controller
      */
     public function edit($IdProducto)
     {
-        $producto = Producto::all();
-        $producto = Producto::find($IdProducto);
-        $um = UnidadMedida::all();
-        return view('productos.edit', compact('producto', 'um'));
+        try{
+            DB::beginTransaction();
+            $producto = Producto::all();
+            $producto = Producto::find($IdProducto);
+            $um = UnidadMedida::all();
+            return view('productos.edit', compact('producto', 'um'));
+            DB::commit();
+            }catch(\Exception $e){
+                DB::rollBack();
+                return redirect('productos')->with('error', 'Error al mostrar el registro');
+            }
+
     }
 
     /**
@@ -143,17 +159,24 @@ class ProductoController extends Controller
      */
     public function update(Request $request, Producto $producto)
     {
-        request()->validate([
-            'NombreProducto' => 'required',
-            'Stock' => 'required',
-            'IdUnidadMedida' => 'required'
-        ]);
+        try{
+            DB::beginTransaction();
+            request()->validate([
+                'NombreProducto' => 'required',
+                'Stock' => 'required',
+                'IdUnidadMedida' => 'required'
+            ]);
 
-        $producto->NombreProducto = $request->NombreProducto;
-        $producto->Stock = $request->Stock;
-        $producto->IdUnidadMedida = $request->IdUnidadMedida;
-        $producto->save();
-        return redirect('productos')->with('success', 'Producto actualizado correctamente');
+            $producto->NombreProducto = $request->NombreProducto;
+            $producto->Stock = $request->Stock;
+            $producto->IdUnidadMedida = $request->IdUnidadMedida;
+            $producto->save();
+            return redirect('productos')->with('success', 'Producto actualizado correctamente');
+            DB::commit();
+        }catch(\Exception $e){
+            DB::rollBack();
+            return redirect('productos')->with('error', 'Error al actualizar el registro');
+        }
     }
 
     /**
@@ -161,7 +184,14 @@ class ProductoController extends Controller
      */
     public function destroy(Producto $producto)
     {
-        $producto->delete();
-        return redirect('productos');
+        try{
+            DB::beginTransaction();
+            $producto->delete();
+            return redirect('productos');
+            DB::commit();
+        }catch(\Exception $e){
+            DB::rollBack();
+            return redirect('productos')->with('error', 'Error al eliminar el registro');
+        }
     }
 }

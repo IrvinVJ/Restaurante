@@ -19,6 +19,13 @@
                     <span aria-hidden="true">&times;</span>
             </div>
         @endif
+        @if (session('error'))
+            <div class="alert alert-danger alert-dimissible fade show mt-3" role="alert">
+                {{ session('error') }}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+            </div>
+        @endif
         <div class="section-body">
             <div class="row">
                 <div class="col-lg-12">

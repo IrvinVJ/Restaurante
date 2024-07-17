@@ -309,6 +309,7 @@ return [
 
 
         [
+            'can' => 'ver-rol',
             'text' => 'Roles',
             'icon' => 'fa fa-fw fa-address-book',
             //'icon_color' => 'cyan',
@@ -323,6 +324,7 @@ return [
             ],
         ],
         [
+            'can' => 'ver-usuario',
             'text' => 'Usuarios',
             'icon' => 'fa fa-user',
             //'icon_color' => 'cyan',
@@ -337,6 +339,7 @@ return [
             ],
         ],
         [
+            'can' => 'ver-presupuesto',
             'text' => 'Presupuesto',
             'icon' => 'fas fa-fw fa-dollar-sign',
             //'icon_color' => 'cyan',
@@ -350,17 +353,20 @@ return [
             ],
         ],
         [
+            'can' => 'ver-producto',
             'text' => 'Compras',
             'icon' => 'fa fa-th',
             //'icon_color' => 'cyan',
             'submenu' => [
                 [
+                    'can' => 'ver-producto',
                     'text' => 'Productos',
                     'url'  => '/productos',
                     'icon'        => 'fas fa-fw fa-barcode',
                     'icon_color' => 'primary',
                 ],
                 [
+                    'can' => 'ver-ingreso',
                     'text' => 'Ingresos',
                     'url'  => '/ingresos',
                     'icon'        => 'far fa-fw fa-clipboard',
@@ -372,6 +378,7 @@ return [
         ],
 
         [
+            'can' => 'ver-plato',
             'text' => 'Carta',
             'icon' => 'fa fa-list',
             //'icon_color' => 'cyan',
@@ -386,6 +393,7 @@ return [
             ],
         ],
         [
+            'can' => 'ver-mesa',
             'text' => 'Mesas',
             'icon' => 'fa fa-table',
             //'icon_color' => 'cyan',
@@ -400,6 +408,7 @@ return [
             ],
         ],
         [
+            'can' => 'ver-pedido',
             'text' => 'Pedidos',
             'icon' => 'fa fa-pen',
             //'icon_color' => 'cyan',
@@ -419,6 +428,7 @@ return [
             ],
         ],
         [
+            'can' => 'ver-cliente',
             'text' => 'Clientes',
             'icon' => 'fa fa-user',
             //'icon_color' => 'cyan',
@@ -432,6 +442,7 @@ return [
             ],
         ],
         [
+            'can' => 'ver-reservacion',
             'text' => 'Reservaciones',
             'icon' => 'fas fa-calendar-alt',
             //'icon_color' => 'cyan',
@@ -445,6 +456,7 @@ return [
             ],
         ],
         [
+            'can' => 'ver-venta',
             'text' => 'Ventas',
             'icon' => 'fa fa-chart-line',
             //'icon_color' => 'cyan',
@@ -458,6 +470,7 @@ return [
             ],
         ],
         [
+            'can' => 'ver-reporte',
             'text' => 'Gráficos',
             'icon' => 'fa fa-chart-bar',
             //'icon_color' => 'cyan',

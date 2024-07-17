@@ -11,6 +11,8 @@
         <div class="section-header">
             <h3 class="page__heading">Gráficos</h3>
         </div>
+        @can('ver-reporte')
+
         <div class="section-body">
             <div class="row">
                 <div class="col-lg-12">
@@ -60,7 +62,7 @@
             </div>
         </div>
 
-
+        @endcan
     </section>
 @stop
 

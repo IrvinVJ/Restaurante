@@ -29,7 +29,7 @@
                             <input type="number" class="form-control" id="costo_unitario" name="CostoUnitario" placeholder="Escribe el costo unitario..." >
                         </div>
                         <div class="form-group">
-                            <button type="button" class="btn btn-success" id="agregar">+ Agregar Detalle</button>
+                            <button type="button" class="btn btn-success" id="agregar"><i class="fa fa-plus"></i> Agregar Detalle</button>
                         </div>
                         <div class="form-group">
                             <table class="table table-striped dt-responsive nowrap" id="tblDetalles">

@@ -23,7 +23,7 @@
                                 <div class="col-6">
                                     @can('crear-plato')
                                         <button class="btn btn-warning" data-toggle="modal"
-                                            data-target="#CrearPlato">Nuevo</button>
+                                            data-target="#CrearPlato"><i class="fa fa-plus"></i> Nuevo</button>
                                     @endcan
                                 </div>
                                 <div class="col-6" align="right">
@@ -58,20 +58,23 @@
                                             <td>{{ $item->NombreCategoriaPlato }}</td>
 
                                             <td>
-                                                <form action="{{ route('platos.edit', $item->IdPlato) }}" method="GET">
-                                                    @can('editar-plato')
-                                                        <!--<button class="btn btn-info" data-toggle="modal" data-target="#EditarPlato{{ $item->IdPlato }}">Editar</button>-->
-                                                        <a class="btn btn-info"
-                                                            href="{{ route('platos.edit', $item->IdPlato) }}">Editar</a>
-                                                    @endcan
-                                                </form>
-                                                <form action="{{ route('platos.destroy', $item->IdPlato) }}" method="POST">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    @can('borrar-plato')
-                                                        <button type="submit" class="btn btn-danger btnEliminar">Borrar</button>
-                                                    @endcan
-                                                </form>
+                                                <div class="btn-group" role="group">
+
+                                                    <form action="{{ route('platos.edit', $item->IdPlato) }}" method="GET" style="margin-right: 5px;">
+                                                        @can('editar-plato')
+                                                            <!--<button class="btn btn-info" data-toggle="modal" data-target="#EditarPlato{{ $item->IdPlato }}">Editar</button>-->
+                                                            <a class="btn btn-info"
+                                                                href="{{ route('platos.edit', $item->IdPlato) }}"><i class="fa fa-edit"></i> Editar</a>
+                                                        @endcan
+                                                    </form>
+                                                    <form action="{{ route('platos.destroy', $item->IdPlato) }}" method="POST" style="margin-right: 5px;">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        @can('borrar-plato')
+                                                            <button type="submit" class="btn btn-danger btnEliminar"><i class="fa fa-trash"></i> Borrar</button>
+                                                        @endcan
+                                                    </form>
+                                                </div>
                                             </td>
                                         </tr>
                                     @endforeach

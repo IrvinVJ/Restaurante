@@ -40,7 +40,8 @@
                                                     <form action="{{ route('presupuesto.show', $item->IdPlato) }}"
                                                         method="GET">
                                                         <!--<button class="btn btn-success" data-toggle="modal" data-target="#VerDetalle">Detalle</button>-->
-                                                        <input type="submit" value="Detalles" class="btn btn-success">
+                                                        <!--<input type="submit" value="Detalles" class="btn btn-success">-->
+                                                        <button type="submit" class="btn btn-success"><i class="fa fa-eye"></i> Detalle</button>
                                                     </form>
                                                 </td>
                                             </tr>

@@ -29,7 +29,7 @@
                                 <div class="col-6">
                                     @can('crear-producto')
                                         <button class="btn btn-warning" data-toggle="modal"
-                                            data-target="#CrearProducto">Nuevo</button>
+                                            data-target="#CrearProducto"><i class="fa fa-plus"></i> Nuevo</button>
                                     @endcan
                                 </div>
                                 <div class="col-6" align="right">
@@ -65,22 +65,26 @@
                                             <td>{{ $item->PrecioProducto }}</td>
 
                                             <td>
-                                                <form action="{{ route('productos.edit', $item->IdProducto) }}"
-                                                    method="GET">
-                                                    @can('editar-producto')
-                                                        <!--<button class="btn btn-info" data-toggle="modal" data-target="#EditarProducto{{ $item->IdProducto }}">Editar</button>-->
-                                                        <a class="btn btn-info"
-                                                            href="{{ route('productos.edit', $item->IdProducto) }}">Editar</a>
-                                                    @endcan
-                                                </form>
-                                                <form class="formEliminar" action="{{ route('productos.destroy', $item->IdProducto) }}"
-                                                    method="POST">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    @can('borrar-producto')
-                                                        <button type="submit" class="btn btn-danger btnEliminar">Borrar</button>
-                                                    @endcan
-                                                </form>
+                                                <div class="btn-group" role="group">
+
+                                                    <form action="{{ route('productos.edit', $item->IdProducto) }}"
+                                                        method="GET" style="margin-right: 5px;">
+                                                        @can('editar-producto')
+                                                            <!--<button class="btn btn-info" data-toggle="modal" data-target="#EditarProducto{{ $item->IdProducto }}">Editar</button>-->
+                                                            <a class="btn btn-info"
+                                                                href="{{ route('productos.edit', $item->IdProducto) }}"><i class="fa fa-edit"></i> Editar</a>
+                                                        @endcan
+                                                    </form>
+
+                                                    <form class="formEliminar" action="{{ route('productos.destroy', $item->IdProducto) }}"
+                                                        method="POST" style="margin-right: 5px;">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        @can('borrar-producto')
+                                                            <button type="submit" class="btn btn-danger btnEliminar"><i class="fa fa-trash"></i> Borrar</button>
+                                                        @endcan
+                                                    </form>
+                                                </div>
                                             </td>
                                         </tr>
                                     @endforeach

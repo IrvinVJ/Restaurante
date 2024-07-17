@@ -11,16 +11,16 @@
                             <img src="vendor/adminlte/dist/img/logoRamada.png" alt="" width="30%" height="30%">
                         </div>
                         <div class="form-group">
-                            <label for="formGroupExampleInput" class="form-label">Nombre del Producto:</label>
-                            <input type="text" class="form-control" name="NombreProducto" placeholder="Escribir Nombre del producto..." required>
+                            <label for="NombreProducto" class="form-label">Nombre del Producto:</label>
+                            <input type="text" class="form-control" name="NombreProducto" id="NombreProducto" placeholder="Escribir Nombre del producto..." required>
                         </div>
                         <div class="form-group">
-                            <label for="">Cantidad:</label>
-                        <input type="number" class="form-control" name="Stock" placeholder="Escribe el N° de produtos..." required>
+                            <label for="Stock">Cantidad:</label>
+                        <input type="number" class="form-control" name="Stock" id="Stock" placeholder="Escribe el N° de produtos..." required>
                         </div>
                         <div class="form-group">
-                            <label for="">Unidad de Medida:</label><br>
-                            <select class="form-control" aria-label="Default select example" name="IdUnidadMedida" required>
+                            <label for="IdUnidadMedida">Unidad de Medida:</label><br>
+                            <select class="form-control" aria-label="Default select example" name="IdUnidadMedida" id="IdUnidadMedida" required>
 
                                 @foreach ($um as $u)
                                     <option value="{{ $u->IdUnidadMedida }}">{{ $u->DescripcionUM }}</option>
@@ -30,8 +30,8 @@
 
                         </div>
                         <div class="form-group">
-                            <label for="">Precio del Producto:</label>
-                        <input type="number" class="form-control" name="PrecioProducto" placeholder="Escribe el precio del produto..." required>
+                            <label for="PrecioProducto">Precio del Producto:</label>
+                        <input type="number" class="form-control" name="PrecioProducto" id="PrecioProducto" placeholder="Escribe el precio del produto..." required>
                         </div>
                         <div class="form-group">
                             <button type="submit" class="btn btn-primary">Guardar</button>

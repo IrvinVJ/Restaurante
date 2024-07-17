@@ -2,8 +2,6 @@
 
 @section('title', 'Usuarios')
 
-@section('plugins.Datatables', true)
-
 @section('content_header')
 @stop
 
@@ -20,7 +18,7 @@
                         <div class="card-body">
                             <a class="btn btn-warning" href="{{ route('usuarios.create') }}">Nuevo</a>
                             <br><br>
-                              <table class="table table-striped mt-2" id="tblUsuarios">
+                            <table class="table table-striped mt-2" id="tblUsuarios">
                                 <thead style="background-color:#6777ef">
                                     <th style="display: none;">ID</th>
                                     <th style="color:#fff;">Nombre</th>
@@ -44,12 +42,12 @@
 
                                       <td>
                                         @can('crear-usuario')
-                                        <a class="btn btn-info" href="{{ route('usuarios.edit',$usuario->id) }}">Editar</a>
+                                        <a class="btn btn-info" href="{{ route('usuarios.edit', $usuario->id) }}">Editar</a>
                                         @endcan
 
-                                        {!! Form::open(['method' => 'DELETE','route' => ['usuarios.destroy', $usuario->id],'style'=>'display:inline']) !!}
+                                        {!! Form::open(['method' => 'DELETE', 'route' => ['usuarios.destroy', $usuario->id], 'class' => 'formEliminar', 'style' => 'display:inline']) !!}
                                           @can('borrar-usuario')
-                                            {!! Form::submit('Borrar', ['class' => 'btn btn-danger']) !!}
+                                            {!! Form::submit('Borrar', ['class' => 'btn btn-danger btnEliminar']) !!}
                                           @endcan
                                         {!! Form::close() !!}
                                       </td>
@@ -57,44 +55,66 @@
                                   @endforeach
                                 </tbody>
                               </table>
-                              <!-- Centramos la paginacion a la derecha -->
-
-
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        @endcan
-      </section>
-
+    @endcan
+</section>
 @stop
 
 @section('css')
-    <link rel="stylesheet" href="/css/admin_custom.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css">
+    <!--<link rel="stylesheet" href="/css/admin_custom.css">-->
 @stop
 
 @section('js')
-    <script> console.log('Hi!'); </script>
+    <!-- Cargar jQuery desde CDN -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Cargar DataTables desde CDN -->
+    <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
+    <!-- Cargar SweetAlert2 desde CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <script>
         $(document).ready(function() {
-          $('#tblUsuarios').DataTable({
-            responsive:true,
-            autoWidth:false,
-            "language": {
-            "lengthMenu": "Mostrar _MENU_ registros por página",
-            "zeroRecords": "Registro no encontrado",
-            "info": "Mostrando la página _PAGE_ de _PAGES_",
-            "infoEmpty": "No hay registros disponibles",
-            "infoFiltered": "(filtrado de _MAX_ registros totales)",
-            "search": "Buscar:",
-            "paginate":{
-              'next':'Siguiente',
-              'previous':'Anterior'
-            }
-            },
-          });
-        } );
-      </script>
+            $('#tblUsuarios').DataTable({
+                responsive: true,
+                autoWidth: false,
+                language: {
+                    lengthMenu: "Mostrar _MENU_ registros por página",
+                    zeroRecords: "Registro no encontrado",
+                    info: "Mostrando la página _PAGE_ de _PAGES_",
+                    infoEmpty: "No hay registros disponibles",
+                    infoFiltered: "(filtrado de _MAX_ registros totales)",
+                    search: "Buscar:",
+                    paginate: {
+                        next: 'Siguiente',
+                        previous: 'Anterior'
+                    }
+                }
+            });
+
+            // Manejar el clic del botón de eliminar usando delegación de eventos
+            $(document).on('click', '.btnEliminar', function(event) {
+                event.preventDefault();
+                const form = $(this).closest('form');
+                Swal.fire({
+                    title: '¿Estás seguro?',
+                    text: "¡No podrás revertir esto!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Sí, borrar',
+                    cancelButtonText: 'Cancelar'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        form.submit();
+                    }
+                });
+            });
+        });
+    </script>
 @stop

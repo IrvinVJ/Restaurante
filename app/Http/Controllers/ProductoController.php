@@ -104,13 +104,11 @@ class ProductoController extends Controller
      */
     public function store(Request $request)
     {
-        try{
-            DB::beginTransaction();
-            request()->validate([
-                'NombreProducto' => 'required',
-                'Stock' => 'required',
-                'IdUnidadMedida' => 'required'
-            ]);
+        request()->validate([
+            'NombreProducto' => 'required',
+            'Stock' => 'required',
+            'IdUnidadMedida' => 'required'
+        ]);
 
             $producto = new Producto();
             $producto->NombreProducto = $request->NombreProducto;
@@ -119,11 +117,6 @@ class ProductoController extends Controller
             $producto->IdUnidadMedida = $request->IdUnidadMedida;
             $producto->save();
             return redirect('productos')->with('datos', 'Registro guardado satisfactoriamente');
-            DB::commit();
-        }catch(\Exception $e){
-            DB::rollBack();
-            return redirect('productos')->with('datos', 'Error al guardar el registro');
-        }
 
     }
 
@@ -140,17 +133,11 @@ class ProductoController extends Controller
      */
     public function edit($IdProducto)
     {
-        try{
-            DB::beginTransaction();
+
             $producto = Producto::all();
             $producto = Producto::find($IdProducto);
             $um = UnidadMedida::all();
             return view('productos.edit', compact('producto', 'um'));
-            DB::commit();
-            }catch(\Exception $e){
-                DB::rollBack();
-                return redirect('productos')->with('error', 'Error al mostrar el registro');
-            }
 
     }
 
@@ -159,8 +146,7 @@ class ProductoController extends Controller
      */
     public function update(Request $request, Producto $producto)
     {
-        try{
-            DB::beginTransaction();
+
             request()->validate([
                 'NombreProducto' => 'required',
                 'Stock' => 'required',
@@ -172,11 +158,7 @@ class ProductoController extends Controller
             $producto->IdUnidadMedida = $request->IdUnidadMedida;
             $producto->save();
             return redirect('productos')->with('success', 'Producto actualizado correctamente');
-            DB::commit();
-        }catch(\Exception $e){
-            DB::rollBack();
-            return redirect('productos')->with('error', 'Error al actualizar el registro');
-        }
+
     }
 
     /**
@@ -184,14 +166,9 @@ class ProductoController extends Controller
      */
     public function destroy(Producto $producto)
     {
-        try{
-            DB::beginTransaction();
+
             $producto->delete();
             return redirect('productos');
-            DB::commit();
-        }catch(\Exception $e){
-            DB::rollBack();
-            return redirect('productos')->with('error', 'Error al eliminar el registro');
-        }
+
     }
 }

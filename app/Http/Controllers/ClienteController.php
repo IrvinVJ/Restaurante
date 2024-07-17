@@ -51,13 +51,11 @@ class ClienteController extends Controller
             $cliente->ApellidosCliente = $request->get('ApellidosCliente');
             $cliente->NroTelefono = $request->get('NroTelefono');
             $cliente->save();
-            return redirect('clientes')->with('success', 'Cliente guardado!');
             DB::commit();
             }catch(\Exception $e){
                 DB::rollBack();
-                return redirect('clientes')->with('error', 'Error al guardar el cliente!');
             }
-
+            return redirect('clientes')->with('success', 'Cliente guardado!');
     }
 
     /**
@@ -97,12 +95,11 @@ class ClienteController extends Controller
             $cliente -> ApellidosCliente = $request->get('ApellidosCliente');
             $cliente -> NroTelefono = $request->get('NroTelefono');
             $cliente -> save();
-            return redirect('clientes')->with('success', 'Registro actualizado correctamente');
             DB::commit();
         }catch(\Exception $e){
             DB::rollBack();
-            return redirect('clientes')->with('error', 'Error al actualizar el cliente!');
         }
+        return redirect('clientes')->with('success', 'Registro actualizado correctamente');
     }
 
     /**
@@ -113,11 +110,10 @@ class ClienteController extends Controller
         try{
             DB::beginTransaction();
             $cliente->delete();
-            return redirect('clientes')->with('warning', 'Se elimino el registro con exito');
             DB::commit();
             }catch(\Exception $e){
                 DB::rollBack();
-                return redirect('clientes')->with('error', 'Error al eliminar el registro!');
             }
+            return redirect('clientes')->with('warning', 'Se elimino el registro con exito');
     }
 }

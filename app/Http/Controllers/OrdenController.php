@@ -262,12 +262,11 @@ class OrdenController extends Controller
             //El estado de la mesa cambia a libre
             $mesa = DB::update('update mesas set IdEstadoMesas = 1 where IdMesa =' . $request->IdMesa . ' ');
 
-            return redirect('ordens');
             DB::commit();
         }catch(\Exception $e){
             DB::rollback();
-            return redirect('ordens')->with('error', 'Error al actualizar el estado de la orden' . $e->getMessage());
             }
+            return redirect('ordens');
     }
 
     /**
@@ -278,11 +277,10 @@ class OrdenController extends Controller
         try{
             DB::beginTransaction();
             $orden->delete();
-            return redirect('ordens');
             DB::commit();
         }catch(\Exception $e){
             DB::rollback();
-            return redirect('ordens')->with('error', 'Error al eliminar la orden' . $e->getMessage());
         }
+        return redirect('ordens');
     }
 }

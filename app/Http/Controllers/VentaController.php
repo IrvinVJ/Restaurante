@@ -214,12 +214,12 @@ class VentaController extends Controller
         $venta->Serie = $serie;
         $venta -> save();
 
-        return redirect('ventas')->with('success', 'Estado de Venta actualizado correctamente');
         DB::commit();
         }catch(\Exception $e){
             DB::rollback();
-            return redirect('ventas')->with('error', 'Error al actualizar el estado de Venta');
         }
+        return redirect('ventas')->with('success', 'Estado de Venta actualizado correctamente');
+
     }
 
     /**
@@ -251,7 +251,6 @@ class VentaController extends Controller
             DB::commit();
         }catch(\Exception $e){
             DB::rollback();
-            return redirect('ventas')->with('error', 'Error al actualizar el stock de los productos');
         }
     }
 }

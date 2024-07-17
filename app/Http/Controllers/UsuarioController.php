@@ -35,17 +35,11 @@ class UsuarioController extends Controller
      */
     public function create()
     {
-        try{
-            DB::beginTransaction();
+
             $usuarios = User::all();
             $roles = Role::pluck('name', 'name')->all();
             return view('usuarios.crear', compact('usuarios', 'roles'));
-            DB::commit();
-        }
-        catch(\Exception $e){
-            DB::rollBack();
-            return redirect()->route('usuarios.index')->with('error', $e->getMessage());
-        }
+
     }
 
     /**
@@ -53,8 +47,7 @@ class UsuarioController extends Controller
      */
     public function store(Request $request)
     {
-        try{
-            DB::beginTransaction();
+
             $this->validate($request, [
                 'name' => 'required',
                 'email' => 'required|email|unique:users,email',
@@ -69,12 +62,7 @@ class UsuarioController extends Controller
 
 
             return redirect('usuarios');
-            DB::commit();
-        }
-        catch(\Exception $e){
-            DB::rollBack();
-            return redirect()->route('usuarios.index')->with('error', $e->getMessage());
-            }
+
     }
 
     /**
@@ -147,16 +135,8 @@ class UsuarioController extends Controller
      */
     public function destroy($id)
     {
-        try{
-            DB::beginTransaction();
             User::find($id)->delete();
             return redirect('usuarios');
-            DB::commit();
-        }
-        catch(\Exception $e){
-            DB::rollBack();
-            return redirect()->route('usuarios.index')->with('error', $e->getMessage());
-        }
     }
 
 }

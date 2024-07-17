@@ -157,16 +157,10 @@ class IngresoController extends Controller
      */
     public function edit($IdIngreso)
     {
-        try{
-            DB::beginTransaction();
+
             $ingresos = Ingreso::all();
             $ingresos = Ingreso::find($IdIngreso);
             return view('ingresos.edit', compact('ingresos'));
-            DB::commit();
-        }catch (Exception $e){
-            dd($e);
-            DB::rollBack();
-        }
 
     }
 
@@ -182,12 +176,12 @@ class IngresoController extends Controller
             ]);
             $ingreso->created_at = $request->created_at;
             $ingreso->save();
-            return redirect('ingresos')->with('success', 'Ingreso actualizado!!');
             DB::commit();
             }catch (Exception $e){
                 dd($e);
                 DB::rollBack();
             }
+            return redirect('ingresos')->with('success', 'Ingreso actualizado!!');
     }
 
     /**
@@ -198,12 +192,12 @@ class IngresoController extends Controller
         try{
             DB::beginTransaction();
             $ingreso->delete();
-            return redirect('ingresos');
+
             DB::commit();
             }catch (Exception $e){
                 dd($e);
                 DB::rollBack();
             }
-
+            return redirect('ingresos');
     }
 }

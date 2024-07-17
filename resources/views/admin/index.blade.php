@@ -207,10 +207,10 @@
             console.log('Hi!');
         </script>
         <script>
-            Swal.fire(
+            /*Swal.fire(
                 'Bienvenido al sistema',
                 'Haz click para continuar',
                 'success'
-            )
+            )*/
         </script>
     @stop

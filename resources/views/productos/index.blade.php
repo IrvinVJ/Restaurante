@@ -79,12 +79,12 @@
                                                             href="{{ route('productos.edit', $item->IdProducto) }}">Editar</a>
                                                     @endcan
                                                 </form>
-                                                <form action="{{ route('productos.destroy', $item->IdProducto) }}"
+                                                <form class="formEliminar" action="{{ route('productos.destroy', $item->IdProducto) }}"
                                                     method="POST">
                                                     @csrf
                                                     @method('DELETE')
                                                     @can('borrar-producto')
-                                                        <button type="submit" class="btn btn-danger">Borrar</button>
+                                                        <button type="submit" class="btn btn-danger btnEliminar">Borrar</button>
                                                     @endcan
                                                 </form>
                                             </td>
@@ -105,13 +105,12 @@
 @stop
 
 @section('css')
-    <link rel="stylesheet" href="/css/admin_custom.css">
+
 @stop
 
 @section('js')
-    <script>
-        console.log('Hi!');
-    </script>
+    <!-- Cargar SweetAlert2 desde CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <script>
         $(document).ready(function() {
@@ -152,6 +151,26 @@
                   },
                 ]
                 */
+            });
+
+            // Manejar el clic del botón de eliminar usando delegación de eventos
+          $(document).on('click', '.btnEliminar', function(event) {
+                event.preventDefault();
+                const form = $(this).closest('form');
+                Swal.fire({
+                    title: '¿Estás seguro?',
+                    text: "¡No podrás revertir esto!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Sí, borrar',
+                    cancelButtonText: 'Cancelar'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        form.submit();
+                    }
+                });
             });
         });
     </script>

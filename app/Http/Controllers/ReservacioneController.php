@@ -306,12 +306,11 @@ class ReservacioneController extends Controller
             $reservacione->Hora = $request->Hora;
             $reservacione->NroPersonas = $request->NroPersonas;
             $reservacione->save();
-            return redirect('reservaciones')->with('success', 'Reservación actualizada correctamente');
             DB::commit();
             }catch(\Exception $e){
                 DB::rollBack();
-                return redirect('reservaciones')->with('error', 'Error al actualizar la reservación');
             }
+            return redirect('reservaciones')->with('success', 'Reservación actualizada correctamente');
     }
 
     /**

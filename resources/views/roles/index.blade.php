@@ -2,8 +2,6 @@
 
 @section('title', 'Roles')
 
-@section('plugins.Datatables', true)
-
 @section('content_header')
 @stop
 
@@ -39,8 +37,8 @@
                                     @endcan
 
                                     @can('borrar-rol')
-                                        {!! Form::open(['method' => 'DELETE','route' => ['roles.destroy', $role->id],'style'=>'display:inline']) !!}
-                                            {!! Form::submit('Borrar', ['class' => 'btn btn-danger']) !!}
+                                        {!! Form::open(['method' => 'DELETE','route' => ['roles.destroy', $role->id],'class' => 'formEliminar', 'style'=>'display:inline']) !!}
+                                            {!! Form::submit('Borrar', ['class' => 'btn btn-danger btnEliminar']) !!}
                                         {!! Form::close() !!}
                                     @endcan
                                 </td>
@@ -49,7 +47,7 @@
                             </tbody>
                         </table>
 
-                        <!-- Centramos la paginacion a la derecha -->
+                        <!-- Centramos la paginacion a la derecha-->
                         <div class="pagination justify-content-end">
                             {!! $roles->links() !!}
                         </div>
@@ -64,30 +62,55 @@
 @stop
 
 @section('css')
-    <link rel="stylesheet" href="/css/admin_custom.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css">
 @stop
 
 @section('js')
-    <script> console.log('Hi!'); </script>
+    <!-- Cargar jQuery desde CDN -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Cargar DataTables desde CDN -->
+    <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
+    <!-- Cargar SweetAlert2 desde CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <script>
         $(document).ready(function() {
           $('#tblRoles').DataTable({
             responsive:true,
             autoWidth:false,
-            "language": {
-            "lengthMenu": "Mostrar _MENU_ registros por página",
-            "zeroRecords": "Registro no encontrado",
-            "info": "Mostrando la página _PAGE_ de _PAGES_",
-            "infoEmpty": "No hay registros disponibles",
-            "infoFiltered": "(filtrado de _MAX_ registros totales)",
-            "search": "Buscar:",
-            "paginate":{
-              'next':'Siguiente',
-              'previous':'Anterior'
-            }
-            },
+            language: {
+                    lengthMenu: "Mostrar _MENU_ registros por página",
+                    zeroRecords: "Registro no encontrado",
+                    info: "Mostrando la página _PAGE_ de _PAGES_",
+                    infoEmpty: "No hay registros disponibles",
+                    infoFiltered: "(filtrado de _MAX_ registros totales)",
+                    search: "Buscar:",
+                    paginate: {
+                        next: 'Siguiente',
+                        previous: 'Anterior'
+                    }
+                }
           });
+
+          // Manejar el clic del botón de eliminar usando delegación de eventos
+          $(document).on('click', '.btnEliminar', function(event) {
+                event.preventDefault();
+                const form = $(this).closest('form');
+                Swal.fire({
+                    title: '¿Estás seguro?',
+                    text: "¡No podrás revertir esto!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Sí, borrar',
+                    cancelButtonText: 'Cancelar'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        form.submit();
+                    }
+                });
+            });
         } );
       </script>
 @stop

@@ -66,14 +66,12 @@ class PlatoController extends Controller
             $plato->PrecioPlato=$request->PrecioPlato;
             $plato->IdCategoriaPlatos=$request->IdCategoriaPlatos;
             $plato->save();
-
-            return redirect('platos');
             DB::commit();
             }catch(\Exception $e){
                 DB::rollBack();
-                return redirect('platos')->with('error', 'Error al guardar el plato');
+                //return redirect('platos')->with('error', 'Error al guardar el plato');
             }
-
+            return redirect('platos');
     }
 
     /**
@@ -94,13 +92,11 @@ class PlatoController extends Controller
             $plato = plato::all();
             $plato = plato::find($IdPlato);
             $cat_plato = categoria_plato::all();
-
-            return view('platos.edit', compact('plato', 'cat_plato'));
             DB::commit();
         }catch(\Exception $e){
             DB::rollBack();
-            return redirect('platos')->with('error', 'Error al editar el plato');
             }
+            return view('platos.edit', compact('plato', 'cat_plato'));
 
     }
 
@@ -121,13 +117,11 @@ class PlatoController extends Controller
             $plato->PrecioPlato=$request->PrecioPlato;
             $plato->IdCategoriaPlatos=$request->IdCategoriaPlatos;
             $plato->save();
-
-            return redirect('platos');
             DB::commit();
         }catch(\Exception $e){
             DB::rollBack();
-            return redirect('platos')->with('error', 'Error al editar el plato');
             }
+            return redirect('platos');
     }
 
     /**
@@ -138,11 +132,11 @@ class PlatoController extends Controller
         try{
             DB::beginTransaction();
             $plato->delete();
-            return redirect('platos');
             DB::commit();
         }catch(\Exception $e){
             DB::rollBack();
-            return redirect('platos')->with('error', 'Error al eliminar el plato');
+
         }
+        return redirect('platos');
     }
 }

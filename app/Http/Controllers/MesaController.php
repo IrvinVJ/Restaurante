@@ -46,11 +46,11 @@ class MesaController extends Controller
      */
     public function store(Request $request)
     {
+        request()->validate([
+            'IdEstadoMesas' => 'required',
+        ]);
         try{
             DB::beginTransaction();
-            request()->validate([
-                'IdEstadoMesas' => 'required',
-            ]);
             mesa::create($request->all());
             DB::commit();
         }catch(\Exception $e){
@@ -108,6 +108,6 @@ class MesaController extends Controller
         }catch(\Exception $e){
             DB::rollBack();
         }
-        return redirect('mesas')->with('warning', 'Mesa eliminada!');
+        return redirect('mesas')->with('success', 'Mesa eliminada!');
     }
 }

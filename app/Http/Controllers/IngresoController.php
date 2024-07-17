@@ -127,7 +127,7 @@ class IngresoController extends Controller
             dd($e);
             DB::rollBack();
         }
-        return redirect('ingresos');
+        return redirect('ingresos')->with('datos', 'Ingreso guardado!!');
     }
 
     /**

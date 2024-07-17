@@ -97,7 +97,7 @@
                                                             @csrf
                                                             @method('DELETE')
                                                             @can('borrar-pedido')
-                                                                <button type="submit" class="btn btn-danger">Borrar</button>
+                                                                <button type="submit" class="btn btn-danger btnEliminar">Borrar</button>
                                                             @endcan
                                                         </form>
                                                     </td>
@@ -117,7 +117,7 @@
                     <div class="card">
                         <div class="card-body">
 
-                            <label for=""><b>Pedidos de Reservaciones</b></label>
+                            <label><b>Pedidos de Reservaciones</b></label>
 
                             <table class="table table-striped mt-2" id="tblOrdens">
                                 <thead style="background-color:#6777ef">
@@ -198,13 +198,12 @@
 @stop
 
 @section('css')
-    <link rel="stylesheet" href="/css/admin_custom.css">
+
 @stop
 
 @section('js')
-    <script>
-        console.log('Hi!');
-    </script>
+    <!-- Cargar SweetAlert2 desde CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <script>
         $(document).ready(function() {
@@ -224,6 +223,26 @@
                     }
                 },
             });
+            // Manejar el clic del botón de eliminar usando delegación de eventos
+          $(document).on('click', '.btnEliminar', function(event) {
+                event.preventDefault();
+                const form = $(this).closest('form');
+                Swal.fire({
+                    title: '¿Estás seguro?',
+                    text: "¡No podrás revertir esto!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Sí, borrar',
+                    cancelButtonText: 'Cancelar'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        form.submit();
+                    }
+                });
+            });
         });
     </script>
+
 @stop

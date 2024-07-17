@@ -31,10 +31,10 @@
                         </div>
                         <div class="form-group">
                             <label for="PrecioProducto">Precio del Producto:</label>
-                        <input type="number" class="form-control" name="PrecioProducto" id="PrecioProducto" placeholder="Escribe el precio del produto..." required>
+                        <input type="float" class="form-control" name="PrecioProducto" id="PrecioProducto" placeholder="Escribe el precio del produto..." required>
                         </div>
                         <div class="form-group">
-                            <button type="submit" class="btn btn-primary">Guardar</button>
+                            <button type="submit" class="btn btn-primary" name="btnGuardar" id="btnGuardar">Guardar</button>
                         </div>
                     </div>
                 </div>

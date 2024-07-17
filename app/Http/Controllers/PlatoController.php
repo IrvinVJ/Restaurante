@@ -71,7 +71,7 @@ class PlatoController extends Controller
                 DB::rollBack();
                 //return redirect('platos')->with('error', 'Error al guardar el plato');
             }
-            return redirect('platos');
+            return redirect('platos')->with('success', 'Plato guardado!!');
     }
 
     /**
@@ -121,7 +121,7 @@ class PlatoController extends Controller
         }catch(\Exception $e){
             DB::rollBack();
             }
-            return redirect('platos');
+            return redirect('platos')->with('success', 'Plato actualizado!!');
     }
 
     /**
@@ -137,6 +137,6 @@ class PlatoController extends Controller
             DB::rollBack();
 
         }
-        return redirect('platos');
+        return redirect('platos')->with('success', 'Plato eliminado!!');
     }
 }

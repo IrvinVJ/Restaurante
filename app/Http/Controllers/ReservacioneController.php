@@ -177,7 +177,7 @@ class ReservacioneController extends Controller
         //$detalle_reservacione->IdCliente = $request->IdCliente;
         //dd($detalle_reservacione);
         $detalle_reservacione->save();
-        return redirect('reservaciones')->with('success', 'Pedido realizado satisfactoriamente');
+        return redirect('reservaciones')->with('success', 'Pedido realizado satisfactoriamente!');
     }
 
     function IndiceNumeroDocumentoVenta($Num)
@@ -310,7 +310,7 @@ class ReservacioneController extends Controller
             }catch(\Exception $e){
                 DB::rollBack();
             }
-            return redirect('reservaciones')->with('success', 'Reservación actualizada correctamente');
+            return redirect('reservaciones')->with('success', 'Reservación actualizada correctamente!');
     }
 
     /**
@@ -319,6 +319,6 @@ class ReservacioneController extends Controller
     public function destroy(reservacione $reservacione)
     {
         $reservacione->delete();
-        return back()->with('warning', 'Reserva eliminada correctamente');
+        return back()->with('success', 'Reserva eliminada correctamente!');
     }
 }

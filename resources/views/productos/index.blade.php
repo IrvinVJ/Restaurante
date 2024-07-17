@@ -12,20 +12,14 @@
         <div class="section-header">
             <h3 class="page__heading">Productos</h3>
         </div>
-        @if (session('datos'))
+        <!--@if (session('datos'))
             <div class="alert alert-success alert-dimissible fade show mt-3" role="alert">
                 {{ session('datos') }}
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
             </div>
-        @endif
-        @if (session('error'))
-            <div class="alert alert-danger alert-dimissible fade show mt-3" role="alert">
-                {{ session('error') }}
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-            </div>
-        @endif
+        @endif-->
+
         <div class="section-body">
             <div class="row">
                 <div class="col-lg-12">
@@ -172,6 +166,17 @@
                     }
                 });
             });
+
         });
     </script>
+    @if(session('datos'))
+    <script>
+        Swal.fire({
+            title: '¡Éxito!',
+            text: '{{ session('datos') }}',
+            icon: 'success',
+            confirmButtonText: 'Aceptar'
+        });
+    </script>
+    @endif
 @stop

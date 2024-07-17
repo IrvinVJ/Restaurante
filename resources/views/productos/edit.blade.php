@@ -19,7 +19,7 @@
                         <form action="{{ route('productos.update', $producto->IdProducto) }}" method="POST"> <!-- El POST en el method no es fijo, depende de la acción que se quiera realizar-->
                             @csrf
                             {{method_field('PUT')}}
-                            
+
                                     <div class="form-group">
                                         <label for="formGroupExampleInput" class="form-label">Nombre del Producto:</label>
                                         <input type="text" class="form-control" name="NombreProducto" value="{{$producto->NombreProducto}}" placeholder="Escribir Nombre del producto..." required>
@@ -35,14 +35,14 @@
                                             @foreach ($um as $u)
                                                 <option value="{{ $u->IdUnidadMedida }}">{{ $u->DescripcionUM }}</option>
                                             @endforeach
-                                        
+
                                         </select>
 
                                     </div>
                                     <div class="form-group">
-                                        <button type="submit" class="btn btn-primary">Guardar</button> 
+                                        <button type="submit" class="btn btn-primary" name="btnGuardar" id="btnGuardar">Guardar</button>
                                     </div>
-                                
+
                         </form>
                     </div>
                 </div>
@@ -52,9 +52,18 @@
 @stop
 
 @section('css')
-    <link rel="stylesheet" href="/css/admin_custom.css">
+
 @stop
 
 @section('js')
-    <script> console.log('Hi!'); </script>
+    @if(session('datos'))
+    <script>
+        Swal.fire({
+            title: '¡Éxito!',
+            text: '{{ session('datos') }}',
+            icon: 'success',
+            confirmButtonText: 'Aceptar'
+        });
+    </script>
+    @endif
 @stop

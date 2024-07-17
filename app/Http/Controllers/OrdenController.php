@@ -130,7 +130,7 @@ class OrdenController extends Controller
             dd($e);
             DB::rollBack();
         }
-        return redirect('ordens');
+        return redirect('ordens')->with('success', 'Nueva Orden Creada!');
     }
 
 
@@ -266,7 +266,7 @@ class OrdenController extends Controller
         }catch(\Exception $e){
             DB::rollback();
             }
-            return redirect('ordens');
+            return redirect('ordens')->with('success', 'Orden actualizada!');
     }
 
     /**
@@ -281,6 +281,6 @@ class OrdenController extends Controller
         }catch(\Exception $e){
             DB::rollback();
         }
-        return redirect('ordens');
+        return redirect('ordens')->with('success', 'Orden eliminada!');
     }
 }

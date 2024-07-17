@@ -11,7 +11,7 @@
                             <img src="vendor/adminlte/dist/img/logoRamada.png" alt="" width="30%" height="30%">
                         </div>
                         <div class="form-group">
-                            <label for="formGroupExampleInput" class="form-label">Elija el Producto:</label>
+                            <label for="id_producto" class="form-label">Elija el Producto:</label>
                             <select class="form-control" aria-label="Default select example" id="id_producto" name="IdProducto" required>
 
                                 @foreach ($product as $di)
@@ -21,11 +21,11 @@
                             </select>
                         </div>
                         <div class="form-group">
-                            <label for="">Cantidad:</label>
+                            <label for="cantidad">Cantidad:</label>
                         <input type="number" class="form-control" id="cantidad" name="Cantidad" placeholder="Escribe el N° de produtos...">
                         </div>
                         <div class="form-group">
-                            <label for="">Costo Unitario:</label><br>
+                            <label for="costo_unitario">Costo Unitario:</label><br>
                             <input type="number" class="form-control" id="costo_unitario" name="CostoUnitario" placeholder="Escribe el costo unitario..." >
                         </div>
                         <div class="form-group">
@@ -63,7 +63,7 @@
                             <div class="col-md">
                                <input type="hidden" name="_token" value="{{csrf_token()}}">
 
-                                <button type="submit" class="btn btn-success"><i class="fa fa-save fa-2x"></i> Registrar</button>
+                                <button type="submit" class="btn btn-success" id="btnGuardar"><i class="fa fa-save fa-2x"></i> Registrar</button>
 
                             </div>
 
@@ -165,4 +165,17 @@
     }
 
 </script>
+<!-- Cargar SweetAlert2 desde CDN -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+@if(session('datos'))
+<script>
+    Swal.fire({
+        title: '¡Éxito!',
+        text: '{{ session('datos') }}',
+        icon: 'success',
+        confirmButtonText: 'Aceptar'
+    });
+</script>
+@endif
 @endsection

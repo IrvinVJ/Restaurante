@@ -21,8 +21,8 @@
                             {{method_field('PUT')}}
 
                                     <div class="form-group">
-                                        <label for="">Estado de la Venta:</label><br>
-                                        <select class="form-control" aria-label="Default select example" name="IdEstadoVentas" required>
+                                        <label for="IdEstadoVentas">Estado de la Venta:</label><br>
+                                        <select class="form-control" aria-label="Default select example" name="IdEstadoVentas" id="IdEstadoVentas" required>
 
                                             @foreach ($est_venta as $item)
                                             @if ($ventas->IdEstadoVentas == $item->IdEstadoVentas)
@@ -34,8 +34,8 @@
                                         </select>
                                     </div>
                                     <div class="form-group">
-                                        <label for="">Tipo de Documento:</label><br>
-                                        <select class="form-control" aria-label="Default select example" name="IdTipoDocumento" required>
+                                        <label for="IdTipoDocumento">Tipo de Documento:</label><br>
+                                        <select class="form-control" aria-label="Default select example" name="IdTipoDocumento" id="IdTipoDocumento" required>
 
                                             @foreach ($tipo_documento as $item)
                                             @if ($ventas->IdTipoDocumento == $item->IdTipoDocumento)
@@ -59,9 +59,9 @@
 @stop
 
 @section('css')
-    <link rel="stylesheet" href="/css/admin_custom.css">
+
 @stop
 
 @section('js')
-    <script> console.log('Hi!'); </script>
+
 @stop

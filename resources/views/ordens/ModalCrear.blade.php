@@ -11,7 +11,7 @@
                             <img src="vendor/adminlte/dist/img/logoRamada.png" alt="" width="30%" height="30%">
                         </div>
                         <div class="form-group">
-                            <label for="formGroupExampleInput" class="form-label">Elija la Mesa:</label>
+                            <label for="id_mesa" class="form-label">Elija la Mesa:</label>
                             <select class="form-control" aria-label="Default select example" id="id_mesa" name="IdMesa" required>
                                 @foreach ($mesas as $m)
                                     @if ($m->IdEstadoMesas == 1) <!-- Evaluando si la mesa está libre -->
@@ -21,7 +21,7 @@
                             </select>
                         </div>
                         <div class="form-group">
-                            <label for="formGroupExampleInput" class="form-label">Seleccione el Estado de la Orden:</label>
+                            <label for="id_estado" class="form-label">Seleccione el Estado de la Orden:</label>
                             <select class="form-control" aria-label="Default select example" id="id_estado" name="IdEstadoOrdens" required>
                                 @foreach ($est_o as $eo)
                                 @if ($eo->IdEstadoOrdens == 1) <!-- Condicionando a que solo aparezca en proceso ya que se está creando un pedido -->
@@ -31,7 +31,7 @@
                             </select>
                         </div>
                         <div class="form-group">
-                            <label for="formGroupExampleInput" class="form-label">Seleccione el Plato:</label>
+                            <label for="id_plato" class="form-label">Seleccione el Plato:</label>
                             <select class="form-control" aria-label="Default select example" id="id_plato" name="IdPlato" required>
                                 @foreach ($platos as $p)
                                     <option value="{{ $p->IdPlato }}">{{ $p->NombrePlato }}</option>
@@ -39,7 +39,7 @@
                             </select>
                         </div>
                         <div class="form-group">
-                            <label for="">Cantidad:</label>
+                            <label for="cantidad">Cantidad:</label>
                         <input type="number" class="form-control" id="cantidad" name="Cantidad" placeholder="Escribe el N° de platos...">
                         </div>
                         <div class="form-group">
@@ -63,7 +63,7 @@
 
                             <div class="col-md">
                                <input type="hidden" name="_token" value="{{csrf_token()}}">
-                                <button type="submit" class="btn btn-success"><i class="fa fa-save fa-2x"></i> Registrar</button>
+                                <button type="submit" class="btn btn-success" name="btnGuardar" id="btnGuardar"><i class="fa fa-save fa-2x"></i> Registrar</button>
                             </div>
 
                         </div>
@@ -133,4 +133,16 @@
     }
 
 </script>
+<!-- Cargar SweetAlert2 desde CDN -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    @if(session('success'))
+        <script>
+            Swal.fire({
+                title: '¡Éxito!',
+                text: '{{ session('success') }}',
+                icon: 'success',
+                confirmButtonText: 'Aceptar'
+            });
+        </script>
+    @endif
 @endsection

@@ -12,9 +12,8 @@
                                 height="30%">
                         </div>
                         <div class="form-group">
-                            <label for="">Estado de Mesa:</label><br>
-                            <select class="form-control" aria-label="Default select example" name="IdEstadoMesas"
-                                required>
+                            <label for="IdEstadoMesas">Estado de Mesa:</label><br>
+                            <select class="form-control" aria-label="Default select example" name="IdEstadoMesas" id="IdEstadoMesas" required>
 
                                 @foreach ($est_mesa as $item)
                                     @if ($item->IdEstadoMesas == 1)

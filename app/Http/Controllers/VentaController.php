@@ -218,7 +218,7 @@ class VentaController extends Controller
         }catch(\Exception $e){
             DB::rollback();
         }
-        return redirect('ventas')->with('success', 'Estado de Venta actualizado correctamente');
+        return redirect('ventas')->with('success', 'Estado de Venta actualizado correctamente!');
 
     }
 

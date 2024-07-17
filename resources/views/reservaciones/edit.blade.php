@@ -22,8 +22,8 @@
                                 {{ method_field('PUT') }}
 
                                 <div class="form-group">
-                                    <label for="">Cliente:</label><br>
-                                    <select class="form-control" aria-label="Default select example" name="IdCliente" required>
+                                    <label for="IdCliente">Cliente:</label><br>
+                                    <select class="form-control" aria-label="Default select example" name="IdCliente" id="IdCliente" required>
                                         @foreach ($clientes as $item)
                                         @if ($reservacione->IdCliente == $item->IdCliente)
                                             <option value="{{ $item->IdCliente }}" selected style="display: none;">{{ $item->NombresCliente.' '.$item->ApellidosCliente }}</option>
@@ -33,12 +33,12 @@
                                     </select>
                                 </div>
                                 <div class="form-group">
-                                    <label for="formGroupExampleInput" class="form-label">Fecha:</label>
-                                    <input type="date" class="form-control" name="Fecha" value="{{ $reservacione->Fecha }}" required>
+                                    <label for="Fecha" class="form-label">Fecha:</label>
+                                    <input type="date" class="form-control" name="Fecha" id="Fecha" value="{{ $reservacione->Fecha }}" required>
                                 </div>
                                 <div class="form-group">
-                                    <label for="">Hora:</label>
-                                <input type="time" class="form-control" name="Hora" value="{{ $reservacione->Hora }}" required>
+                                    <label for="Hora">Hora:</label>
+                                <input type="time" class="form-control" name="Hora" id="Hora" value="{{ $reservacione->Hora }}" required>
                                 </div>
                                 <div class="form-group">
                                     <button type="submit" class="btn btn-primary">Guardar</button>
@@ -53,11 +53,9 @@
     @stop
 
     @section('css')
-        <link rel="stylesheet" href="/css/admin_custom.css">
+
     @stop
 
     @section('js')
-        <script>
-            console.log('Hi!');
-        </script>
+
     @stop

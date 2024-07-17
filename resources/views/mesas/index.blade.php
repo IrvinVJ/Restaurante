@@ -12,7 +12,7 @@
         <div class="section-header">
             <h3 class="page__heading">Mesas</h3>
         </div>
-        @if (session('success'))
+        <!--@if (session('success'))
         <div class="alert alert-success alert-dimissible fade show mt-3" role="alert">
             {{ session('success') }}
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -25,7 +25,7 @@
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
         </div>
-        @endif
+        @endif-->
 
         <div class="section-body">
             <div class="row">
@@ -67,7 +67,7 @@
                                                     @csrf
                                                     @method('DELETE')
                                                     @can('borrar-mesa')
-                                                    <button type="submit" class="btn btn-danger">Borrar</button>
+                                                    <button type="submit" class="btn btn-danger btnEliminar">Borrar</button>
                                                     @endcan
                                                 </form>
                                             </td>
@@ -91,11 +91,12 @@
 @stop
 
 @section('css')
-    <link rel="stylesheet" href="/css/admin_custom.css">
+
 @stop
 
 @section('js')
-    <script> console.log('Hi!'); </script>
+    <!-- Cargar SweetAlert2 desde CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <script>
         $(document).ready(function() {
@@ -115,6 +116,36 @@
             }
             },
           });
+
+          // Manejar el clic del botón de eliminar usando delegación de eventos
+          $(document).on('click', '.btnEliminar', function(event) {
+                event.preventDefault();
+                const form = $(this).closest('form');
+                Swal.fire({
+                    title: '¿Estás seguro?',
+                    text: "¡No podrás revertir esto!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Sí, borrar',
+                    cancelButtonText: 'Cancelar'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        form.submit();
+                    }
+                });
+            });
         } );
       </script>
+      @if(session('success'))
+      <script>
+          Swal.fire({
+              title: '¡Éxito!',
+              text: '{{ session('success') }}',
+              icon: 'success',
+              confirmButtonText: 'Aceptar'
+          });
+      </script>
+      @endif
 @stop

@@ -55,7 +55,7 @@ class ClienteController extends Controller
             }catch(\Exception $e){
                 DB::rollBack();
             }
-            return redirect('clientes')->with('success', 'Cliente guardado!');
+            return redirect('clientes')->with('success', 'Nuevo Cliente Guardado!');
     }
 
     /**
@@ -114,6 +114,6 @@ class ClienteController extends Controller
             }catch(\Exception $e){
                 DB::rollBack();
             }
-            return redirect('clientes')->with('warning', 'Se elimino el registro con exito');
+            return redirect('clientes')->with('success', 'Se elimino el registro con éxito!');
     }
 }

@@ -109,13 +109,18 @@ class ProductoController extends Controller
             'Stock' => 'required',
             'IdUnidadMedida' => 'required'
         ]);
-
+        try{
+            DB::beginTransaction();
             $producto = new Producto();
             $producto->NombreProducto = $request->NombreProducto;
             $producto->Stock = $request->Stock;
             $producto->PrecioProducto = $request->PrecioProducto;
             $producto->IdUnidadMedida = $request->IdUnidadMedida;
             $producto->save();
+            DB::commit();
+        }catch(\Exception $e){
+            DB::rollBack();
+        }
             return redirect('productos')->with('datos', 'Registro guardado satisfactoriamente');
 
     }
@@ -152,12 +157,17 @@ class ProductoController extends Controller
                 'Stock' => 'required',
                 'IdUnidadMedida' => 'required'
             ]);
-
-            $producto->NombreProducto = $request->NombreProducto;
-            $producto->Stock = $request->Stock;
-            $producto->IdUnidadMedida = $request->IdUnidadMedida;
-            $producto->save();
-            return redirect('productos')->with('success', 'Producto actualizado correctamente');
+            try{
+                DB::beginTransaction();
+                $producto->NombreProducto = $request->NombreProducto;
+                $producto->Stock = $request->Stock;
+                $producto->IdUnidadMedida = $request->IdUnidadMedida;
+                $producto->save();
+                DB::commit();
+            }catch(\Exception $e){
+                DB::rollBack();
+            }
+            return redirect('productos')->with('datos', 'Producto actualizado correctamente');
 
     }
 
@@ -166,9 +176,14 @@ class ProductoController extends Controller
      */
     public function destroy(Producto $producto)
     {
-
+        try{
+            DB::beginTransaction();
             $producto->delete();
-            return redirect('productos');
+            DB::commit();
+        }catch(\Exception $e){
+            DB::rollBack();
+            }
+            return redirect('productos')->with('datos', 'Producto eliminado correctamente!!');
 
     }
 }

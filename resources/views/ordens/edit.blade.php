@@ -23,8 +23,8 @@
                                 <input type="text" name="IdMesa" style="display: none;" value={{$item->IdMesa}}>
                             @endforeach
                                     <div class="form-group">
-                                        <label for="">Estado de la Orden:</label><br>
-                                        <select class="form-control" aria-label="Default select example" name="IdEstadoOrdens" required>
+                                        <label for="IdEstadoOrdens">Estado de la Orden:</label><br>
+                                        <select class="form-control" aria-label="Default select example" name="IdEstadoOrdens" id="IdEstadoOrdens" required>
 
                                             @foreach ($est_ordens as $item)
                                             @if ($ordens->IdEstadoOrdens == $item->IdEstadoOrdens)
@@ -48,9 +48,9 @@
 @stop
 
 @section('css')
-    <link rel="stylesheet" href="/css/admin_custom.css">
+
 @stop
 
 @section('js')
-    <script> console.log('Hi!'); </script>
+
 @stop

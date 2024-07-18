@@ -1,0 +1,61 @@
+.layout {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+}
+.mesa {
+    border: 1px solid #ccc;
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+    flex: 1 0 21%;
+    box-shadow: 2px 2px 12px rgba(0, 0, 0, 0.1);
+    position: relative;
+    background-color: white;
+}
+.mesa-success {
+    background-color: #d4edda;
+}
+.mesa-warning {
+    background-color: #fff3cd;
+}
+.mesa h3 {
+    margin: 10px 0;
+}
+.mesa img {
+    width: 50px;
+    height: auto;
+    margin-bottom: 10px;
+}
+.btn-group {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+}
+.btn {
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+.btn-edit {
+    background-color: #17a2b8;
+    color: white;
+}
+.btn-delete {
+    background-color: #dc3545;
+    color: white;
+}
+.badge-success {
+    background-color: #28a745;
+    color: white;
+}
+.badge-warning {
+    background-color: #ffc107;
+    color: black;
+}

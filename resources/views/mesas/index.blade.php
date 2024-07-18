@@ -33,7 +33,7 @@
                     <div class="card">
                         <div class="card-body">
                             @can('crear-mesa')
-                            <button class="btn btn-warning" data-toggle="modal" data-target="#CrearMesa">Nuevo</button>
+                            <button class="btn btn-warning" data-toggle="modal" data-target="#CrearMesa"><i class="fa fa-plus"></i> Nuevo</button>
                             @endcan
                             <br><br>
                             @include('mesas.ModalCrear')
@@ -58,18 +58,20 @@
 
 
                                             <td>
-                                                <form action="{{ route('mesas.edit',$item->IdMesa) }}" method="GET">
-                                                    @can('editar-mesa')
-                                                    <a class="btn btn-info" href="{{ route('mesas.edit',$item->IdMesa) }}">Editar</a>
-                                                    @endcan
-                                                </form>
-                                                <form action="{{ route('mesas.destroy',$item->IdMesa) }}" method="POST">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    @can('borrar-mesa')
-                                                    <button type="submit" class="btn btn-danger btnEliminar">Borrar</button>
-                                                    @endcan
-                                                </form>
+                                                <div class="btn-group" role="group">
+                                                    <form action="{{ route('mesas.edit',$item->IdMesa) }}" method="GET" style="margin-right: 5px;">
+                                                        @can('editar-mesa')
+                                                        <a class="btn btn-info" href="{{ route('mesas.edit',$item->IdMesa) }}"><i class="fa fa-edit"></i> Editar</a>
+                                                        @endcan
+                                                    </form>
+                                                    <form action="{{ route('mesas.destroy',$item->IdMesa) }}" method="POST" style="margin-right: 5px;">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        @can('borrar-mesa')
+                                                        <button type="submit" class="btn btn-danger btnEliminar"><i class="fa fa-trash"></i> Borrar</button>
+                                                        @endcan
+                                                    </form>
+                                                </div>
                                             </td>
                                         </tr>
 

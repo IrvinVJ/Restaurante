@@ -16,7 +16,7 @@
                 <div class="col-lg-12">
                     <div class="card">
                         <div class="card-body">
-                            <a class="btn btn-warning" href="{{ route('usuarios.create') }}">Nuevo</a>
+                            <a class="btn btn-warning" href="{{ route('usuarios.create') }}"><i class="fa fa-plus"></i> Nuevo</a>
                             <br><br>
                             <table class="table table-striped mt-2" id="tblUsuarios">
                                 <thead style="background-color:#6777ef">
@@ -42,12 +42,12 @@
 
                                       <td>
                                         @can('crear-usuario')
-                                        <a class="btn btn-info" href="{{ route('usuarios.edit', $usuario->id) }}">Editar</a>
+                                        <a class="btn btn-info" href="{{ route('usuarios.edit', $usuario->id) }}"><i class="fa fa-edit"></i> Editar</a>
                                         @endcan
 
                                         {!! Form::open(['method' => 'DELETE', 'route' => ['usuarios.destroy', $usuario->id], 'class' => 'formEliminar', 'style' => 'display:inline']) !!}
                                           @can('borrar-usuario')
-                                            {!! Form::submit('Borrar', ['class' => 'btn btn-danger btnEliminar']) !!}
+                                            {!! Form::button('<i class="fa fa-trash"></i> Borrar', ['class' => 'btn btn-danger btnEliminar']) !!}
                                           @endcan
                                         {!! Form::close() !!}
                                       </td>

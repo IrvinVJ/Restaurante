@@ -19,7 +19,7 @@
                     <div class="card">
                         <div class="card-body">
                             @can('crear-reservacion')
-                            <button class="btn btn-warning" data-toggle="modal" data-target="#CrearReservacion">Nuevo</button>
+                            <button class="btn btn-warning" data-toggle="modal" data-target="#CrearReservacion"><i class="fa fa-plus"></i> Nuevo</button>
                             @endcan
                             <br><br>
                             @include('reservaciones.ModalCrear')
@@ -44,27 +44,29 @@
                                             <td>{{ $item->Hora }}</td>
 
                                             <td>
-                                                <form action="{{ route('reservacion.reservacion',$item->IdReservacion) }}" method="GET">
-                                                    <button class="btn btn-outline-success">+ Pedido</button>
-                                                    <!--<input type="submit" value="+ Pedido" class="btn btn-success" data-toggle="modal" data-target="#CrearPedido">
-                                                    <a class="btn btn-success">Ver Detalle</a>-->
-                                                </form>
+                                                <div class="btn-group" role="group">
+                                                    <form action="{{ route('reservacion.reservacion',$item->IdReservacion) }}" method="GET" style="margin-right: 5px;">
+                                                        <button class="btn btn-outline-success"><i class="fa fa-plus"></i> Pedido</button>
+                                                        <!--<input type="submit" value="+ Pedido" class="btn btn-success" data-toggle="modal" data-target="#CrearPedido">
+                                                        <a class="btn btn-success">Ver Detalle</a>-->
+                                                    </form>
 
-                                                <form action="{{ route('reservaciones.edit',$item->IdReservacion) }}" method="GET">
-                                                    @can('editar-reservacion')
-                                                    <a class="btn btn-info" href="{{ route('reservaciones.edit',$item->IdReservacion) }}">Editar</a>
-                                                    @endcan
-                                                </form>
-                                                <form action="{{ route('reservaciones.show', $item->IdReservacion) }}" method="GET">
-                                                    <input type="submit" value="Detalles" class="btn btn-success">
-                                                </form>
-                                                <form action="{{ route('reservaciones.destroy',$item->IdReservacion) }}" method="POST">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    @can('borrar-reservacion')
-                                                    <button type="submit" class="btn btn-danger btnEliminar">Borrar</button>
-                                                    @endcan
-                                                </form>
+                                                    <form action="{{ route('reservaciones.edit',$item->IdReservacion) }}" method="GET" style="margin-right: 5px;">
+                                                        @can('editar-reservacion')
+                                                        <a class="btn btn-info" href="{{ route('reservaciones.edit',$item->IdReservacion) }}"><i class="fa fa-edit"></i> Editar</a>
+                                                        @endcan
+                                                    </form>
+                                                    <form action="{{ route('reservaciones.show', $item->IdReservacion) }}" method="GET" style="margin-right: 5px;">
+                                                        <button type="submit" class="btn btn-success"><i class="fa fa-eye"></i> Pedido</button>
+                                                    </form>
+                                                    <form action="{{ route('reservaciones.destroy',$item->IdReservacion) }}" method="POST" style="margin-right: 5px;">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        @can('borrar-reservacion')
+                                                        <button type="submit" class="btn btn-danger btnEliminar"><i class="fa fa-trash"></i> Borrar</button>
+                                                        @endcan
+                                                    </form>
+                                                </div>
                                             </td>
                                         </tr>
 

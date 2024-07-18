@@ -70,28 +70,30 @@
                                             @endif
 
                                             <td>
-                                                <form action="{{ route('ventas.edit',$item->IdVenta) }}" method="GET">
-                                                    @can('editar-venta')
-                                                    <a class="btn btn-info" href="{{ route('ventas.edit',$item->IdVenta) }}">Editar</a>
-                                                    @endcan
-                                                </form>
+                                                <div class="btn-group" role="group">
+                                                    <form action="{{ route('ventas.edit',$item->IdVenta) }}" method="GET" style="margin-right: 5px;">
+                                                        @can('editar-venta')
+                                                        <a class="btn btn-info" href="{{ route('ventas.edit',$item->IdVenta) }}"><i class="fa fa-edit"></i> Editar</a>
+                                                        @endcan
+                                                    </form>
 
-                                                @if ($item->IdEstadoVentas == 2)
+                                                    @if ($item->IdEstadoVentas == 2)
 
 
-                                                <form action="{{ route('ventas.show',$item->IdVenta) }}" method="GET">
-                                                    <a class="btn btn-success" href="{{ route('ventas.show',$item->IdVenta) }}">Imprimir Ticket</a>
-                                                </form>
+                                                    <form action="{{ route('ventas.show',$item->IdVenta) }}" method="GET" style="margin-right: 5px;">
+                                                        <a class="btn btn-success" href="{{ route('ventas.show',$item->IdVenta) }}"><i class="fa fa-print"></i> Ticket</a>
+                                                    </form>
 
-                                                @endif
+                                                    @endif
 
-                                                <form action="{{ route('ventas.destroy',$item->IdVenta) }}" method="POST">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    @can('borrar-venta')
-                                                    <button type="submit" class="btn btn-danger btnEliminar">Borrar</button>
-                                                    @endcan
-                                                </form>
+                                                    <form action="{{ route('ventas.destroy',$item->IdVenta) }}" method="POST" style="margin-right: 5px;">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        @can('borrar-venta')
+                                                        <button type="submit" class="btn btn-danger btnEliminar"><i class="fa fa-trash"></i> Borrar</button>
+                                                        @endcan
+                                                    </form>
+                                                </div>
                                             </td>
                                         </tr>
 

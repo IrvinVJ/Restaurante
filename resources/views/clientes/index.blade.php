@@ -19,7 +19,7 @@
                     <div class="card">
                         <div class="card-body">
                             @can('crear-cliente')
-                            <button class="btn btn-warning" data-toggle="modal" data-target="#CrearCliente">Nuevo</button>
+                            <button class="btn btn-warning" data-toggle="modal" data-target="#CrearCliente"><i class="fa fa-plus"></i> Nuevo</button>
                             @endcan
                             <br><br>
                             @include('clientes.ModalCrear')
@@ -44,18 +44,20 @@
                                             <td>{{ $item->NroTelefono }}</td>
 
                                             <td>
-                                                <form action="{{ route('clientes.edit',$item->IdCliente) }}" method="GET">
-                                                    @can('editar-cliente')
-                                                    <a class="btn btn-info" href="{{ route('clientes.edit',$item->IdCliente) }}">Editar</a>
-                                                    @endcan
-                                                </form>
-                                                <form action="{{ route('clientes.destroy',$item->IdCliente) }}" method="POST">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    @can('borrar-cliente')
-                                                    <button type="submit" class="btn btn-danger btnEliminar">Borrar</button>
-                                                    @endcan
-                                                </form>
+                                                <div class="btn-group" role="group">
+                                                    <form action="{{ route('clientes.edit',$item->IdCliente) }}" method="GET" style="margin-right: 5px;">
+                                                        @can('editar-cliente')
+                                                        <a class="btn btn-info" href="{{ route('clientes.edit',$item->IdCliente) }}"><i class="fa fa-edit"></i> Editar</a>
+                                                        @endcan
+                                                    </form>
+                                                    <form action="{{ route('clientes.destroy',$item->IdCliente) }}" method="POST" style="margin-right: 5px;">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        @can('borrar-cliente')
+                                                        <button type="submit" class="btn btn-danger btnEliminar"><i class="fa fa-trash"></i> Borrar</button>
+                                                        @endcan
+                                                    </form>
+                                                </div>
                                             </td>
                                         </tr>
 

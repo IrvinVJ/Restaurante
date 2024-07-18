@@ -416,7 +416,7 @@ return [
                 [
                     'text' => 'Gestionar pedidos',
                     'url'  => '/ordens',
-                    'icon'        => 'fas fa-fw fa-check',
+                    'icon'        => 'fa fa-pen',
                     'icon_color' => 'cyan',
                 ],
                 /*[

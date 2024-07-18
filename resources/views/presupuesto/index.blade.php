@@ -19,7 +19,7 @@
                         <div class="card">
                             <div class="card-body">
                                 @can('crear-presupuesto')
-                                    <button class="btn btn-warning" data-toggle="modal" data-target="#CrearPresupuesto">Nuevo</button>
+                                    <button class="btn btn-warning" data-toggle="modal" data-target="#CrearPresupuesto"><i class="fa fa-plus"></i> Nuevo</button>
                                  @endcan
                                  <br><br>
                                  @include('presupuesto.ModalCrear')

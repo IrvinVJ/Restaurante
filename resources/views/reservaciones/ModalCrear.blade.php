@@ -31,7 +31,7 @@
                         <input type="number" class="form-control" name="NroPersonas" id="NroPersonas" placeholder="Escribe el N° de personas...">
                         </div>
                         <div class="form-group">
-                            <button type="submit" class="btn btn-primary">Guardar</button>
+                            <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Guardar</button>
                         </div>
                     </div>
                 </div>

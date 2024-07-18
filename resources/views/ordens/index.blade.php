@@ -35,7 +35,7 @@
                                 <div class="col-6">
                                     @can('crear-pedido')
                                         <button class="btn btn-warning" data-toggle="modal"
-                                            data-target="#CrearOrden">Nuevo</button>
+                                            data-target="#CrearOrden"><i class="fa fa-plus"></i> Nuevo</button>
                                     @endcan
                                 </div>
 
@@ -80,26 +80,29 @@
                                                     <td>{{ date('d-m-Y', strtotime($item->created_at)) }}</td>
 
                                                     <td>
-                                                        <form action="{{ route('ordens.show', $item->IdOrdens) }}"
-                                                            method="GET">
-                                                            <input type="submit" value="Detalles" class="btn btn-success">
-                                                            <!--<a class="btn btn-success">Ver Detalle</a>-->
-                                                        </form>
-                                                        <form action="{{ route('ordens.edit', $item->IdOrdens) }}"
-                                                            method="GET">
-                                                            @can('editar-pedido')
-                                                                <a class="btn btn-info"
-                                                                    href="{{ route('ordens.edit', $item->IdOrdens) }}">Editar</a>
-                                                            @endcan
-                                                        </form>
-                                                        <form action="{{ route('ordens.destroy', $item->IdOrdens) }}"
-                                                            method="POST">
-                                                            @csrf
-                                                            @method('DELETE')
-                                                            @can('borrar-pedido')
-                                                                <button type="submit" class="btn btn-danger btnEliminar">Borrar</button>
-                                                            @endcan
-                                                        </form>
+                                                        <div class="btn-group" role="group">
+                                                            <form action="{{ route('ordens.show', $item->IdOrdens) }}"
+                                                                method="GET" style="margin-right: 5px;">
+                                                                <button type="submit" class="btn btn-success">
+                                                                    <i class="fa fa-eye"></i> <!--Detalle-->
+                                                                </button>
+                                                            </form>
+                                                            <form action="{{ route('ordens.edit', $item->IdOrdens) }}"
+                                                                method="GET" style="margin-right: 5px;">
+                                                                @can('editar-pedido')
+                                                                    <a class="btn btn-info"
+                                                                        href="{{ route('ordens.edit', $item->IdOrdens) }}"><i class="fa fa-edit"></i></a>
+                                                                @endcan
+                                                            </form>
+                                                            <form action="{{ route('ordens.destroy', $item->IdOrdens) }}"
+                                                                method="POST" style="margin-right: 5px;">
+                                                                @csrf
+                                                                @method('DELETE')
+                                                                @can('borrar-pedido')
+                                                                    <button type="submit" class="btn btn-danger btnEliminar"><i class="fa fa-trash"></i></button>
+                                                                @endcan
+                                                            </form>
+                                                        </div>
                                                     </td>
                                                 @endif
                                             @endforeach
@@ -155,26 +158,29 @@
                                                     <td>{{ date('d-m-Y', strtotime($item->created_at)) }}</td>
 
                                                     <td>
-                                                        <form action="{{ route('ordens.show', $item->IdOrdens) }}"
-                                                            method="GET">
-                                                            <input type="submit" value="Detalles" class="btn btn-success">
-                                                            <!--<a class="btn btn-success">Ver Detalle</a>-->
-                                                        </form>
-                                                        <form action="{{ route('ordens.edit', $item->IdOrdens) }}"
-                                                            method="GET">
-                                                            @can('editar-orden')
-                                                                <a class="btn btn-info"
-                                                                    href="{{ route('ordens.edit', $item->IdOrdens) }}">Editar</a>
-                                                            @endcan
-                                                        </form>
-                                                        <form action="{{ route('ordens.destroy', $item->IdOrdens) }}"
-                                                            method="POST">
-                                                            @csrf
-                                                            @method('DELETE')
-                                                            @can('borrar-orden')
-                                                                <button type="submit" class="btn btn-danger">Borrar</button>
-                                                            @endcan
-                                                        </form>
+                                                        <div class="btn-group" role="group">
+                                                            <form action="{{ route('ordens.show', $item->IdOrdens) }}"
+                                                                method="GET" style="margin-right: 5px;">
+                                                                <button type="submit" class="btn btn-success">
+                                                                    <i class="fa fa-eye"></i> <!--Detalle-->
+                                                                </button>
+                                                            </form>
+                                                            <form action="{{ route('ordens.edit', $item->IdOrdens) }}"
+                                                                method="GET" style="margin-right: 5px;">
+                                                                @can('editar-orden')
+                                                                    <a class="btn btn-info"
+                                                                        href="{{ route('ordens.edit', $item->IdOrdens) }}"><i class="fa fa-edit"></i></a>
+                                                                @endcan
+                                                            </form>
+                                                            <form action="{{ route('ordens.destroy', $item->IdOrdens) }}"
+                                                                method="POST" style="margin-right: 5px;">
+                                                                @csrf
+                                                                @method('DELETE')
+                                                                @can('borrar-orden')
+                                                                    <button type="submit" class="btn btn-danger"><i class="fa fa-trash"></i></button>
+                                                                @endcan
+                                                            </form>
+                                                        </div>
                                                     </td>
                                                 @endif
                                             @endforeach

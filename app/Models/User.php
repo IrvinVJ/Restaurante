@@ -24,7 +24,7 @@ class User extends Authenticatable
     use HasTeams;
     use Notifiable;
     use TwoFactorAuthenticatable;
-    use HasRoles; 
+    use HasRoles;
 
 
     /**
@@ -71,10 +71,28 @@ class User extends Authenticatable
     }
 
     public function adminlte_desc(){
-        //$rol = Role::get('name');
+        // Obtener el ID del usuario actual
+        $userId = $this->id;
+        // Obtener el usuario por su ID
+        $user = User::find($userId);
+        //$rol = $user->role->name;
         //return $rol;
-        
+        // Verificar si el usuario existe
+        if ($user) {
+            // Obtener el primer rol asignado al usuario
+            $rol = $user->getRoleNames()->first();
+
+            // Verificar si el usuario tiene algún rol asignado
+            if ($rol) {
+                return $rol;
+            } else {
+                return 'Rol no asignado';
+            }
+        } else {
+            return 'Usuario no encontrado';
+        }
     }
+
     public function adminlte_profile_url()
     {
         $identificador = $this->id;

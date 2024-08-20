@@ -99,8 +99,7 @@ class UsuarioController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        try{
-            DB::beginTransaction();
+
             $this->validate($request, [
                 'name' => 'required',
                 //'email' => 'required|email|unique:users,email'.$id,
@@ -122,12 +121,7 @@ class UsuarioController extends Controller
 
             $user->assignRole($request->input('roles'));
             return redirect('usuarios');
-            DB::commit();
-            }
-            catch(\Exception $e){
-                DB::rollBack();
-                return redirect()->route('usuarios.index')->with('error', $e->getMessage());
-            }
+           
     }
 
     /**
